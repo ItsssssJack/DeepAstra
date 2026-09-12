@@ -1,0 +1,11 @@
+{
+  "initial_score": "4/5",
+  "final_html_score": "5/5",
+  "rival_family": "DeepSeek",
+  "rival_model": "deepseek-flash",
+  "rival_review_completed": true,
+  "evidenced_numbers_allowed": true,
+  "visual_labels_reviewed": true,
+  "copy_changes": "Removed formulaic framing and dense copy. Preserved benchmark and experiment facts.",
+  "claude_cli": "OAuth session expired; substituted a different non-OpenAI model family."
+}

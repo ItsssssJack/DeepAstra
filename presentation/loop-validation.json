@@ -1,10 +1,11 @@
 {
-  "source_frames": 193,
-  "output_frames": 482,
-  "fps": "30/1",
-  "duration": "16.066667",
-  "method": "Eased forward-and-return. Matching source frame at both ends.",
-  "first_last_mean_pixel_difference_0_to_255": 0.07703125,
-  "first_last_rmse_0_to_255": 0.3789529312118777,
-  "audio": false
+  "fps": 60,
+  "frames": 1440,
+  "duration_seconds": 24,
+  "source_interpolation_fps": 120,
+  "exact_duplicate_adjacent_frames": 2,
+  "seam_mae_preencode": 9.645061728395061e-05,
+  "max_adjacent_mae": 12.468093872070312,
+  "median_adjacent_mae": 1.58443284034729,
+  "method": "Optical flow at 120fps; continuous cosine resampling with subframe interpolation; 60fps delivery. No video seeking at the loop boundary."
 }

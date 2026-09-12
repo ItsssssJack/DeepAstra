@@ -1,53 +1,89 @@
 {
-  "revision": "12",
+  "revision": "14",
   "reference": "September 10 Astra Websites presentation",
   "checked_in_browser": true,
   "desktop_viewports_observed": [
     [
-      1280,
-      720
-    ],
-    [
       884,
-      649
+      650
     ]
   ],
-  "final_884px_all_13_scenes_fit": true,
+  "all_12_scenes_fit": true,
   "horizontal_overflow": false,
   "broken_images": [],
   "beam": {
     "renderer": "webgl",
-    "mode_choices_checked": [
-      "DeepSeek",
-      "DeepAstra",
-      "Astra"
-    ],
+    "approved_opening_preserved": true,
     "loop_seconds": 24,
     "closed_cycle": "Cosine time mapping gives the same start/end shader state.",
     "fallback": "Static CSS beam"
   },
   "benchmarks": {
     "carousel_scenes_checked": 8,
+    "fixed_order": [
+      "Astra",
+      "Sol",
+      "Grok",
+      "DeepSeek"
+    ],
     "deepseek_always_blue": true,
     "other_models_grey": true,
-    "blue_gradient_animation": "deepseek-slosh",
-    "motion_pause_verified": true,
+    "logos_below_variable_height_bars": true,
     "negative_value_retained": -5
   },
-  "links": {
-    "report_preview_opened": "studies/business/deepseek/",
-    "hybrid_flow_and_command_checked": true
+  "pricing": {
+    "graph_modes": [
+      "Input",
+      "Output",
+      "Input + output"
+    ],
+    "periods": [
+      "Off-peak",
+      "Peak"
+    ],
+    "all_six_combinations_verified": true,
+    "fixed_order": [
+      "Astra",
+      "Sol",
+      "DeepSeek"
+    ],
+    "rates_distinguished_from_task_savings": true
   },
-  "field_report": {
-    "three_tabs_verified": true,
-    "only_selected_panel_visible": true,
-    "original_model_reports_unchanged": true
+  "glass_loop": {
+    "file": "assets/deepastra-smooth-v3.mp4",
+    "duration_seconds": 24,
+    "fps": 60,
+    "native_loop": true,
+    "browser_boundary_observed": [
+      23.096478,
+      2.099582
+    ],
+    "paused_after_boundary": false,
+    "media_error": null,
+    "motion_pause_and_resume_verified": true,
+    "frame_analysis": "loop-validation.json",
+    "browser_dropped_frames": "Not available from this browser API"
+  },
+  "infographics": {
+    "generated_variants": 9,
+    "selected_images": 3,
+    "visually_inspected": true,
+    "selection_metadata": "infographics.json"
+  },
+  "links": {
+    "deepseek_example_opened_in_browser": true,
+    "http_200": [
+      "studies/design-examples/deepseek/",
+      "http://127.0.0.1:4173/",
+      "http://127.0.0.1:8082/dashboard",
+      "studies/business/",
+      "studies/agentic-os/"
+    ]
   },
   "syntax_checks": [
     "presentation/app.js",
-    "presentation/fusion-beam.js",
-    "studies/business/report.js"
+    "presentation/fusion-beam.js"
   ],
-  "glass_loop": "loop-validation.json",
+  "slopmonster": "slopmonster.json",
   "mobile_priority": "Deferred per user request"
 }

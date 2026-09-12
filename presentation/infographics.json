@@ -1,0 +1,25 @@
+{
+  "provider": "Higgsfield",
+  "model": "nano_banana_pro",
+  "resolution": "2k",
+  "aspect_ratio": "16:9",
+  "selected": {
+    "design": {
+      "folder": "Section 1 - Design",
+      "variant": 2
+    },
+    "business": {
+      "folder": "Section 2 - Business",
+      "variant": 3
+    },
+    "agentic-os": {
+      "folder": "Section 3 - Agentic OS",
+      "variant": 2
+    }
+  },
+  "reference_logos": "Retained OpenAI knot and DeepSeek whale, supplied as image references.",
+  "all_variants_directory": "/Users/jackroberts/Desktop/Infographics - DeepAstra",
+  "visual_qa": "Selected images inspected for accurate labels, diagram structure, and logos. Business variant 1 rejected because it duplicated a report.",
+  "variants_generated": 9,
+  "generation_complete": true
+}

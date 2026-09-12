@@ -1,7 +1,6 @@
 [
   {
     "title": "Working web apps",
-    "subtitle": "Does the app do what the brief asks?",
     "metric": "Functional test score",
     "values": [
       84.7,
@@ -12,11 +11,11 @@
     "max": 100,
     "suffix": "%",
     "source": "https://www.vals.ai/benchmarks/vibe-code",
-    "note": "Vals Vibe Code Bench v1.1. OpenHands. DeepSeek/Grok high; Astra/Sol max. Functionality, not visual taste."
+    "note": "Vals Vibe Code Bench v1.1. OpenHands. DeepSeek/Grok high; Astra/Sol max. Functionality, not visual taste.",
+    "benchmark": "Vals Vibe Code Bench v1.1"
   },
   {
     "title": "Business workflows",
-    "subtitle": "Objectives completed across simulated apps.",
     "metric": "Objective score",
     "values": [
       68.9,
@@ -27,11 +26,11 @@
     "max": 100,
     "suffix": "%",
     "source": "https://artificialanalysis.ai/evaluations/automationbench-aa",
-    "note": "AutomationBench-AA. Tasks with guardrail violations score zero. This is not the full-task pass rate. Small gaps are not decisive."
+    "note": "AutomationBench-AA. Tasks with guardrail violations score zero. This is not the full-task pass rate. Small gaps are not decisive.",
+    "benchmark": "AutomationBench-AA"
   },
   {
     "title": "Long documents",
-    "subtitle": "Connecting information across a document pack.",
     "metric": "Question pass rate",
     "values": [
       84,
@@ -42,11 +41,11 @@
     "max": 100,
     "suffix": "%",
     "source": "https://artificialanalysis.ai/evaluations/artificial-analysis-long-context-reasoning",
-    "note": "AA-LCR v1.1 covers 10K\u2013100K tokens. This does not prove perfect recall across 1M tokens."
+    "note": "AA-LCR v1.1 covers 10K–100K tokens. This does not prove perfect recall across 1M tokens.",
+    "benchmark": "AA-LCR v1.1"
   },
   {
     "title": "Office deliverables",
-    "subtitle": "Useful reports, spreadsheets and professional work.",
     "metric": "Relative Elo rating",
     "values": [
       1632,
@@ -57,11 +56,11 @@
     "max": 2000,
     "suffix": "",
     "source": "https://artificialanalysis.ai/evaluations/gdpval-aa",
-    "note": "GDPval-AA v2. Blind pairwise comparisons. Elo is a rating, not a percentage of intelligence."
+    "note": "GDPval-AA v2. Blind pairwise comparisons. Elo is a rating, not a percentage of intelligence.",
+    "benchmark": "GDPval-AA v2"
   },
   {
     "title": "Difficult coding",
-    "subtitle": "Implementation and troubleshooting under pressure.",
     "metric": "Task completion score",
     "values": [
       27,
@@ -72,11 +71,11 @@
     "max": 100,
     "suffix": "%",
     "source": "https://artificialanalysis.ai/models/comparisons/deepseek-v4-1-flash-vs-gpt-6-astra-xhigh",
-    "note": "Terminal-Bench v4.0. Astra has a substantial lead in this comparison."
+    "note": "Terminal-Bench v4.0. Astra has a substantial lead in this comparison.",
+    "benchmark": "Terminal-Bench v4.0"
   },
   {
     "title": "Complex PDFs",
-    "subtitle": "Every requirement of the document task must pass.",
     "metric": "All-criteria pass rate",
     "values": [
       13,
@@ -87,11 +86,11 @@
     "max": 100,
     "suffix": "%",
     "source": "https://artificialanalysis.ai/evaluations/gdp-pdf",
-    "note": "GDP.pdf. A stricter task than summarising a PDF. A text-only document test is a separate condition."
+    "note": "GDP.pdf. A stricter task than summarising a PDF. A text-only document test is a separate condition.",
+    "benchmark": "GDP.pdf"
   },
   {
     "title": "Expert questions",
-    "subtitle": "Specialist knowledge and difficult reasoning.",
     "metric": "Answer score",
     "values": [
       39,
@@ -102,11 +101,11 @@
     "max": 100,
     "suffix": "%",
     "source": "https://artificialanalysis.ai/models/comparisons/deepseek-v4-1-flash-vs-gpt-6-astra-xhigh",
-    "note": "Humanity\u2019s Last Exam. The stronger reasoning models retain an advantage here."
+    "note": "Humanity’s Last Exam. The stronger reasoning models retain an advantage here.",
+    "benchmark": "Humanity’s Last Exam"
   },
   {
     "title": "Factual reliability",
-    "subtitle": "Correct answers rewarded. Wrong answers penalised.",
     "metric": "Reliability index",
     "values": [
       -5,
@@ -118,6 +117,7 @@
     "min": -100,
     "suffix": "",
     "source": "https://artificialanalysis.ai/evaluations/omniscience",
-    "note": "AA-Omniscience ranges from \u2212100 to +100. This score is not an everyday hallucination percentage."
+    "note": "AA-Omniscience ranges from −100 to +100. This score is not an everyday hallucination percentage.",
+    "benchmark": "AA-Omniscience"
   }
 ]
