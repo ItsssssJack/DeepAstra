@@ -1,0 +1,11 @@
+{
+  "dataset": "Synthetic commerce company. Fictional, not Jack\u2019s actual business.",
+  "currency": "USD",
+  "period": "2025-07-01 through 2025-12-31",
+  "files": [
+    "orders.csv",
+    "refunds.csv",
+    "ad_spend.csv"
+  ],
+  "seed": 90412026
+}

@@ -1,0 +1,10 @@
+Run this as a fresh, isolated comparison. Use the same supplied inputs and acceptance criteria for every condition. Never inspect another condition's outputs. Record the actual model, provider, effort, elapsed time, token usage and billed or calculated inference cost. Separate API receipts from subscription usage and media credits. Do not invent missing usage or label subscription access free. Preserve the first result and any repairs. Return the actual deliverable, evidence of the requested checks and a short account of remaining defects. Stop after 25 minutes and deliver the current state if incomplete. This is a test, so a failed result is useful evidence.
+
+PROJECT: [Jack supplies the agentic OS folder]
+FEATURE: [Jack supplies the feature and the visible behavior he wants]
+
+Inspect the project's AGENTS.md, architecture and existing implementation before editing. Create an isolated worktree when available, preserving current uncommitted work. Implement only the selected feature using existing components and conventions. Do not redesign the operating system or refactor unrelated modules.
+
+Define a short checklist of observable outcomes before implementing. Build the feature, run the appropriate existing tests and exercise its actual user flow. For a UI feature, capture before and after screenshots and demonstrate the controls working. For a background task, show the produced file or state change and a repeat run. Do not send real messages, modify production records or publish a deployment for a demonstration unless Jack explicitly requests that action.
+
+Deliver the reviewable changes, a short demo sequence, the checks actually performed and any remaining issues. Do not claim completion from a passing build alone. Keep the final response short and lead with the working feature.

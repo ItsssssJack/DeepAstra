@@ -1,0 +1,9 @@
+{
+  "exit_code": 0,
+  "reproduced_identically": {
+    "results.json": true,
+    "report_data.json": true,
+    "index.html": true
+  },
+  "method": "Run the model-authored analysis.py and report_template.html against exact copied source CSVs in a temporary directory. Original deliverables not edited."
+}

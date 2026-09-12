@@ -1,0 +1,22 @@
+{
+  "data.json": {
+    "sha256": "78444d5aa7f24b20d55f972b47d47ab416507c4ebccbecd5b0322115c827f129",
+    "bytes": 250
+  },
+  "TASK.txt": {
+    "sha256": "cb2f8a0ced5fa3247631b5a3b9c8401c452915332fcfa5f48725fc5d1fc4ece4",
+    "bytes": 2665
+  },
+  "orders.csv": {
+    "sha256": "1cbd0cfc9f7b9c7a66ed834c8e234fa435e6beef8622fb54286050b9ad5c28d6",
+    "bytes": 2913983
+  },
+  "refunds.csv": {
+    "sha256": "3ef513fabb660ba53307bc63dfb25430c1afbe3d484d53d3ea097c22b6c705bd",
+    "bytes": 96374
+  },
+  "ad_spend.csv": {
+    "sha256": "215a703903f5ca8ca194c2d1b511d572d43cb5e92c3a9ca70156e740f0d607f3",
+    "bytes": 19630
+  }
+}

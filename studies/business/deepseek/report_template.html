@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280">
+<title>Commerce Intelligence — H2 2025</title>
+<style>
+  :root{
+    --bg:#080a0f;
+    --bg-2:#0d1119;
+    --panel:#111726;
+    --panel-2:#0f1421;
+    --line:#1d2637;
+    --line-2:#26314a;
+    --txt:#e9eef7;
+    --muted:#8c99b0;
+    --muted-2:#65718a;
+    --blue:#3d8bff;
+    --blue-dim:#1e4fa0;
+    --blue-glow:rgba(61,139,255,.14);
+    --down:#ff7a7a;
+    --slate:#4d5b73;
+    --pale:#c9d5e8;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:
+      radial-gradient(1200px 600px at 12% -10%, rgba(61,139,255,.10), transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, rgba(61,139,255,.05), transparent 55%),
+      var(--bg);
+    color:var(--txt);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
+    font-size:15px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1360px;margin:0 auto;padding:56px 56px 96px}
+  .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+
+  /* ---------- header ---------- */
+  header{border-bottom:1px solid var(--line);padding-bottom:36px;margin-bottom:40px}
+  .eyebrow{
+    display:flex;align-items:center;gap:12px;
+    font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);
+    font-weight:600;margin-bottom:18px;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px var(--blue-glow)}
+  .eyebrow .sep{color:var(--muted-2);letter-spacing:.08em;font-weight:500}
+  h1{font-size:52px;line-height:1.04;margin:0 0 16px;letter-spacing:-.025em;font-weight:600}
+  h1 span{color:var(--muted-2)}
+  .lede{color:var(--muted);max-width:760px;font-size:16.5px;margin:0}
+  .lede b{color:var(--pale);font-weight:600}
+
+  /* ---------- data handling ---------- */
+  .handling{
+    display:grid;grid-template-columns:1.35fr 1fr;gap:32px;
+    background:linear-gradient(180deg,var(--panel),var(--panel-2));
+    border:1px solid var(--line);border-radius:14px;padding:30px 34px;margin-bottom:44px;
+  }
+  .handling h2{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);margin:0 0 18px;font-weight:600}
+  .counts{display:grid;grid-template-columns:repeat(3,1fr);gap:20px 26px}
+  .count .v{font-size:26px;font-weight:600;letter-spacing:-.02em}
+  .count .k{font-size:12.5px;color:var(--muted-2);margin-top:2px}
+  .rules{font-size:13.5px;color:var(--muted);border-left:1px solid var(--line-2);padding-left:26px}
+  .rules div{margin-bottom:9px}
+  .rules div:last-child{margin-bottom:0}
+  .rules b{color:var(--pale);font-weight:600}
+
+  /* ---------- insights ---------- */
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;margin:0 0 22px}
+  .sec-head h2{font-size:22px;font-weight:600;letter-spacing:-.01em;margin:0}
+  .sec-head .note{font-size:12.5px;color:var(--muted-2)}
+  .insights{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:52px}
+  .card{
+    background:linear-gradient(180deg,var(--panel),var(--panel-2));
+    border:1px solid var(--line);border-radius:14px;padding:30px 30px 26px;
+    position:relative;overflow:hidden;
+  }
+  .card::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:linear-gradient(90deg,var(--blue),transparent 70%)}
+  .card .tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:20px}
+  .card .big{font-size:46px;font-weight:600;letter-spacing:-.03em;line-height:1;margin-bottom:8px}
+  .card .big.down{color:var(--down)}
+  .card .sub{font-size:13.5px;color:var(--muted);margin-bottom:20px}
+  .card .sub b{color:var(--pale);font-weight:600}
+  .card .evidence{font-size:14.5px;color:var(--pale);margin-bottom:18px}
+  .card .action{
+    font-size:13.5px;color:var(--txt);background:rgba(61,139,255,.07);
+    border-left:2px solid var(--blue);border-radius:0 8px 8px 0;padding:13px 16px;
+  }
+  .card .action b{color:var(--blue);font-weight:600;letter-spacing:.04em;font-size:11.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+
+  /* ---------- controls ---------- */
+  .controls{
+    position:sticky;top:0;z-index:40;background:rgba(8,10,15,.9);backdrop-filter:blur(14px);
+    border:1px solid var(--line);border-radius:14px;padding:20px 26px;margin-bottom:32px;
+  }
+  .ctl-row{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+  .ctl-row + .ctl-row{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+  .ctl-label{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);font-weight:600;min-width:74px}
+  .chips{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{
+    background:transparent;border:1px solid var(--line-2);color:var(--muted);
+    padding:7px 15px;border-radius:999px;font-size:13px;cursor:pointer;
+    font-family:inherit;transition:all .14s ease;
+  }
+  .chip:hover{border-color:var(--blue-dim);color:var(--pale)}
+  .chip.on{background:var(--blue-glow);border-color:var(--blue);color:#cfe1ff}
+  .datein{
+    background:var(--bg-2);border:1px solid var(--line-2);color:var(--txt);
+    border-radius:9px;padding:7px 11px;font-size:13px;font-family:inherit;color-scheme:dark;
+  }
+  .datein:focus{outline:none;border-color:var(--blue)}
+  .reset{
+    margin-left:auto;background:transparent;border:1px solid var(--line-2);color:var(--muted);
+    padding:7px 16px;border-radius:9px;font-size:13px;cursor:pointer;font-family:inherit;
+  }
+  .reset:hover{border-color:var(--blue);color:var(--pale)}
+  .status{font-size:12.5px;color:var(--muted-2);margin-top:4px}
+  .status b{color:var(--pale);font-weight:600}
+
+  /* ---------- kpis ---------- */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:20px}
+  .kpi{
+    background:linear-gradient(180deg,var(--panel),var(--panel-2));
+    border:1px solid var(--line);border-radius:13px;padding:24px 26px;
+  }
+  .kpi .k{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2);font-weight:600;margin-bottom:12px}
+  .kpi .v{font-size:34px;font-weight:600;letter-spacing:-.025em;line-height:1.1}
+  .kpi .d{font-size:12.5px;color:var(--muted);margin-top:7px}
+  .kpi.accent{border-color:var(--blue-dim);background:linear-gradient(180deg,rgba(61,139,255,.08),var(--panel-2))}
+  .sub-kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-bottom:52px}
+  .skpi{border:1px solid var(--line);border-radius:11px;padding:16px 18px;background:var(--panel-2)}
+  .skpi .k{font-size:11.5px;color:var(--muted-2);margin-bottom:6px}
+  .skpi .v{font-size:19px;font-weight:600;letter-spacing:-.015em}
+  .skpi .v.neg{color:var(--down)}
+
+  /* ---------- charts ---------- */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
+  .panel{
+    background:linear-gradient(180deg,var(--panel),var(--panel-2));
+    border:1px solid var(--line);border-radius:14px;padding:28px 30px 22px;
+  }
+  .panel.full{grid-column:1/-1}
+  .panel-h{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px;gap:16px}
+  .panel-h h3{font-size:16.5px;font-weight:600;margin:0;letter-spacing:-.01em}
+  .panel-h .hint{font-size:12px;color:var(--muted-2);text-align:right}
+  .panel-sub{font-size:12.5px;color:var(--muted-2);margin:0 0 18px}
+  .legend{display:flex;gap:20px;margin:2px 0 14px;font-size:12.5px;color:var(--muted)}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:7px;vertical-align:middle}
+  svg{display:block;width:100%;height:auto;overflow:visible}
+  .flash{animation:fade .35s ease}
+  @keyframes fade{from{opacity:.35}to{opacity:1}}
+  .empty{padding:70px 0;text-align:center;color:var(--muted-2);font-size:14px}
+  .insight-line{
+    margin-top:18px;padding-top:16px;border-top:1px solid var(--line);
+    font-size:13.5px;color:var(--pale);
+  }
+  .insight-line b{color:var(--blue);font-weight:600}
+  .foot{font-size:12.5px;color:var(--muted-2);line-height:1.75}
+  .foot b{color:var(--muted);font-weight:600}
+  footer{margin-top:56px;padding-top:28px;border-top:1px solid var(--line)}
+  .tip{
+    position:fixed;pointer-events:none;opacity:0;transition:opacity .12s ease;z-index:99;
+    background:#151c2c;border:1px solid var(--line-2);border-radius:9px;padding:10px 13px;
+    font-size:12.5px;color:var(--txt);box-shadow:0 12px 32px rgba(0,0,0,.55);white-space:nowrap;
+  }
+  .tip .t{font-weight:600;margin-bottom:5px;color:#fff}
+  .tip .r{color:var(--muted)}
+  .tip .r b{color:var(--pale);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow"><span class="dot"></span>Business Intelligence<span class="sep">/</span>H2 2025<span class="sep">/</span>USD</div>
+    <h1>Where the money actually lands<span>.</span></h1>
+    <p class="lede">
+      Paid-order performance for <b>1 Jul – 31 Dec 2025</b> across four markets and four acquisition channels.
+      Net revenue and contribution are calculated from integer cents and shown in USD. <b>Synthetic, fictional dataset.</b>
+    </p>
+  </header>
+
+  <section class="handling">
+    <div>
+      <h2>Source counts &amp; data handling</h2>
+      <div class="counts" id="countsBox"></div>
+    </div>
+    <div class="rules">
+      <div><b>Deduplicated</b> by <span class="num">order_id</span> — every duplicate row is a byte-identical copy.</div>
+      <div><b>Paid orders only</b> — cancelled and pending orders are excluded from every metric.</div>
+      <div><b>Net revenue</b> = gross − discounts − matched refunds.</div>
+      <div><b>Contribution</b> = net revenue − COGS − fulfilment. Ad spend is never subtracted here.</div>
+      <div><b>Refunds</b> are attributed to the original order's date, market and channel.</div>
+    </div>
+  </section>
+
+  <div class="sec-head">
+    <h2>Three things that matter</h2>
+    <div class="note">Full period, all markets and channels · fixed for the whole dataset</div>
+  </div>
+  <section class="insights" id="insightCards"></section>
+
+  <div class="sec-head">
+    <h2>Explore the data</h2>
+    <div class="note">Filters drive every metric and chart below</div>
+  </div>
+  <section class="controls">
+    <div class="ctl-row">
+      <span class="ctl-label">Period</span>
+      <div class="chips" id="presetChips">
+        <button class="chip on" data-from="2025-07-01" data-to="2025-12-31">Full H2</button>
+        <button class="chip" data-from="2025-07-01" data-to="2025-09-30">Q3</button>
+        <button class="chip" data-from="2025-10-01" data-to="2025-12-31">Q4</button>
+      </div>
+      <input class="datein" type="date" id="fromDate" min="2025-07-01" max="2025-12-31" value="2025-07-01">
+      <span class="datein" style="background:none;border:none;color:var(--muted-2);padding:0">to</span>
+      <input class="datein" type="date" id="toDate" min="2025-07-01" max="2025-12-31" value="2025-12-31">
+      <button class="reset" id="resetBtn">Reset filters</button>
+    </div>
+    <div class="ctl-row">
+      <span class="ctl-label">Country</span>
+      <div class="chips" id="countryChips"></div>
+    </div>
+    <div class="ctl-row">
+      <span class="ctl-label">Channel</span>
+      <div class="chips" id="channelChips"></div>
+      <div class="status" id="statusLine"></div>
+    </div>
+  </section>
+
+  <section class="kpis" id="kpis"></section>
+  <section class="sub-kpis" id="subKpis"></section>
+
+  <section class="grid2">
+    <div class="panel full">
+      <div class="panel-h">
+        <h3>Net revenue and contribution over time</h3>
+        <div class="hint" id="tsHint"></div>
+      </div>
+      <div class="legend">
+        <span><i style="background:var(--blue)"></i>Net revenue</span>
+        <span><i style="background:var(--pale);border-radius:50%"></i>Contribution</span>
+      </div>
+      <div id="tsChart"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-h">
+        <h3>Q3 → Q4 net revenue</h3>
+        <div class="hint">Q3 = Jul–Sep · Q4 = Oct–Dec</div>
+      </div>
+      <p class="panel-sub">Year-end did not out-earn the summer quarter.</p>
+      <div id="qChart"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-h">
+        <h3>From gross revenue to contribution</h3>
+        <div class="hint">Revenue is not profit</div>
+      </div>
+      <p class="panel-sub">Every deduction between the top line and what the business keeps.</p>
+      <div id="wfChart"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-h">
+        <h3>Contribution by country</h3>
+        <div class="hint">Ad spend excluded</div>
+      </div>
+      <p class="panel-sub">Contribution dollars, with net revenue shown behind each bar.</p>
+      <div id="coChart"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-h">
+        <h3>ROAS by channel</h3>
+        <div class="hint">Net revenue ÷ ad spend</div>
+      </div>
+      <p class="panel-sub">A ratio, not a profit figure and not proof of incremental lift.</p>
+      <div id="chChart"></div>
+      <div class="insight-line" id="chNote"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot">
+      <b>Definitions.</b> Net revenue = gross − discounts − matched refunds. Contribution = net revenue − COGS − fulfilment.
+      ROAS = net revenue ÷ ad spend; it is neither profit nor incremental marketing lift, and attribution is correlational.
+      Ad spend covers every date in the period. Q3 = July–September, Q4 = October–December. No extrapolation to other periods.<br>
+      <b>Method.</b> Duplicate <span class="num">order_id</span> rows are identical and collapsed to one; only <span class="num">status = paid</span> orders count.
+      Refunds are matched to their original order and attributed to that order's date, market and channel. All arithmetic runs on integer cents.<br>
+      <b>Fictional data.</b> Synthetic commerce dataset — not a real business. Figures reproduced from <span class="num">results.json</span> by <span class="num">analysis.py</span>.
+    </div>
+  </footer>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<script id="report-data" type="application/json">__REPORT_DATA__</script>
+<script id="report-results" type="application/json">__RESULTS__</script>
+<script>
+(function(){
+  "use strict";
+  var REPORT  = JSON.parse(document.getElementById('report-data').textContent);
+  var RESULTS = JSON.parse(document.getElementById('report-results').textContent);
+
+  var CUBE  = REPORT.cube;                 // [date,country,channel,orders,gross,discount,refund,net,cogs,fulfilment,contribution]
+  var SPEND = REPORT.spend;                // [date,channel,spend_cents]
+  var MIN = REPORT.period.start, MAX = REPORT.period.end;
+
+  var COUNTRIES = uniq(CUBE.map(function(r){return r[1];})).sort();
+  var CHANNELS  = uniq(CUBE.map(function(r){return r[2];})).sort();
+
+  var state = {
+    from: MIN, to: MAX,
+    countries: COUNTRIES.slice(),
+    channels: CHANNELS.slice()
+  };
+
+  /* ---------------- formatting ---------------- */
+  function usd(cents){
+    var v = cents/100, neg = v < 0;
+    var s = Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0});
+    return (neg?'-$':'$') + s;
+  }
+  function usd0(cents){
+    var v = cents/100;
+    return (v<0?'-$':'$') + Math.abs(v).toLocaleString('en-US',{maximumFractionDigits:0});
+  }
+  function compact(cents){
+    var v = Math.abs(cents/100), sign = cents<0?'-':'';
+    if(v>=1e6) return sign+'$'+(v/1e6).toFixed(v>=1e7?1:2)+'M';
+    if(v>=1e3) return sign+'$'+Math.round(v/1e3)+'K';
+    return sign+'$'+Math.round(v);
+  }
+  function pct(x,d){ return (x>=0?'':'')+x.toFixed(d===undefined?1:d)+'%'; }
+  function x2(x){ return x.toFixed(2)+'x'; }
+  function uniq(a){ var o={},r=[]; a.forEach(function(v){ if(!o[v]){o[v]=1;r.push(v);} }); return r; }
+  function sum(arr,f){ return arr.reduce(function(a,b){return a+f(b);},0); }
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function days(a,b){ return Math.round((new Date(b+'T00:00:00Z') - new Date(a+'T00:00:00Z'))/86400000)+1; }
+  function niceMax(v){
+    if(!(v>0)) return 1;
+    var p = Math.pow(10, Math.floor(Math.log10(v))), n = v/p, m;
+    if(n<=1) m=1; else if(n<=2) m=2; else if(n<=2.5) m=2.5; else if(n<=5) m=5; else m=10;
+    return m*p;
+  }
+
+  /* ---------------- filtering ---------------- */
+  function rows(){
+    return CUBE.filter(function(r){
+      return r[0]>=state.from && r[0]<=state.to &&
+             state.countries.indexOf(r[1])>=0 && state.channels.indexOf(r[2])>=0;
+    });
+  }
+  function spendRows(){
+    return SPEND.filter(function(r){
+      return r[0]>=state.from && r[0]<=state.to && state.channels.indexOf(r[1])>=0;
+    });
+  }
+  function totals(rs){
+    var t = {orders:0,gross:0,discount:0,refund:0,net:0,cogs:0,fulfilment:0,contribution:0};
+    rs.forEach(function(r){
+      t.orders+=r[3]; t.gross+=r[4]; t.discount+=r[5]; t.refund+=r[6];
+      t.net+=r[7]; t.cogs+=r[8]; t.fulfilment+=r[9]; t.contribution+=r[10];
+    });
+    return t;
+  }
+
+  /* ---------------- charts ---------------- */
+  var tip = document.getElementById('tip');
+  function showTip(html,x,y){
+    tip.innerHTML = html; tip.style.opacity = 1;
+    var r = tip.getBoundingClientRect();
+    var left = Math.min(Math.max(12, x - r.width/2), window.innerWidth - r.width - 12);
+    tip.style.left = left+'px';
+    tip.style.top  = Math.max(12, y - r.height - 14)+'px';
+  }
+  function hideTip(){ tip.style.opacity = 0; }
+  function bindTips(root){
+    root.querySelectorAll('[data-tip]').forEach(function(el){
+      el.addEventListener('mousemove', function(e){
+        showTip(el.getAttribute('data-tip'), e.clientX, e.clientY);
+      });
+      el.addEventListener('mouseleave', hideTip);
+    });
+  }
+  function emptyBox(el, msg){ el.innerHTML = '<div class="empty">'+esc(msg)+'</div>'; }
+
+  // ---- time series -------------------------------------------------
+  function renderTimeSeries(rs){
+    var el = document.getElementById('tsChart');
+    if(!rs.length){ emptyBox(el,'No paid orders match these filters.'); return; }
+    var byDay = days(state.from, state.to) <= 45;
+    document.getElementById('tsHint').textContent = byDay ? 'Daily · '+state.from+' → '+state.to
+                                                           : 'Monthly · '+state.from+' → '+state.to;
+    var keys = [], cursor = new Date(state.from+'T00:00:00Z'), end = new Date(state.to+'T00:00:00Z');
+    while(cursor <= end){
+      keys.push(byDay ? cursor.toISOString().slice(0,10) : cursor.toISOString().slice(0,7));
+      if(byDay) cursor.setUTCDate(cursor.getUTCDate()+1); else cursor.setUTCMonth(cursor.getUTCMonth()+1);
+    }
+    keys = uniq(keys);
+    var m = {};
+    keys.forEach(function(k){ m[k] = {net:0, contribution:0, orders:0}; });
+    rs.forEach(function(r){
+      var k = byDay ? r[0] : r[0].slice(0,7);
+      if(!m[k]) m[k] = {net:0, contribution:0, orders:0};
+      m[k].net += r[7]; m[k].contribution += r[10]; m[k].orders += r[3];
+    });
+    var data = keys.map(function(k){ return {k:k, net:m[k].net, con:m[k].contribution, orders:m[k].orders}; });
+
+    var W=1200,H=400, L=76,R=20,T=22,B=54;
+    var iw = W-L-R, ih = H-T-B;
+    var top = niceMax(Math.max.apply(null, data.map(function(d){return d.net;})) * 1.12);
+    var y = function(v){ return T + ih - (v/top)*ih; };
+    var step = iw/data.length, bw = Math.min(step*0.56, 78);
+
+    var g = '';
+    for(var i=0;i<=4;i++){
+      var v = top*i/4, yy = y(v);
+      g += '<line x1="'+L+'" x2="'+(W-R)+'" y1="'+yy.toFixed(1)+'" y2="'+yy.toFixed(1)+'" stroke="#1d2637" stroke-width="1"/>';
+      g += '<text x="'+(L-14)+'" y="'+(yy+4).toFixed(1)+'" fill="#65718a" font-size="12" text-anchor="end">'+compact(v)+'</text>';
+    }
+    var bars='', labels='', hits='', pts=[];
+    data.forEach(function(d,i){
+      var cx = L + step*i + step/2, x = cx - bw/2;
+      var h = Math.max(1,(d.net/top)*ih), yy = T+ih-h;
+      bars += '<rect x="'+x.toFixed(1)+'" y="'+yy.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="3" fill="url(#blueGrad)" data-tip="'+
+              esc('<div class="t">'+d.k+'</div><div class="r">Net revenue <b>'+usd0(d.net)+'</b></div><div class="r">Contribution <b>'+usd0(d.con)+'</b></div><div class="r">Paid orders <b>'+d.orders.toLocaleString('en-US')+'</b></div>')+'"/>';
+      pts.push([cx, y(d.con)]);
+      labels += '<text x="'+cx.toFixed(1)+'" y="'+(T+ih+24)+'" fill="#65718a" font-size="12.5" text-anchor="middle">'+esc(d.k)+'</text>';
+      hits += '<rect x="'+(L+step*i).toFixed(1)+'" y="'+T+'" width="'+step.toFixed(1)+'" height="'+ih+'" fill="transparent" data-tip="'+
+              esc('<div class="t">'+d.k+'</div><div class="r">Net revenue <b>'+usd0(d.net)+'</b></div><div class="r">Contribution <b>'+usd0(d.con)+'</b></div><div class="r">Paid orders <b>'+d.orders.toLocaleString('en-US')+'</b></div>')+'"/>';
+    });
+    var line = pts.map(function(p,i){ return (i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1); }).join(' ');
+    var dots = pts.map(function(p){
+      return '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="4.5" fill="#0d1119" stroke="#c9d5e8" stroke-width="2.5"/>';
+    }).join('');
+    el.innerHTML = '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Net revenue and contribution over time">'+
+      '<defs><linearGradient id="blueGrad" x1="0" y1="0" x2="0" y2="1">'+
+      '<stop offset="0%" stop-color="#4f97ff"/><stop offset="100%" stop-color="#1c4f9e"/></linearGradient></defs>'+
+      g + bars + '<path d="'+line+'" fill="none" stroke="#c9d5e8" stroke-width="2" stroke-linejoin="round" opacity=".85"/>'+
+      dots + labels + hits + '</svg>';
+    bindTips(el);
+  }
+
+  // ---- quarter bars -------------------------------------------------
+  function renderQuarters(rs){
+    var el = document.getElementById('qChart');
+    var q = {Q3:{net:0,orders:0},Q4:{net:0,orders:0}};
+    rs.forEach(function(r){ (r[0]<'2025-10-01'?q.Q3:q.Q4).net += r[7]; (r[0]<'2025-10-01'?q.Q3:q.Q4).orders += r[3]; });
+    var present = ['Q3','Q4'].filter(function(k){ return q[k].orders > 0; });
+    if(!present.length){ emptyBox(el,'No paid orders match these filters.'); return; }
+    var W=600,H=330,L=70,R=24,T=34,B=48, iw=W-L-R, ih=H-T-B;
+    var top = niceMax(Math.max(q.Q3.net,q.Q4.net) * 1.18) || 1;
+    var step = iw/2, bw = Math.min(step*0.44, 116);
+    var y = function(v){ return T + ih - (v/top)*ih; };
+    var g='';
+    for(var i=0;i<=4;i++){
+      var v=top*i/4, yy=y(v);
+      g += '<line x1="'+L+'" x2="'+(W-R)+'" y1="'+yy.toFixed(1)+'" y2="'+yy.toFixed(1)+'" stroke="#1d2637"/>';
+      g += '<text x="'+(L-12)+'" y="'+(yy+4).toFixed(1)+'" fill="#65718a" font-size="11.5" text-anchor="end">'+compact(v)+'</text>';
+    }
+    var bars='';
+    ['Q3','Q4'].forEach(function(k,i){
+      var cx = L + step*i + step/2, x = cx - bw/2;
+      var v = q[k].net, h = Math.max(1,(v/top)*ih), yy = T+ih-h;
+      var active = q[k].orders > 0;
+      var fill = active ? (i===0 ? '#1c4f9e' : 'url(#qGrad)') : '#141b29';
+      bars += '<rect x="'+x.toFixed(1)+'" y="'+yy.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="4" fill="'+fill+'" data-tip="'+
+              esc('<div class="t">'+k+' net revenue</div><div class="r">'+usd0(v)+'</div><div class="r">Paid orders <b>'+q[k].orders.toLocaleString('en-US')+'</b></div>')+'"/>';
+      bars += '<text x="'+cx.toFixed(1)+'" y="'+(yy-14).toFixed(1)+'" fill="'+(active?'#e9eef7':'#3d4759')+'" font-size="'+(active?17:14)+'" font-weight="600" text-anchor="middle">'+(active?usd0(v):'no data')+'</text>';
+      bars += '<text x="'+cx.toFixed(1)+'" y="'+(T+ih+26)+'" fill="#8c99b0" font-size="13" text-anchor="middle">'+k+'</text>';
+      if(active) bars += '<text x="'+cx.toFixed(1)+'" y="'+(T+ih+44)+'" fill="#65718a" font-size="11.5" text-anchor="middle">'+q[k].orders.toLocaleString('en-US')+' orders</text>';
+    });
+    var bothPresent = q.Q3.orders>0 && q.Q4.orders>0;
+    var delta = q.Q4.net - q.Q3.net;
+    var dpct = q.Q3.net ? delta/q.Q3.net*100 : 0;
+    var badge = bothPresent
+      ? '<div style="text-align:center;margin-top:10px;font-size:14px;color:'+(delta<0?'#ff7a7a':'#3ddc97')+'">'+
+        (delta<0?'▼':'▲')+' '+usd0(Math.abs(delta))+' &nbsp;<span style="color:#8c99b0">('+ (delta<0?'':'+') + dpct.toFixed(2)+'%)</span></div>'
+      : '<div style="text-align:center;margin-top:10px;font-size:12.5px;color:#65718a">Filter to a period containing both quarters for the comparison.</div>';
+    el.innerHTML = '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Q3 versus Q4 net revenue">'+
+      '<defs><linearGradient id="qGrad" x1="0" y1="0" x2="0" y2="1">'+
+      '<stop offset="0%" stop-color="#4f97ff"/><stop offset="100%" stop-color="#1e5cc0"/></linearGradient></defs>'+
+      g + bars + '</svg>' + badge;
+    bindTips(el);
+  }
+
+  // ---- waterfall ---------------------------------------------------
+  function renderWaterfall(t){
+    var el = document.getElementById('wfChart');
+    if(!t.orders){ emptyBox(el,'No paid orders match these filters.'); return; }
+    var steps = [
+      {label:'Gross',        value:t.gross,        kind:'total'},
+      {label:'Discounts',    value:-t.discount,    kind:'neg'},
+      {label:'Refunds',      value:-t.refund,      kind:'neg'},
+      {label:'Net revenue',  value:t.net,          kind:'total'},
+      {label:'COGS',         value:-t.cogs,        kind:'neg'},
+      {label:'Fulfilment',   value:-t.fulfilment,  kind:'neg'},
+      {label:'Contribution', value:t.contribution, kind:'total'}
+    ];
+    var W=600,H=340,L=70,R=24,T=30,B=62, iw=W-L-R, ih=H-T-B;
+    var running = 0, lo = 0, hi = 0, bars = [];
+    steps.forEach(function(s){
+      if(s.kind === 'total'){ bars.push({s:s, from:0, to:s.value}); running = s.value; }
+      else { bars.push({s:s, from:running, to:running + s.value}); running += s.value; }
+      lo = Math.min(lo, bars[bars.length-1].from, bars[bars.length-1].to);
+      hi = Math.max(hi, bars[bars.length-1].from, bars[bars.length-1].to);
+    });
+    var top = niceMax(hi*1.06), bot = lo < 0 ? -niceMax(Math.abs(lo)*1.6) : 0;
+    var y = function(v){ return T + ih - ((v-bot)/(top-bot))*ih; };
+    var g='';
+    for(var i=0;i<=4;i++){
+      var v = bot + (top-bot)*i/4, yy = y(v);
+      g += '<line x1="'+L+'" x2="'+(W-R)+'" y1="'+yy.toFixed(1)+'" y2="'+yy.toFixed(1)+'" stroke="#1d2637"/>';
+      g += '<text x="'+(L-12)+'" y="'+(yy+4).toFixed(1)+'" fill="#65718a" font-size="11.5" text-anchor="end">'+compact(v)+'</text>';
+    }
+    var step = iw/steps.length, bw = Math.min(step*0.5, 58);
+    var out='', links='';
+    bars.forEach(function(b,i){
+      var cx = L + step*i + step/2, x = cx - bw/2;
+      var y0 = y(b.from), y1 = y(b.to);
+      var top2 = Math.min(y0,y1), h = Math.max(2, Math.abs(y1-y0));
+      var fill = b.s.kind==='total' ? (b.s.label==='Contribution' ? 'url(#wfGrad)' : '#2a68c8') : '#46536b';
+      out += '<rect x="'+x.toFixed(1)+'" y="'+top2.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="3" fill="'+fill+'" data-tip="'+
+             esc('<div class="t">'+b.s.label+'</div><div class="r">'+(b.s.kind==='total'?usd0(b.s.value):'−'+usd0(Math.abs(b.s.value)))+'</div>')+'"/>';
+      var ly = b.s.kind==='total' ? (b.s.value>=0 ? y(b.s.value)-9 : y(b.s.value)+15) : top2-9;
+      out += '<text x="'+cx.toFixed(1)+'" y="'+ly.toFixed(1)+'" fill="'+(b.s.kind==='total'?'#e9eef7':'#8c99b0')+'" font-size="11.5" font-weight="'+(b.s.kind==='total'?600:400)+'" text-anchor="middle">'+
+             (b.s.kind==='total'?usd0(b.s.value):'−'+usd0(Math.abs(b.s.value)))+'</text>';
+      out += '<text x="'+cx.toFixed(1)+'" y="'+(T+ih+24)+'" fill="#65718a" font-size="11.5" text-anchor="middle">'+esc(b.s.label)+'</text>';
+      if(i < bars.length-1) links += '<line x1="'+(cx+bw/2).toFixed(1)+'" x2="'+(cx+step-bw/2).toFixed(1)+'" y1="'+y(b.to).toFixed(1)+'" y2="'+y(b.to).toFixed(1)+'" stroke="#26314a" stroke-dasharray="3 3"/>';
+    });
+    el.innerHTML = '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Waterfall from gross revenue to contribution">'+
+      '<defs><linearGradient id="wfGrad" x1="0" y1="0" x2="0" y2="1">'+
+      '<stop offset="0%" stop-color="#4f97ff"/><stop offset="100%" stop-color="#1e5cc0"/></linearGradient></defs>'+
+      g + links + out + '</svg>' +
+      '<div style="text-align:center;margin-top:8px;font-size:13px;color:#8c99b0">'+
+      'Contribution margin <b style="color:#e9eef7">'+(t.contribution/t.net*100).toFixed(1)+'%</b> of net revenue · ad spend is <b style="color:#e9eef7">not</b> deducted here</div>';
+    bindTips(el);
+  }
+
+  // ---- country -----------------------------------------------------
+  function renderCountries(rs){
+    var el = document.getElementById('coChart');
+    var m = {};
+    rs.forEach(function(r){
+      var b = m[r[1]] || (m[r[1]] = {net:0,con:0,orders:0});
+      b.net += r[7]; b.con += r[10]; b.orders += r[3];
+    });
+    var data = Object.keys(m).map(function(k){ return {k:k, net:m[k].net, con:m[k].con, orders:m[k].orders}; })
+                     .sort(function(a,b){ return b.con - a.con; });
+    if(!data.length){ emptyBox(el,'No paid orders match these filters.'); return; }
+    var W=600, rowH=62, T=8, B=26, L=96, R=140, H=T+B+rowH*data.length;
+    var iw = W-L-R;
+    var top = niceMax(Math.max.apply(null, data.map(function(d){return d.net;}))*1.02) || 1;
+    var out='';
+    data.forEach(function(d,i){
+      var cy = T + rowH*i + rowH/2;
+      var trackW = Math.max(2,(d.net/top)*iw);
+      var barW = Math.max(2,(d.con/top)*iw);
+      var margin = d.net ? d.con/d.net*100 : 0;
+      out += '<text x="'+(L-14)+'" y="'+(cy+4).toFixed(1)+'" fill="#e9eef7" font-size="13.5" font-weight="600" text-anchor="end">'+esc(d.k)+'</text>';
+      out += '<rect x="'+L+'" y="'+(cy-13).toFixed(1)+'" width="'+trackW.toFixed(1)+'" height="26" rx="4" fill="#161e2e"/>';
+      out += '<rect x="'+L+'" y="'+(cy-13).toFixed(1)+'" width="'+barW.toFixed(1)+'" height="26" rx="4" fill="url(#coGrad)" data-tip="'+
+             esc('<div class="t">'+d.k+'</div><div class="r">Contribution <b>'+usd0(d.con)+'</b></div><div class="r">Net revenue <b>'+usd0(d.net)+'</b></div><div class="r">Margin <b>'+margin.toFixed(1)+'%</b></div><div class="r">Paid orders <b>'+d.orders.toLocaleString('en-US')+'</b></div>')+'"/>';
+      out += '<text x="'+(L+Math.max(trackW,barW)+12).toFixed(1)+'" y="'+(cy+4).toFixed(1)+'" fill="#8c99b0" font-size="12">'+compact(d.con)+' · '+margin.toFixed(1)+'%</text>';
+    });
+    el.innerHTML = '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Contribution by country">'+
+      '<defs><linearGradient id="coGrad" x1="0" y1="0" x2="1" y2="0">'+
+      '<stop offset="0%" stop-color="#2a68c8"/><stop offset="100%" stop-color="#4f97ff"/></linearGradient></defs>'+
+      out + '</svg>' +
+      '<div style="margin-top:6px;font-size:12.5px;color:#65718a">Blue bar = contribution dollars · dark track = net revenue · label shows contribution and margin.</div>';
+    bindTips(el);
+  }
+
+  // ---- channels ----------------------------------------------------
+  function renderChannels(rs, sp){
+    var el = document.getElementById('chChart');
+    var m = {}, spend = {};
+    rs.forEach(function(r){
+      var b = m[r[2]] || (m[r[2]] = {net:0,con:0,orders:0});
+      b.net += r[7]; b.con += r[10]; b.orders += r[3];
+    });
+    sp.forEach(function(r){ spend[r[1]] = (spend[r[1]]||0) + r[2]; });
+    var data = Object.keys(m).map(function(k){
+      var s = spend[k]||0;
+      return {k:k, net:m[k].net, con:m[k].con, orders:m[k].orders, spend:s, roas: s ? m[k].net/s : 0};
+    }).filter(function(d){ return d.spend > 0; }).sort(function(a,b){ return b.roas - a.roas; });
+    if(!data.length){ emptyBox(el,'No paid orders match these filters.'); document.getElementById('chNote').textContent=''; return; }
+    var W=600, rowH=62, T=8, B=26, L=96, R=150, H=T+B+rowH*data.length;
+    var iw = W-L-R;
+    var top = niceMax(Math.max.apply(null, data.map(function(d){return d.roas;}))*1.05) || 1;
+    var out='';
+    data.forEach(function(d,i){
+      var cy = T + rowH*i + rowH/2;
+      var w = Math.max(2,(d.roas/top)*iw);
+      out += '<text x="'+(L-14)+'" y="'+(cy+4).toFixed(1)+'" fill="#e9eef7" font-size="13.5" font-weight="600" text-anchor="end">'+esc(d.k)+'</text>';
+      out += '<rect x="'+L+'" y="'+(cy-13).toFixed(1)+'" width="'+iw+'" height="26" rx="4" fill="#131a28"/>';
+      out += '<rect x="'+L+'" y="'+(cy-13).toFixed(1)+'" width="'+w.toFixed(1)+'" height="26" rx="4" fill="url(#chGrad)" data-tip="'+
+             esc('<div class="t">'+d.k+'</div><div class="r">ROAS <b>'+x2(d.roas)+'</b></div><div class="r">Net revenue <b>'+usd0(d.net)+'</b></div><div class="r">Ad spend <b>'+usd0(d.spend)+'</b></div><div class="r">Paid orders <b>'+d.orders.toLocaleString('en-US')+'</b></div>')+'"/>';
+      out += '<text x="'+(L+w+12).toFixed(1)+'" y="'+(cy+4).toFixed(1)+'" fill="#8c99b0" font-size="12">'+x2(d.roas)+'</text>';
+    });
+    el.innerHTML = '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="ROAS by channel">'+
+      '<defs><linearGradient id="chGrad" x1="0" y1="0" x2="1" y2="0">'+
+      '<stop offset="0%" stop-color="#2a68c8"/><stop offset="100%" stop-color="#4f97ff"/></linearGradient></defs>'+
+      out + '</svg>';
+    var lead = data[0];
+    var note = '<b>'+esc(lead.k)+'</b> leads at '+x2(lead.roas)+' — '+usd0(lead.net)+' net revenue on '+usd0(lead.spend)+' spend. ';
+    var allCh = state.channels.length === CHANNELS.length;
+    if(!allCh) note += 'Spend is reported by date and channel only, so a country filter lowers the numerator without lowering spend; these ratios are conservative. ';
+    note += 'Attribution here is correlational, not causal lift.';
+    document.getElementById('chNote').innerHTML = note;
+  }
+
+  // ---- kpis --------------------------------------------------------
+  function renderKpis(t, sp){
+    var spend = sum(sp, function(r){return r[2];});
+    var margin = t.net ? t.contribution/t.net*100 : 0;
+    var aov = t.orders ? t.net/t.orders : 0;
+    var roas = spend ? t.net/spend : 0;
+    document.getElementById('kpis').innerHTML = [
+      kpi('Net revenue', usd(t.net), 'Gross '+usd(t.gross)+' less discounts and refunds', true),
+      kpi('Contribution', usd(t.contribution), 'Net revenue less COGS and fulfilment', false),
+      kpi('Contribution margin', margin.toFixed(1)+'%', 'Share of net revenue kept as contribution', false),
+      kpi('Blended ROAS', spend?x2(roas):'n/a', 'Net revenue ÷ '+usd0(spend)+' ad spend — not profit', false)
+    ].join('');
+    document.getElementById('subKpis').innerHTML = [
+      skpi('Gross revenue', usd(t.gross), false),
+      skpi('Discounts', '−'+usd(t.discount), true),
+      skpi('Refunds', '−'+usd(t.refund), true),
+      skpi('Ad spend', usd(spend), true),
+      skpi('Paid orders', t.orders.toLocaleString('en-US'), false),
+      skpi('Net AOV', usd(aov), false)
+    ].join('');
+  }
+  function kpi(k,v,d,accent){
+    return '<div class="kpi'+(accent?' accent':'')+'"><div class="k">'+k+'</div><div class="v num">'+v+'</div><div class="d">'+d+'</div></div>';
+  }
+  function skpi(k,v,neg){
+    return '<div class="skpi"><div class="k">'+k+'</div><div class="v num'+(neg?' neg':'')+'">'+v+'</div></div>';
+  }
+
+  // ---- insights ----------------------------------------------------
+  function renderInsights(){
+    var q = RESULTS.quarter, c = RESULTS.country, ch = RESULTS.channel;
+    var d = REPORT.drivers;
+    var cards = [
+      {
+        tag:'Insight 01 · Demand',
+        big:(q.change_cents<0?'−':'+')+usd0(Math.abs(q.change_cents)),
+        bigDown:q.change_cents<0,
+        sub:'Q4 vs Q3 net revenue · <b>'+(q.growth_pct<0?'':'+')+q.growth_pct.toFixed(2)+'%</b>',
+        text:RESULTS.insights[0]
+      },
+      {
+        tag:'Insight 02 · Market',
+        big:usd0(c.contribution_cents),
+        sub:'Contribution · '+esc(c.name)+' · <b>'+usd0(c.net_cents)+'</b> net revenue · <b>'+c.margin_pct.toFixed(1)+'%</b> margin',
+        text:RESULTS.insights[1]
+      },
+      {
+        tag:'Insight 03 · Channel',
+        big:x2(ch.roas),
+        sub:'ROAS · '+esc(ch.name)+' · <b>'+usd0(ch.net_cents)+'</b> net revenue on <b>'+usd0(ch.spend_cents)+'</b> spend',
+        text:RESULTS.insights[2]
+      }
+    ];
+    document.getElementById('insightCards').innerHTML = cards.map(function(cd){
+      var parts = cd.text.split('. Action: ');
+      var evidence = parts[0] + '.';
+      var action = parts.length>1 ? parts[1] : '';
+      return '<div class="card">'+
+        '<div class="tag">'+cd.tag+'</div>'+
+        '<div class="big num'+(cd.bigDown?' down':'')+'">'+cd.big+'</div>'+
+        '<div class="sub">'+cd.sub+'</div>'+
+        '<div class="evidence">'+esc(evidence)+'</div>'+
+        (action?'<div class="action"><b>Action</b>'+esc(action)+'</div>':'')+
+      '</div>';
+    }).join('');
+  }
+
+  // ---- counts strip ------------------------------------------------
+  function renderCounts(){
+    var c = RESULTS.counts;
+    var items = [
+      [c.raw_orders.toLocaleString('en-US'), 'raw order rows'],
+      [c.duplicates_removed.toLocaleString('en-US'), 'duplicate rows removed'],
+      [c.unique_orders.toLocaleString('en-US'), 'unique orders'],
+      [c.paid_orders.toLocaleString('en-US'), 'paid orders analysed'],
+      [(c.unique_orders-c.paid_orders).toLocaleString('en-US'), 'unpaid orders excluded'],
+      [c.refund_rows.toLocaleString('en-US'), 'refund rows matched']
+    ];
+    document.getElementById('countsBox').innerHTML = items.map(function(it){
+      return '<div class="count"><div class="v num">'+it[0]+'</div><div class="k">'+it[1]+'</div></div>';
+    }).join('');
+  }
+
+  // ---- render ------------------------------------------------------
+  function render(){
+    var rs = rows(), sp = spendRows(), t = totals(rs);
+    renderKpis(t, sp);
+    renderTimeSeries(rs);
+    renderQuarters(rs);
+    renderWaterfall(t);
+    renderCountries(rs);
+    renderChannels(rs, sp);
+
+    var allC = state.countries.length===COUNTRIES.length, allCh = state.channels.length===CHANNELS.length;
+    document.getElementById('statusLine').innerHTML =
+      'Showing <b>'+t.orders.toLocaleString('en-US')+'</b> paid orders · <b>'+state.from+'</b> → <b>'+state.to+'</b> · '+
+      (allC?'all markets':state.countries.length+' of '+COUNTRIES.length+' markets')+' · '+
+      (allCh?'all channels':state.channels.length+' of '+CHANNELS.length+' channels');
+
+    ['tsChart','qChart','wfChart','coChart','chChart'].forEach(function(id){
+      var el = document.getElementById(id);
+      el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+    });
+  }
+
+  // ---- controls ----------------------------------------------------
+  function buildChips(container, values, key){
+    var html = values.map(function(v){
+      return '<button class="chip on" data-v="'+esc(v)+'">'+esc(v)+'</button>';
+    }).join('');
+    html = '<button class="chip on" data-v="__all">All</button>' + html;
+    var box = document.getElementById(container);
+    box.innerHTML = html;
+    box.addEventListener('click', function(e){
+      var btn = e.target.closest('.chip'); if(!btn) return;
+      var v = btn.getAttribute('data-v');
+      if(v === '__all'){
+        state[key] = values.slice();
+      } else {
+        var i = state[key].indexOf(v);
+        if(i >= 0){ if(state[key].length === 1) return; state[key].splice(i,1); }
+        else state[key].push(v);
+      }
+      if(state[key].length === values.length) state[key] = values.slice();
+      syncChips();
+      render();
+    });
+  }
+  function syncChips(){
+    document.querySelectorAll('#countryChips .chip').forEach(function(b){
+      var v = b.getAttribute('data-v');
+      b.classList.toggle('on', v==='__all' ? state.countries.length===COUNTRIES.length : state.countries.indexOf(v)>=0);
+    });
+    document.querySelectorAll('#channelChips .chip').forEach(function(b){
+      var v = b.getAttribute('data-v');
+      b.classList.toggle('on', v==='__all' ? state.channels.length===CHANNELS.length : state.channels.indexOf(v)>=0);
+    });
+    document.querySelectorAll('#presetChips .chip').forEach(function(b){
+      b.classList.toggle('on', b.getAttribute('data-from')===state.from && b.getAttribute('data-to')===state.to);
+    });
+  }
+  function setPeriod(from, to){
+    from = from < MIN ? MIN : from; to = to > MAX ? MAX : to;
+    if(from > to){ var t0 = from; from = to; to = t0; }
+    state.from = from; state.to = to;
+    document.getElementById('fromDate').value = from;
+    document.getElementById('toDate').value = to;
+    syncChips(); render();
+  }
+
+  buildChips('countryChips', COUNTRIES, 'countries');
+  buildChips('channelChips', CHANNELS, 'channels');
+
+  document.getElementById('presetChips').addEventListener('click', function(e){
+    var btn = e.target.closest('.chip'); if(!btn) return;
+    setPeriod(btn.getAttribute('data-from'), btn.getAttribute('data-to'));
+  });
+  document.getElementById('fromDate').addEventListener('change', function(e){ setPeriod(e.target.value, state.to); });
+  document.getElementById('toDate').addEventListener('change', function(e){ setPeriod(state.from, e.target.value); });
+  document.getElementById('resetBtn').addEventListener('click', function(){
+    state.countries = COUNTRIES.slice(); state.channels = CHANNELS.slice();
+    document.getElementById('fromDate').value = MIN;
+    document.getElementById('toDate').value = MAX;
+    state.from = MIN; state.to = MAX;
+    syncChips(); render();
+  });
+
+  renderInsights();
+  renderCounts();
+  syncChips();
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+METHODOLOGY
+Synthetic commerce dataset, 2025-07-01 to 2025-12-31, USD. Fictional data, not a real business.
+
+INPUTS
+  orders.csv    raw order rows with status, gross_cents, discount_cents, cogs_cents, fulfilment_cents
+  refunds.csv   refund_id, order_id, amount_cents
+  ad_spend.csv  daily spend_cents per channel
+All money is integer cents. No floating point is used for any stored value.
+
+STEPS (analysis.py)
+1. Deduplicate orders by order_id. Duplicate rows in this dataset are identical
+   (verified: 250 duplicate rows, 0 conflicting groups), so one row per order_id is kept.
+2. Keep only status == "paid". Cancelled and pending orders are excluded from every metric.
+3. Match refunds to their order_id and attribute each refund to the ORIGINAL order's
+   date, country and channel. Refunds on non-paid orders are excluded (0 in this dataset).
+4. Net revenue    = gross_cents - discount_cents - matched refunds.
+   Contribution   = net revenue - cogs_cents - fulfilment_cents.
+   Contribution margin = contribution / net revenue.
+5. ROAS = net revenue / ad spend, per channel. Ad spend is counted for every date in the
+   period. Ad spend is never subtracted in the country contribution metric.
+6. Quarters: Q3 = 2025-07-01..2025-09-30, Q4 = 2025-10-01..2025-12-31. No extrapolation.
+7. Self-checks assert that net revenue reconciles across country, channel and quarter
+   splits, that change_cents = q4 - q3, and that growth_pct is derived from the same values.
+
+OUTPUTS
+  results.json         rounded-free values in cents; growth_pct and margin_pct as percentages
+  report_data.json     date x country x channel cube + date x channel spend, used by the report
+  index.html           standalone report; data is inlined, no external requests
+
+REPORTING NOTES
+  * Revenue is not profit. Headline growth is net revenue; contribution is the profit-side
+    measure and excludes ad spend by definition. Blended ROAS is shown separately and is
+    never treated as profit.
+  * Channel ROAS is correlational. Ad spend is not split by country, so applying a country
+    filter lowers the ROAS numerator without lowering spend; the report states this.
+  * The Q4 vs Q3 decline is explained by volume and refunds, not by order value:
+    paid orders -309, refunds +$16,305, net AOV flat at $430 vs $429.

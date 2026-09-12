@@ -1,0 +1,32 @@
+{
+  "counts": {
+    "raw_orders": 50250,
+    "unique_orders": 50000,
+    "paid_orders": 45547,
+    "duplicates_removed": 250,
+    "refund_rows": 4235
+  },
+  "quarter": {
+    "q3_net_cents": 983320532,
+    "q4_net_cents": 972689171,
+    "change_cents": -10631361,
+    "growth_pct": -1.0811694309257036
+  },
+  "country": {
+    "name": "US",
+    "net_cents": 494177089,
+    "contribution_cents": 250385947,
+    "margin_pct": 50.66725118857139
+  },
+  "channel": {
+    "name": "Email",
+    "net_cents": 353390348,
+    "spend_cents": 31920738,
+    "roas": 11.07087022862692
+  },
+  "insights": [
+    "Q4 net revenue came in at $9,726,892, down $106,314 (-1.1%) versus Q3. It is not a pricing problem: net AOV was flat at $430 versus $429, while paid orders fell by 309 and refunds rose $16,305. Action: audit the Q4 refund spike and the channel that lost order volume before locking Q1 targets.",
+    "US is the largest contribution market at $2,503,859 on $4,941,771 net revenue, a 50.7% contribution margin. The lead is thin at $14,920 over UK, so treat it as a defend-and-grow market rather than a safe one. Action: protect US retention spend and lift its share of the next budget cycle.",
+    "Email posts the highest net-revenue ROAS at 11.07x ($3,533,903 net revenue on $319,207 ad spend). Partners is second at 4.38x. Action: run a controlled incremental-spend test on Email before scaling; ROAS here is net revenue over spend from a small base and is not proof of incremental lift."
+  ]
+}

@@ -1,0 +1,1871 @@
+{
+  "label": "Synthetic comparison fixture, not Jack\u2019s actual business finances",
+  "currency": "USD",
+  "period": "2026-01-01 through 2026-06-30",
+  "orders": [
+    {
+      "id": "O0001",
+      "date": "2026-01-01",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0002",
+      "date": "2026-02-02",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0003",
+      "date": "2026-03-03",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0004",
+      "date": "2026-04-04",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0005",
+      "date": "2026-05-05",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0006",
+      "date": "2026-06-06",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0007",
+      "date": "2026-01-07",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0008",
+      "date": "2026-02-08",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0009",
+      "date": "2026-03-09",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0010",
+      "date": "2026-04-10",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0011",
+      "date": "2026-05-11",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0012",
+      "date": "2026-06-12",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0013",
+      "date": "2026-01-13",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0014",
+      "date": "2026-02-14",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0015",
+      "date": "2026-03-15",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0016",
+      "date": "2026-04-16",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0017",
+      "date": "2026-05-17",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0018",
+      "date": "2026-06-18",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0019",
+      "date": "2026-01-19",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0020",
+      "date": "2026-02-20",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0021",
+      "date": "2026-03-21",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0022",
+      "date": "2026-04-22",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0023",
+      "date": "2026-05-23",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0024",
+      "date": "2026-06-24",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0025",
+      "date": "2026-01-25",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0026",
+      "date": "2026-02-26",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0027",
+      "date": "2026-03-27",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0028",
+      "date": "2026-04-01",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0029",
+      "date": "2026-05-02",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0030",
+      "date": "2026-06-03",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0031",
+      "date": "2026-01-04",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0032",
+      "date": "2026-02-05",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0033",
+      "date": "2026-03-06",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0034",
+      "date": "2026-04-07",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0035",
+      "date": "2026-05-08",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0036",
+      "date": "2026-06-09",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0037",
+      "date": "2026-01-10",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0038",
+      "date": "2026-02-11",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0039",
+      "date": "2026-03-12",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0040",
+      "date": "2026-04-13",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0041",
+      "date": "2026-05-14",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0042",
+      "date": "2026-06-15",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0043",
+      "date": "2026-01-16",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0044",
+      "date": "2026-02-17",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0045",
+      "date": "2026-03-18",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0046",
+      "date": "2026-04-19",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0047",
+      "date": "2026-05-20",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0048",
+      "date": "2026-06-21",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0049",
+      "date": "2026-01-22",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0050",
+      "date": "2026-02-23",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0051",
+      "date": "2026-03-24",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0052",
+      "date": "2026-04-25",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0053",
+      "date": "2026-05-26",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0054",
+      "date": "2026-06-27",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0055",
+      "date": "2026-01-01",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0056",
+      "date": "2026-02-02",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0057",
+      "date": "2026-03-03",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0058",
+      "date": "2026-04-04",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0059",
+      "date": "2026-05-05",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0060",
+      "date": "2026-06-06",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0061",
+      "date": "2026-01-07",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0062",
+      "date": "2026-02-08",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0063",
+      "date": "2026-03-09",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0064",
+      "date": "2026-04-10",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0065",
+      "date": "2026-05-11",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0066",
+      "date": "2026-06-12",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0067",
+      "date": "2026-01-13",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0068",
+      "date": "2026-02-14",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0069",
+      "date": "2026-03-15",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0070",
+      "date": "2026-04-16",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0071",
+      "date": "2026-05-17",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0072",
+      "date": "2026-06-18",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0073",
+      "date": "2026-01-19",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0074",
+      "date": "2026-02-20",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0075",
+      "date": "2026-03-21",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0076",
+      "date": "2026-04-22",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0077",
+      "date": "2026-05-23",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0078",
+      "date": "2026-06-24",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0079",
+      "date": "2026-01-25",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0080",
+      "date": "2026-02-26",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0081",
+      "date": "2026-03-27",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0082",
+      "date": "2026-04-01",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0083",
+      "date": "2026-05-02",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0084",
+      "date": "2026-06-03",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0085",
+      "date": "2026-01-04",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0086",
+      "date": "2026-02-05",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0087",
+      "date": "2026-03-06",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0088",
+      "date": "2026-04-07",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0089",
+      "date": "2026-05-08",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0090",
+      "date": "2026-06-09",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0091",
+      "date": "2026-01-10",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0092",
+      "date": "2026-02-11",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0093",
+      "date": "2026-03-12",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0094",
+      "date": "2026-04-13",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0095",
+      "date": "2026-05-14",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0096",
+      "date": "2026-06-15",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0097",
+      "date": "2026-01-16",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0098",
+      "date": "2026-02-17",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0099",
+      "date": "2026-03-18",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0100",
+      "date": "2026-04-19",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0101",
+      "date": "2026-05-20",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0102",
+      "date": "2026-06-21",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0103",
+      "date": "2026-01-22",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0104",
+      "date": "2026-02-23",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0105",
+      "date": "2026-03-24",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0106",
+      "date": "2026-04-25",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0107",
+      "date": "2026-05-26",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0108",
+      "date": "2026-06-27",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0109",
+      "date": "2026-01-01",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0110",
+      "date": "2026-02-02",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0111",
+      "date": "2026-03-03",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0112",
+      "date": "2026-04-04",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0113",
+      "date": "2026-05-05",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0114",
+      "date": "2026-06-06",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0115",
+      "date": "2026-01-07",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0116",
+      "date": "2026-02-08",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0117",
+      "date": "2026-03-09",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0118",
+      "date": "2026-04-10",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0119",
+      "date": "2026-05-11",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0120",
+      "date": "2026-06-12",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0121",
+      "date": "2026-01-13",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0122",
+      "date": "2026-02-14",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0123",
+      "date": "2026-03-15",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0124",
+      "date": "2026-04-16",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0125",
+      "date": "2026-05-17",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0126",
+      "date": "2026-06-18",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0127",
+      "date": "2026-01-19",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0128",
+      "date": "2026-02-20",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0129",
+      "date": "2026-03-21",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0130",
+      "date": "2026-04-22",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0131",
+      "date": "2026-05-23",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0132",
+      "date": "2026-06-24",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0133",
+      "date": "2026-01-25",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0134",
+      "date": "2026-02-26",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0135",
+      "date": "2026-03-27",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0136",
+      "date": "2026-04-01",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0137",
+      "date": "2026-05-02",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0138",
+      "date": "2026-06-03",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0139",
+      "date": "2026-01-04",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0140",
+      "date": "2026-02-05",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0141",
+      "date": "2026-03-06",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0142",
+      "date": "2026-04-07",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0143",
+      "date": "2026-05-08",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0144",
+      "date": "2026-06-09",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0145",
+      "date": "2026-01-10",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0146",
+      "date": "2026-02-11",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0147",
+      "date": "2026-03-12",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0148",
+      "date": "2026-04-13",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0149",
+      "date": "2026-05-14",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0150",
+      "date": "2026-06-15",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0151",
+      "date": "2026-01-16",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0152",
+      "date": "2026-02-17",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0153",
+      "date": "2026-03-18",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0154",
+      "date": "2026-04-19",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0155",
+      "date": "2026-05-20",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0156",
+      "date": "2026-06-21",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0157",
+      "date": "2026-01-22",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0158",
+      "date": "2026-02-23",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0159",
+      "date": "2026-03-24",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0160",
+      "date": "2026-04-25",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0161",
+      "date": "2026-05-26",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0162",
+      "date": "2026-06-27",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0163",
+      "date": "2026-01-01",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0164",
+      "date": "2026-02-02",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0165",
+      "date": "2026-03-03",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0166",
+      "date": "2026-04-04",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0167",
+      "date": "2026-05-05",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0168",
+      "date": "2026-06-06",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0169",
+      "date": "2026-01-07",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0170",
+      "date": "2026-02-08",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0171",
+      "date": "2026-03-09",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0172",
+      "date": "2026-04-10",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0173",
+      "date": "2026-05-11",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0174",
+      "date": "2026-06-12",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0175",
+      "date": "2026-01-13",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0176",
+      "date": "2026-02-14",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0177",
+      "date": "2026-03-15",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0178",
+      "date": "2026-04-16",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0179",
+      "date": "2026-05-17",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0180",
+      "date": "2026-06-18",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0181",
+      "date": "2026-01-19",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0182",
+      "date": "2026-02-20",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0183",
+      "date": "2026-03-21",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0184",
+      "date": "2026-04-22",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0185",
+      "date": "2026-05-23",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0186",
+      "date": "2026-06-24",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0187",
+      "date": "2026-01-25",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0188",
+      "date": "2026-02-26",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0189",
+      "date": "2026-03-27",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0190",
+      "date": "2026-04-01",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0191",
+      "date": "2026-05-02",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0192",
+      "date": "2026-06-03",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0193",
+      "date": "2026-01-04",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0194",
+      "date": "2026-02-05",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0195",
+      "date": "2026-03-06",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0196",
+      "date": "2026-04-07",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0197",
+      "date": "2026-05-08",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0198",
+      "date": "2026-06-09",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0199",
+      "date": "2026-01-10",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0200",
+      "date": "2026-02-11",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0201",
+      "date": "2026-03-12",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0202",
+      "date": "2026-04-13",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0203",
+      "date": "2026-05-14",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0204",
+      "date": "2026-06-15",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0205",
+      "date": "2026-01-16",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0206",
+      "date": "2026-02-17",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0207",
+      "date": "2026-03-18",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0208",
+      "date": "2026-04-19",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0209",
+      "date": "2026-05-20",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0210",
+      "date": "2026-06-21",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0211",
+      "date": "2026-01-22",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0212",
+      "date": "2026-02-23",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0213",
+      "date": "2026-03-24",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0214",
+      "date": "2026-04-25",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0215",
+      "date": "2026-05-26",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0216",
+      "date": "2026-06-27",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0217",
+      "date": "2026-01-01",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0218",
+      "date": "2026-02-02",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0219",
+      "date": "2026-03-03",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0220",
+      "date": "2026-04-04",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0221",
+      "date": "2026-05-05",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0222",
+      "date": "2026-06-06",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0223",
+      "date": "2026-01-07",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0224",
+      "date": "2026-02-08",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0225",
+      "date": "2026-03-09",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0226",
+      "date": "2026-04-10",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0227",
+      "date": "2026-05-11",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0228",
+      "date": "2026-06-12",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0229",
+      "date": "2026-01-13",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0230",
+      "date": "2026-02-14",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0231",
+      "date": "2026-03-15",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0232",
+      "date": "2026-04-16",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0233",
+      "date": "2026-05-17",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0234",
+      "date": "2026-06-18",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0235",
+      "date": "2026-01-19",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0236",
+      "date": "2026-02-20",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0237",
+      "date": "2026-03-21",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0238",
+      "date": "2026-04-22",
+      "product": "Community",
+      "amount_cents": 9900
+    },
+    {
+      "id": "O0239",
+      "date": "2026-05-23",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0240",
+      "date": "2026-06-24",
+      "product": "Template pack",
+      "amount_cents": 4900
+    },
+    {
+      "id": "O0004",
+      "date": "2026-04-04",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0018",
+      "date": "2026-06-18",
+      "product": "Workshop",
+      "amount_cents": 24900
+    },
+    {
+      "id": "O0022",
+      "date": "2026-04-22",
+      "product": "Community",
+      "amount_cents": 12345
+    },
+    {
+      "id": "O0241",
+      "date": "2026-06-12",
+      "product": "Workshop",
+      "amount_cents": null
+    },
+    {
+      "id": "O0242",
+      "date": "2026-02-31",
+      "product": "Community",
+      "amount_cents": 9900
+    }
+  ],
+  "refunds": [
+    {
+      "id": "R001",
+      "order_id": "O0008",
+      "date": "2026-02-08",
+      "amount_cents": 24900
+    },
+    {
+      "id": "R002",
+      "order_id": "O0027",
+      "date": "2026-03-27",
+      "amount_cents": 24900
+    },
+    {
+      "id": "R003",
+      "order_id": "O0046",
+      "date": "2026-04-19",
+      "amount_cents": 4900
+    },
+    {
+      "id": "R004",
+      "order_id": "O0065",
+      "date": "2026-05-11",
+      "amount_cents": 9900
+    },
+    {
+      "id": "R005",
+      "order_id": "O0084",
+      "date": "2026-06-03",
+      "amount_cents": 4900
+    },
+    {
+      "id": "R006",
+      "order_id": "O0103",
+      "date": "2026-01-22",
+      "amount_cents": 4900
+    },
+    {
+      "id": "R007",
+      "order_id": "O0122",
+      "date": "2026-02-14",
+      "amount_cents": 24900
+    },
+    {
+      "id": "R008",
+      "order_id": "O0141",
+      "date": "2026-03-06",
+      "amount_cents": 9900
+    },
+    {
+      "id": "R009",
+      "order_id": "O0160",
+      "date": "2026-04-25",
+      "amount_cents": 24900
+    },
+    {
+      "id": "R010",
+      "order_id": "O0179",
+      "date": "2026-05-17",
+      "amount_cents": 9900
+    },
+    {
+      "id": "R011",
+      "order_id": "O0198",
+      "date": "2026-06-09",
+      "amount_cents": 9900
+    },
+    {
+      "id": "R012",
+      "order_id": "O0217",
+      "date": "2026-01-01",
+      "amount_cents": 24900
+    },
+    {
+      "id": "R013",
+      "order_id": "O0236",
+      "date": "2026-02-20",
+      "amount_cents": 9900
+    },
+    {
+      "id": "R002",
+      "order_id": "O0027",
+      "date": "2026-03-27",
+      "amount_cents": 24900
+    },
+    {
+      "id": "R999",
+      "order_id": "O9999",
+      "date": "2026-04-02",
+      "amount_cents": 9900
+    }
+  ],
+  "expenses": [
+    {
+      "id": "E001",
+      "date": "2026-01-01",
+      "category": "Software",
+      "amount_cents": 18800
+    },
+    {
+      "id": "E002",
+      "date": "2026-02-02",
+      "category": "Advertising",
+      "amount_cents": 38600
+    },
+    {
+      "id": "E003",
+      "date": "2026-03-03",
+      "category": "Production",
+      "amount_cents": 6000
+    },
+    {
+      "id": "E004",
+      "date": "2026-04-04",
+      "category": "Software",
+      "amount_cents": 60400
+    },
+    {
+      "id": "E005",
+      "date": "2026-05-05",
+      "category": "Advertising",
+      "amount_cents": 17400
+    },
+    {
+      "id": "E006",
+      "date": "2026-06-06",
+      "category": "Production",
+      "amount_cents": 72200
+    },
+    {
+      "id": "E007",
+      "date": "2026-01-07",
+      "category": "Software",
+      "amount_cents": 7200
+    },
+    {
+      "id": "E008",
+      "date": "2026-02-08",
+      "category": "Advertising",
+      "amount_cents": 11600
+    },
+    {
+      "id": "E009",
+      "date": "2026-03-09",
+      "category": "Production",
+      "amount_cents": 50900
+    },
+    {
+      "id": "E010",
+      "date": "2026-04-10",
+      "category": "Software",
+      "amount_cents": 6600
+    },
+    {
+      "id": "E011",
+      "date": "2026-05-11",
+      "category": "Advertising",
+      "amount_cents": 51600
+    },
+    {
+      "id": "E012",
+      "date": "2026-06-12",
+      "category": "Production",
+      "amount_cents": 48900
+    },
+    {
+      "id": "E013",
+      "date": "2026-01-13",
+      "category": "Software",
+      "amount_cents": 44700
+    },
+    {
+      "id": "E014",
+      "date": "2026-02-14",
+      "category": "Advertising",
+      "amount_cents": 13900
+    },
+    {
+      "id": "E015",
+      "date": "2026-03-15",
+      "category": "Production",
+      "amount_cents": 37800
+    },
+    {
+      "id": "E016",
+      "date": "2026-04-16",
+      "category": "Software",
+      "amount_cents": 36300
+    },
+    {
+      "id": "E017",
+      "date": "2026-05-17",
+      "category": "Advertising",
+      "amount_cents": 60600
+    },
+    {
+      "id": "E018",
+      "date": "2026-06-18",
+      "category": "Production",
+      "amount_cents": 12900
+    },
+    {
+      "id": "E019",
+      "date": "2026-01-19",
+      "category": "Software",
+      "amount_cents": 45800
+    },
+    {
+      "id": "E020",
+      "date": "2026-02-20",
+      "category": "Advertising",
+      "amount_cents": 58300
+    },
+    {
+      "id": "E021",
+      "date": "2026-03-21",
+      "category": "Production",
+      "amount_cents": 15600
+    },
+    {
+      "id": "E022",
+      "date": "2026-04-22",
+      "category": "Software",
+      "amount_cents": 46100
+    },
+    {
+      "id": "E023",
+      "date": "2026-05-23",
+      "category": "Advertising",
+      "amount_cents": 47100
+    },
+    {
+      "id": "E024",
+      "date": "2026-06-24",
+      "category": "Production",
+      "amount_cents": 49700
+    },
+    {
+      "id": "E025",
+      "date": "2026-01-25",
+      "category": "Software",
+      "amount_cents": 46400
+    },
+    {
+      "id": "E026",
+      "date": "2026-02-01",
+      "category": "Advertising",
+      "amount_cents": 32200
+    },
+    {
+      "id": "E027",
+      "date": "2026-03-02",
+      "category": "Production",
+      "amount_cents": 10600
+    },
+    {
+      "id": "E028",
+      "date": "2026-04-03",
+      "category": "Software",
+      "amount_cents": 46600
+    },
+    {
+      "id": "E029",
+      "date": "2026-05-04",
+      "category": "Advertising",
+      "amount_cents": 50500
+    },
+    {
+      "id": "E030",
+      "date": "2026-06-05",
+      "category": "Production",
+      "amount_cents": 47000
+    },
+    {
+      "id": "E031",
+      "date": "2026-01-06",
+      "category": "Software",
+      "amount_cents": 58400
+    },
+    {
+      "id": "E032",
+      "date": "2026-02-07",
+      "category": "Advertising",
+      "amount_cents": 59200
+    },
+    {
+      "id": "E033",
+      "date": "2026-03-08",
+      "category": "Production",
+      "amount_cents": 60200
+    },
+    {
+      "id": "E034",
+      "date": "2026-04-09",
+      "category": "Software",
+      "amount_cents": 57200
+    },
+    {
+      "id": "E035",
+      "date": "2026-05-10",
+      "category": "Advertising",
+      "amount_cents": 26300
+    },
+    {
+      "id": "E036",
+      "date": "2026-06-11",
+      "category": "Production",
+      "amount_cents": 42400
+    },
+    {
+      "id": "E037",
+      "date": "2026-01-12",
+      "category": "Software",
+      "amount_cents": 3600
+    },
+    {
+      "id": "E038",
+      "date": "2026-02-13",
+      "category": "Advertising",
+      "amount_cents": 40800
+    },
+    {
+      "id": "E039",
+      "date": "2026-03-14",
+      "category": "Production",
+      "amount_cents": 43500
+    },
+    {
+      "id": "E040",
+      "date": "2026-04-15",
+      "category": "Software",
+      "amount_cents": 67200
+    },
+    {
+      "id": "E041",
+      "date": "2026-05-16",
+      "category": "Advertising",
+      "amount_cents": 14300
+    },
+    {
+      "id": "E042",
+      "date": "2026-06-17",
+      "category": "Production",
+      "amount_cents": 64600
+    },
+    {
+      "id": "E043",
+      "date": "2026-01-18",
+      "category": "Software",
+      "amount_cents": 2900
+    },
+    {
+      "id": "E044",
+      "date": "2026-02-19",
+      "category": "Advertising",
+      "amount_cents": 69800
+    },
+    {
+      "id": "E045",
+      "date": "2026-03-20",
+      "category": "Production",
+      "amount_cents": 47800
+    },
+    {
+      "id": "E046",
+      "date": "2026-04-21",
+      "category": "Software",
+      "amount_cents": 16100
+    },
+    {
+      "id": "E047",
+      "date": "2026-05-22",
+      "category": "Advertising",
+      "amount_cents": 6600
+    },
+    {
+      "id": "E048",
+      "date": "2026-06-23",
+      "category": "Production",
+      "amount_cents": 5000
+    },
+    {
+      "id": "E006",
+      "date": "2026-06-06",
+      "category": "Production",
+      "amount_cents": 72200
+    },
+    {
+      "id": "E999",
+      "date": "2026-06-12",
+      "category": "Production",
+      "amount_cents": "unknown"
+    }
+  ]
+}

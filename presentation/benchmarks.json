@@ -1,0 +1,123 @@
+[
+  {
+    "title": "Working web apps",
+    "subtitle": "Does the app do what the brief asks?",
+    "metric": "Functional test score",
+    "values": [
+      84.7,
+      89.6,
+      80.5,
+      76.2
+    ],
+    "max": 100,
+    "suffix": "%",
+    "source": "https://www.vals.ai/benchmarks/vibe-code",
+    "note": "Vals Vibe Code Bench v1.1. OpenHands. DeepSeek/Grok high; Astra/Sol max. Functionality, not visual taste."
+  },
+  {
+    "title": "Business workflows",
+    "subtitle": "Objectives completed across simulated apps.",
+    "metric": "Objective score",
+    "values": [
+      68.9,
+      67.2,
+      55,
+      67
+    ],
+    "max": 100,
+    "suffix": "%",
+    "source": "https://artificialanalysis.ai/evaluations/automationbench-aa",
+    "note": "AutomationBench-AA. Tasks with guardrail violations score zero. This is not the full-task pass rate. Small gaps are not decisive."
+  },
+  {
+    "title": "Long documents",
+    "subtitle": "Connecting information across a document pack.",
+    "metric": "Question pass rate",
+    "values": [
+      84,
+      80,
+      82,
+      81
+    ],
+    "max": 100,
+    "suffix": "%",
+    "source": "https://artificialanalysis.ai/evaluations/artificial-analysis-long-context-reasoning",
+    "note": "AA-LCR v1.1 covers 10K\u2013100K tokens. This does not prove perfect recall across 1M tokens."
+  },
+  {
+    "title": "Office deliverables",
+    "subtitle": "Useful reports, spreadsheets and professional work.",
+    "metric": "Relative Elo rating",
+    "values": [
+      1632,
+      1555,
+      1585,
+      1663
+    ],
+    "max": 2000,
+    "suffix": "",
+    "source": "https://artificialanalysis.ai/evaluations/gdpval-aa",
+    "note": "GDPval-AA v2. Blind pairwise comparisons. Elo is a rating, not a percentage of intelligence."
+  },
+  {
+    "title": "Difficult coding",
+    "subtitle": "Implementation and troubleshooting under pressure.",
+    "metric": "Task completion score",
+    "values": [
+      27,
+      60,
+      25,
+      17
+    ],
+    "max": 100,
+    "suffix": "%",
+    "source": "https://artificialanalysis.ai/models/comparisons/deepseek-v4-1-flash-vs-gpt-6-astra-xhigh",
+    "note": "Terminal-Bench v4.0. Astra has a substantial lead in this comparison."
+  },
+  {
+    "title": "Complex PDFs",
+    "subtitle": "Every requirement of the document task must pass.",
+    "metric": "All-criteria pass rate",
+    "values": [
+      13,
+      32,
+      28,
+      17
+    ],
+    "max": 100,
+    "suffix": "%",
+    "source": "https://artificialanalysis.ai/evaluations/gdp-pdf",
+    "note": "GDP.pdf. A stricter task than summarising a PDF. A text-only document test is a separate condition."
+  },
+  {
+    "title": "Expert questions",
+    "subtitle": "Specialist knowledge and difficult reasoning.",
+    "metric": "Answer score",
+    "values": [
+      39,
+      55,
+      47,
+      44
+    ],
+    "max": 100,
+    "suffix": "%",
+    "source": "https://artificialanalysis.ai/models/comparisons/deepseek-v4-1-flash-vs-gpt-6-astra-xhigh",
+    "note": "Humanity\u2019s Last Exam. The stronger reasoning models retain an advantage here."
+  },
+  {
+    "title": "Factual reliability",
+    "subtitle": "Correct answers rewarded. Wrong answers penalised.",
+    "metric": "Reliability index",
+    "values": [
+      -5,
+      43,
+      21,
+      29
+    ],
+    "max": 100,
+    "min": -100,
+    "suffix": "",
+    "source": "https://artificialanalysis.ai/evaluations/omniscience",
+    "note": "AA-Omniscience ranges from \u2212100 to +100. This score is not an everyday hallucination percentage."
+  }
+]

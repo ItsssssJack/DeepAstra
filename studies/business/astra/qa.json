@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "desktop_viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "horizontal_overflow": false,
+  "browser_console_errors": 0,
+  "prominent_insights": 3,
+  "combined_filter": {
+    "country": "US",
+    "channel": "Email",
+    "metric": "contribution",
+    "expected_cents": 44084064,
+    "visible": "$440,840.64"
+  },
+  "controls_verified": [
+    "country filter",
+    "channel filter",
+    "contribution metric switch",
+    "net revenue metric switch",
+    "reset filters",
+    "selection export handler",
+    "audit trail expand and collapse",
+    "return to overview anchor"
+  ],
+  "limitations": [
+    "No mobile QA requested",
+    "Astra session API-dollar cost not metered",
+    "CSV export handler and toast verified; download filesystem destination not inspected"
+  ],
+  "arithmetic": "Reproducible Python integer-cent calculations and aggregate reconciliation passed"
+}

@@ -1,0 +1,220 @@
+{
+  "deepseek": {
+    "passed": 17,
+    "total": 17,
+    "exactly_three_insights": true,
+    "checks": [
+      {
+        "field": "counts.raw_orders",
+        "expected": 50250,
+        "actual": 50250,
+        "pass": true
+      },
+      {
+        "field": "counts.unique_orders",
+        "expected": 50000,
+        "actual": 50000,
+        "pass": true
+      },
+      {
+        "field": "counts.paid_orders",
+        "expected": 45547,
+        "actual": 45547,
+        "pass": true
+      },
+      {
+        "field": "counts.duplicates_removed",
+        "expected": 250,
+        "actual": 250,
+        "pass": true
+      },
+      {
+        "field": "counts.refund_rows",
+        "expected": 4235,
+        "actual": 4235,
+        "pass": true
+      },
+      {
+        "field": "quarter.q3_net_cents",
+        "expected": 983320532,
+        "actual": 983320532,
+        "pass": true
+      },
+      {
+        "field": "quarter.q4_net_cents",
+        "expected": 972689171,
+        "actual": 972689171,
+        "pass": true
+      },
+      {
+        "field": "quarter.change_cents",
+        "expected": -10631361,
+        "actual": -10631361,
+        "pass": true
+      },
+      {
+        "field": "quarter.growth_pct",
+        "expected": -1.0811694309256992,
+        "actual": -1.0811694309257036,
+        "pass": true
+      },
+      {
+        "field": "country.name",
+        "expected": "US",
+        "actual": "US",
+        "pass": true
+      },
+      {
+        "field": "country.net_cents",
+        "expected": 494177089,
+        "actual": 494177089,
+        "pass": true
+      },
+      {
+        "field": "country.contribution_cents",
+        "expected": 250385947,
+        "actual": 250385947,
+        "pass": true
+      },
+      {
+        "field": "country.margin_pct",
+        "expected": 50.66725118857139,
+        "actual": 50.66725118857139,
+        "pass": true
+      },
+      {
+        "field": "channel.name",
+        "expected": "Email",
+        "actual": "Email",
+        "pass": true
+      },
+      {
+        "field": "channel.net_cents",
+        "expected": 353390348,
+        "actual": 353390348,
+        "pass": true
+      },
+      {
+        "field": "channel.spend_cents",
+        "expected": 31920738,
+        "actual": 31920738,
+        "pass": true
+      },
+      {
+        "field": "channel.roas",
+        "expected": 11.07087022862692,
+        "actual": 11.07087022862692,
+        "pass": true
+      }
+    ]
+  },
+  "astra": {
+    "passed": 17,
+    "total": 17,
+    "exactly_three_insights": true,
+    "checks": [
+      {
+        "field": "counts.raw_orders",
+        "expected": 50250,
+        "actual": 50250,
+        "pass": true
+      },
+      {
+        "field": "counts.unique_orders",
+        "expected": 50000,
+        "actual": 50000,
+        "pass": true
+      },
+      {
+        "field": "counts.paid_orders",
+        "expected": 45547,
+        "actual": 45547,
+        "pass": true
+      },
+      {
+        "field": "counts.duplicates_removed",
+        "expected": 250,
+        "actual": 250,
+        "pass": true
+      },
+      {
+        "field": "counts.refund_rows",
+        "expected": 4235,
+        "actual": 4235,
+        "pass": true
+      },
+      {
+        "field": "quarter.q3_net_cents",
+        "expected": 983320532,
+        "actual": 983320532,
+        "pass": true
+      },
+      {
+        "field": "quarter.q4_net_cents",
+        "expected": 972689171,
+        "actual": 972689171,
+        "pass": true
+      },
+      {
+        "field": "quarter.change_cents",
+        "expected": -10631361,
+        "actual": -10631361,
+        "pass": true
+      },
+      {
+        "field": "quarter.growth_pct",
+        "expected": -1.0811694309256992,
+        "actual": -1.0811694309257036,
+        "pass": true
+      },
+      {
+        "field": "country.name",
+        "expected": "US",
+        "actual": "US",
+        "pass": true
+      },
+      {
+        "field": "country.net_cents",
+        "expected": 494177089,
+        "actual": 494177089,
+        "pass": true
+      },
+      {
+        "field": "country.contribution_cents",
+        "expected": 250385947,
+        "actual": 250385947,
+        "pass": true
+      },
+      {
+        "field": "country.margin_pct",
+        "expected": 50.66725118857139,
+        "actual": 50.66725118857139,
+        "pass": true
+      },
+      {
+        "field": "channel.name",
+        "expected": "Email",
+        "actual": "Email",
+        "pass": true
+      },
+      {
+        "field": "channel.net_cents",
+        "expected": 353390348,
+        "actual": 353390348,
+        "pass": true
+      },
+      {
+        "field": "channel.spend_cents",
+        "expected": 31920738,
+        "actual": 31920738,
+        "pass": true
+      },
+      {
+        "field": "channel.roas",
+        "expected": 11.07087022862692,
+        "actual": 11.07087022862692,
+        "pass": true
+      }
+    ]
+  }
+}

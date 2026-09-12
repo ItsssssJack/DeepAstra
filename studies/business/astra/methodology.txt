@@ -1,0 +1,19 @@
+Astra independent business-data condition
+
+Environment: implemented by Astra in the current agent session, using local file and shell tools. This is not an independently metered Astra API run. API-dollar cost is unavailable; no cost savings claim is made.
+
+Inputs: only the shared TASK.txt, orders.csv, refunds.csv and ad_spend.csv were used. No other condition outputs or private grading files were read. The dataset is fictional and covers July to December 2025.
+
+Reproduce: python3 analysis.py. Requires Python 3 standard library only. The command regenerates results.json and report-data.json. Open index.html through the existing local server.
+
+Deduplication: group by order_id, assert repeated orders have identical row values, retain one row. Restrict calculations to status=paid. Match and sum every refund by original order ID, allocate to the original order date. Refunds for excluded unpaid orders do not count toward paid-order revenue. All recorded advertising spend rows are included.
+
+Net revenue = gross_cents - discount_cents - matched refunds. Contribution = net revenue - cogs_cents - fulfilment_cents. Advertising spend is never subtracted from country contribution. ROAS = net revenue / all recorded channel ad spend. Neither contribution nor ROAS represents final accounting profit. Attributed channel return does not establish causation or incremental marketing lift.
+
+All calculations use integer cents until division for percentages or ratios. UI currency is USD; compact figures and chart labels are rounded only for display. Full monetary values appear in evidence text, accessible labels or hover titles. results.json stores unrounded ratios and integer cents.
+
+Dashboard scope: top metrics and exactly three findings always cover the full six months. Country and channel filters apply only to the clearly labelled explorer: its total, paid-order count, monthly chart and country contribution ranking. Metric buttons switch the explorer chart between net revenue and contribution. The chart uses a zero baseline. CSV export downloads the selected monthly country/channel aggregates, not raw customer rows. The report exposes no personal data.
+
+Independent arithmetic checks: assert that country net revenue, channel net revenue and quarter net revenue reconcile to the same total. Assert that aggregated paid-order counts match deduplicated paid orders. Self-review includes checking the narrative matches the negative quarterly change, the country is ranked by contribution dollars rather than margin, and channel ROAS uses net revenue and all-period spend.
+
+Desktop self-review completed through CUA at the normal 1280×720 browser viewport: no horizontal overflow, no browser console warnings or errors, exactly three prominent insight cards. US+Email filter plus Contribution selected showed $440,840.64, checked against the Python output. Reset returned the full $19,560,097.03 net revenue. The export handler acknowledged 96 aggregated records. The download filesystem destination was not inspected.

@@ -1,8 +1,20 @@
+# DeepAstra: DeepSeek inside Codex
+
+Start with the [verified launcher guide](LAUNCHER.md). The launcher runs DeepSeek V4.1 Flash at High effort through the real Codex CLI, without changing your global configuration. Astra can delegate a bounded task and review its output.
+
+[Interactive presentation](presentation/index.html) · [Business comparison](studies/business/index.html) · [Launcher](launch.py)
+
+The two new business reports each passed all 17 independently calculated numeric checks. Their full-run cost ratio is unavailable. This repository remains a private review package; it contains historical experiments and is not yet an audience-ready public release.
+
+---
+
 # DeepAstra
 
 Astra plans. DeepSeek builds. Screenshots decide what happens next.
 
 This repo contains a metered AuthKit reproduction experiment and a reusable visual review loop. Open the local test room to compare full websites, screenshots, model settings and workflow costs. The research brief separates published token prices from the cost of producing a finished result.
+
+**Latest review:** Jack's overall favourite is Astra direct high 64K; his favourite DeepSeek is raw max 64K. He found interaction failures in several other versions. [USER-REVIEW.md](USER-REVIEW.md) records his feedback, explains the shared starting builds and proposes the next comparison. The existing hybrid loops have not demonstrated his preferred quality at lower cost.
 
 ## Open the recorded experiment
 

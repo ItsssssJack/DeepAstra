@@ -1,0 +1,65 @@
+{
+  "verified_at": "2026-09-12T19:06:10.585500+00:00",
+  "url": "http://127.0.0.1:8765/studies/business/deepseek/",
+  "author": "DeepSeek V4.1 Flash, High requested, direct Responses API in Codex CLI",
+  "astra_modified_deliverables": false,
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "checks": {
+    "page_rendered": true,
+    "horizontal_overflow": false,
+    "svg_chart_count": 5,
+    "browser_errors": [],
+    "q4_filter": {
+      "paid_orders": 22619,
+      "net_revenue_usd_displayed": 9726892
+    },
+    "email_only_filter": {
+      "paid_orders": 8072,
+      "net_revenue_usd_displayed": 3533903,
+      "ad_spend_usd_displayed": 319207,
+      "roas_displayed": 11.07
+    },
+    "reset_filters_restores_full_period": true,
+    "three_prominent_insights": true,
+    "reproduced_identically_in_temp_directory": [
+      "index.html",
+      "results.json",
+      "report_data.json"
+    ]
+  },
+  "limitations": [
+    "Independent hidden numerical grading is performed by the parent, not this worker.",
+    "Insight 1 overstates what flat average order value proves by saying it is not a pricing problem. That causal inference is not established by these aggregates.",
+    "Country and channel buttons are multi-select toggles; clicking a selected one excludes it, which is not immediately obvious.",
+    "Builder was stopped after deliverables during optional shell-browser QA. Codex emitted no final usage event; full-run token count and bill are unavailable. This must not be presented as a completed metered cost comparison."
+  ],
+  "deliverable_hashes": {
+    "index.html": {
+      "bytes": 299713,
+      "sha256": "4d786833ba070300778c0409ebfca892955326170cb2961483ca971afb391e46"
+    },
+    "analysis.py": {
+      "bytes": 14537,
+      "sha256": "8cb44b147b7bc9cf1ce4403c68725c6cca9a31dce611573d869d816916aab5e2"
+    },
+    "results.json": {
+      "bytes": 1490,
+      "sha256": "cff088dd64f081bb3a3832829cdb8dfa43849ca43dfe708eae6ba3dd90e59f38"
+    },
+    "methodology.txt": {
+      "bytes": 2300,
+      "sha256": "64c8e6708da3be9a435237b4cf386e52b7afaae35680b831f3da3947a90401cc"
+    },
+    "report_template.html": {
+      "bytes": 41562,
+      "sha256": "82acc1722d3465101518b30abc5847e488e54daa93551c1fc2ebe58144a157bb"
+    },
+    "report_data.json": {
+      "bytes": 256842,
+      "sha256": "ed6a1783163df2444896e5679fa60b7bed7078aff11dc9c0ea75e6927ada45f3"
+    }
+  }
+}

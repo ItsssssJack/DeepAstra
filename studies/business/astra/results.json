@@ -1,0 +1,32 @@
+{
+  "counts": {
+    "raw_orders": 50250,
+    "unique_orders": 50000,
+    "paid_orders": 45547,
+    "duplicates_removed": 250,
+    "refund_rows": 4235
+  },
+  "quarter": {
+    "q3_net_cents": 983320532,
+    "q4_net_cents": 972689171,
+    "change_cents": -10631361,
+    "growth_pct": -1.0811694309257036
+  },
+  "country": {
+    "name": "US",
+    "net_cents": 494177089,
+    "contribution_cents": 250385947,
+    "margin_pct": 50.66725118857139
+  },
+  "channel": {
+    "name": "Email",
+    "net_cents": 353390348,
+    "spend_cents": 31920738,
+    "roas": 11.07087022862692
+  },
+  "insights": [
+    "Q4 net revenue of $9,726,891.71 versus $9,833,205.32 in Q3 changed by -$106,313.61 (-1.08%). Plan inventory and fulfilment against observed Q4 demand, without extrapolating beyond this period.",
+    "US generated the highest total contribution: $2,503,859.47 from $4,941,770.89 net revenue, a 50.67% contribution margin. Protect fulfilment capacity in this market; contribution excludes ad spend and is not final profit.",
+    "Email had the highest net-revenue ROAS: 11.07x, from $3,533,903.48 net revenue and $319,207.38 ad spend. Validate incrementality before increasing budget: attribution is not causation and ROAS is not profit."
+  ]
+}

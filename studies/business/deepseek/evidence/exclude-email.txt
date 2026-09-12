@@ -1,0 +1,177 @@
+- banner:
+  - text: Business Intelligence
+  - generic: /
+  - text: H2 2025
+  - generic: /
+  - text: USD
+  - heading "Where the money actually lands." [level=1]
+  - paragraph: Paid-order performance for 1 Jul – 31 Dec 2025 across four markets and four acquisition channels. Net revenue and contribution are calculated from integer cents and shown in USD. Synthetic, fictional dataset.
+- heading "Source counts & data handling" [level=2]
+- generic: 50,250
+- generic: raw order rows
+- generic: "250"
+- generic: duplicate rows removed
+- generic: 50,000
+- generic: unique orders
+- generic: 45,547
+- generic: paid orders analysed
+- generic: 4,453
+- generic: unpaid orders excluded
+- generic: 4,235
+- generic: refund rows matched
+- generic: Deduplicated by order_id — every duplicate row is a byte-identical copy.
+- generic: Paid orders only — cancelled and pending orders are excluded from every metric.
+- generic: Net revenue = gross − discounts − matched refunds.
+- generic: Contribution = net revenue − COGS − fulfilment. Ad spend is never subtracted here.
+- generic: Refunds are attributed to the original order's date, market and channel.
+- heading "Three things that matter" [level=2]
+- generic: Full period, all markets and channels · fixed for the whole dataset
+- generic: Insight 01 · Demand
+- generic: −$106,314
+- generic: Q4 vs Q3 net revenue · -1.08%
+- generic: "Q4 net revenue came in at $9,726,892, down $106,314 (-1.1%) versus Q3. It is not a pricing problem: net AOV was flat at $430 versus $429, while paid orders fell by 309 and refunds rose $16,305."
+- generic: Action
+- text: audit the Q4 refund spike and the channel that lost order volume before locking Q1 targets.
+- generic: Insight 02 · Market
+- generic: $2,503,859
+- generic: Contribution · US · $4,941,771 net revenue · 50.7% margin
+- generic: US is the largest contribution market at $2,503,859 on $4,941,771 net revenue, a 50.7% contribution margin. The lead is thin at $14,920 over UK, so treat it as a defend-and-grow market rather than a safe one.
+- generic: Action
+- text: protect US retention spend and lift its share of the next budget cycle.
+- generic: Insight 03 · Channel
+- generic: 11.07x
+- generic: ROAS · Email · $3,533,903 net revenue on $319,207 spend
+- generic: Email posts the highest net-revenue ROAS at 11.07x ($3,533,903 net revenue on $319,207 ad spend). Partners is second at 4.38x.
+- generic: Action
+- text: run a controlled incremental-spend test on Email before scaling; ROAS here is net revenue over spend from a small base and is not proof of incremental lift.
+- heading "Explore the data" [level=2]
+- generic: Filters drive every metric and chart below
+- generic: Period
+- button "Full H2"
+- button "Q3"
+- button "Q4"
+- textbox: 2025-07-01
+- generic: to
+- textbox: 2025-12-31
+- button "Reset filters"
+- generic: Country
+- button "All"
+- button "Germany"
+- button "UAE"
+- button "UK"
+- button "US"
+- generic: Channel
+- button "All"
+- button "Email" [active]
+- button "Partners"
+- button "Search"
+- button "Social"
+- generic: Showing 37,475 paid orders · 2025-07-01 → 2025-12-31 · all markets · 3 of 4 channels
+- generic: Net revenue
+- generic: $16,026,194
+- generic: Gross $18,363,414 less discounts and refunds
+- generic: Contribution
+- generic: $8,098,048
+- generic: Net revenue less COGS and fulfilment
+- generic: Contribution margin
+- generic: 50.5%
+- generic: Share of net revenue kept as contribution
+- generic: Blended ROAS
+- generic: 3.11x
+- generic: Net revenue ÷ $5,150,882 ad spend — not profit
+- generic: Gross revenue
+- generic: $18,363,414
+- generic: Discounts
+- generic: −$1,378,433
+- generic: Refunds
+- generic: −$958,788
+- generic: Ad spend
+- generic: $5,150,882
+- generic: Paid orders
+- generic: 37,475
+- generic: Net AOV
+- generic: $428
+- heading "Net revenue and contribution over time" [level=3]
+- generic: Monthly · 2025-07-01 → 2025-12-31
+- generic: Net revenue
+- generic: Contribution
+- img "Net revenue and contribution over time":
+  - generic: $0
+  - generic: $1.25M
+  - generic: $2.50M
+  - generic: $3.75M
+  - generic: $5.00M
+  - generic: 2025-07
+  - generic: 2025-08
+  - generic: 2025-09
+  - generic: 2025-10
+  - generic: 2025-11
+  - generic: 2025-12
+- heading "Q3 → Q4 net revenue" [level=3]
+- generic: Q3 = Jul–Sep · Q4 = Oct–Dec
+- paragraph: Year-end did not out-earn the summer quarter.
+- img "Q3 versus Q4 net revenue":
+  - generic: $0
+  - generic: $2.50M
+  - generic: $5.00M
+  - generic: $7.50M
+  - generic: $10.0M
+  - generic: $8,021,531
+  - generic: Q3
+  - generic: 18,791 orders
+  - generic: $8,004,662
+  - generic: Q4
+  - generic: 18,684 orders
+- generic: ▼ $16,869 (-0.21%)
+- heading "From gross revenue to contribution" [level=3]
+- generic: Revenue is not profit
+- paragraph: Every deduction between the top line and what the business keeps.
+- img "Waterfall from gross revenue to contribution":
+  - generic: $0
+  - generic: $5.00M
+  - generic: $10.0M
+  - generic: $15.0M
+  - generic: $20.0M
+  - generic: $18,363,414
+  - generic: Gross
+  - generic: −$1,378,433
+  - generic: Discounts
+  - generic: −$958,788
+  - generic: Refunds
+  - generic: $16,026,194
+  - generic: Net revenue
+  - generic: −$7,469,906
+  - generic: COGS
+  - generic: −$458,239
+  - generic: Fulfilment
+  - generic: $8,098,048
+  - generic: Contribution
+- generic: Contribution margin 50.5% of net revenue · ad spend is not deducted here
+- heading "Contribution by country" [level=3]
+- generic: Ad spend excluded
+- paragraph: Contribution dollars, with net revenue shown behind each bar.
+- img "Contribution by country":
+  - generic: US
+  - generic: $2.06M · 50.6%
+  - generic: UK
+  - generic: $2.03M · 50.5%
+  - generic: UAE
+  - generic: $2.02M · 50.7%
+  - generic: Germany
+  - generic: $1.99M · 50.4%
+- generic: Blue bar = contribution dollars · dark track = net revenue · label shows contribution and margin.
+- heading "ROAS by channel" [level=3]
+- generic: Net revenue ÷ ad spend
+- paragraph: A ratio, not a profit figure and not proof of incremental lift.
+- img "ROAS by channel":
+  - generic: Partners
+  - generic: 4.38x
+  - generic: Search
+  - generic: 3.31x
+  - generic: Social
+  - generic: 2.56x
+- generic: Partners leads at 4.38x — $3,004,933 net revenue on $685,896 spend. Spend is reported by date and channel only, so a country filter lowers the numerator without lowering spend; these ratios are conservative. Attribution here is correlational, not causal lift.
+- contentinfo:
+  - text: Definitions. Net revenue = gross − discounts − matched refunds. Contribution = net revenue − COGS − fulfilment. ROAS = net revenue ÷ ad spend; it is neither profit nor incremental marketing lift, and attribution is correlational. Ad spend covers every date in the period. Q3 = July–September, Q4 = October–December. No extrapolation to other periods.
+  - text: Method. Duplicate order_id rows are identical and collapsed to one; only status = paid orders count. Refunds are matched to their original order and attributed to that order's date, market and channel. All arithmetic runs on integer cents.
+  - text: Fictional data. Synthetic commerce dataset — not a real business. Figures reproduced from results.json by analysis.py.
