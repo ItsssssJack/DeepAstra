@@ -1,0 +1,33 @@
+{
+  "forms": [
+    {
+      "buttons": [
+        "Continue"
+      ],
+      "inputs": [
+        {
+          "placeholder": "Your email address",
+          "type": "email"
+        }
+      ]
+    },
+    {
+      "buttons": [
+        "Continue"
+      ],
+      "inputs": [
+        {
+          "placeholder": "you@example.com",
+          "type": "email"
+        },
+        {
+          "placeholder": "••••••••",
+          "type": "password"
+        }
+      ]
+    }
+  ],
+  "height": 1000,
+  "scrollWidth": 1600,
+  "width": 1600
+}

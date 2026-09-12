@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AuthKit — The world's best login box</title>
+<style>
+/* ============ RESET & TOKENS ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --color-midnight-canvas:#05060f;
+  --color-steel-plate:#2f343e;
+  --color-fog-veil:#9da7ba;
+  --color-moon-mist:#c7d3ea;
+  --color-frost-glow:#d1e4fa;
+  --color-ice-highlight:#d8ecf8;
+  --color-pure-white:#ffffff;
+  --color-void-violet:#663af3;
+  --color-blueprint-blue:#b6d9fc;
+  --color-ember-glow:#e46d4c;
+  --color-signal-blue:#027dea;
+  --color-deep-teal:#269684;
+  --color-gridline-blue:#3f4959;
+  --color-glass-edge:rgba(186,215,247,0.12);
+  --color-luminous-fill:rgba(199,211,234,0.12);
+
+  --font-body:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --font-display:'Space Grotesk','Inter',ui-sans-serif,system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+
+  --text-caption:12px;
+  --text-body-sm:14px;
+  --text-body:16px;
+  --text-subheading:18px;
+  --text-heading-sm:24px;
+  --text-heading:28px;
+  --text-heading-lg:44px;
+  --text-display:48px;
+
+  --spacing-4:4px;--spacing-8:8px;--spacing-12:12px;--spacing-16:16px;
+  --spacing-20:20px;--spacing-24:24px;--spacing-32:32px;--spacing-36:36px;
+  --spacing-40:40px;--spacing-48:48px;--spacing-56:56px;--spacing-100:100px;
+  --spacing-120:120px;--spacing-200:200px;
+
+  --page-max:1200px;
+  --section-gap:120px;
+
+  --radius-badges:6px;
+  --radius-inputs:6px;
+  --radius-cards:16px;
+  --radius-buttons:999px;
+  --radius-icon:9999px;
+
+  --shadow-card:inset 0 1px 1px rgba(199,211,234,0.12),inset 0 24px 48px rgba(199,211,234,0.05),0 24px 32px rgba(6,6,14,0.7);
+  --shadow-modal:inset 0 1px 1px rgba(216,236,248,0.2),inset 0 24px 48px rgba(168,216,245,0.06),0 16px 32px rgba(0,0,0,0.3);
+  --hairline:inset 0 0 0 1px rgba(186,215,247,0.12);
+
+  --gradient-ice:linear-gradient(0deg,#d8ecf8 0%,#98c0ef 100%);
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--color-midnight-canvas);
+  color:var(--color-frost-glow);
+  font-family:var(--font-body);
+  font-size:var(--text-body);
+  line-height:1.5;
+  letter-spacing:-0.01em;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+  min-height:100vh;
+  position:relative;
+}
+
+/* ============ BACKGROUND GRID & HALO ============ */
+.bg-canvas{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(186,215,247,0.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(186,215,247,0.06) 1px,transparent 1px);
+  background-size:90px 90px;
+  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 30%,#000 0%,#000 40%,transparent 100%);
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 30%,#000 0%,#000 40%,transparent 100%);
+}
+.bg-halo{
+  position:absolute;top:-200px;left:50%;transform:translateX(-50%);
+  width:1400px;height:900px;z-index:0;pointer-events:none;
+  background:conic-gradient(at 50% 0%,transparent 44%,rgba(124,145,182,0.22) 48.5%,rgba(124,145,182,0.45) 50%,rgba(124,145,182,0.22) 51.5%,transparent 56%);
+  filter:blur(30px);
+  opacity:0.9;
+}
+.bg-halo-soft{
+  position:absolute;top:-100px;left:50%;transform:translateX(-50%);
+  width:900px;height:600px;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 0%,rgba(160,190,240,0.14) 0%,transparent 60%);
+  filter:blur(40px);
+}
+
+/* ============ HEADER ============ */
+.header{
+  position:relative;z-index:10;
+  max-width:var(--page-max);margin:0 auto;
+  padding:26px 40px;
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+}
+.header-left{display:flex;align-items:center;gap:14px}
+.workos-wordmark{
+  font-family:var(--font-body);
+  font-size:16px;font-weight:500;
+  color:var(--color-frost-glow);
+  letter-spacing:-0.01em;
+}
+.header-center{display:flex;justify-content:center}
+.workos-mark{
+  width:34px;height:34px;display:block;
+}
+.header-right{display:flex;align-items:center;gap:12px;justify-content:flex-end}
+.icon-btn{
+  width:36px;height:36px;border-radius:var(--radius-buttons);
+  background:transparent;
+  border:none;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--color-frost-glow);
+  cursor:pointer;
+  box-shadow:var(--hairline);
+  transition:background .18s ease,box-shadow .18s ease;
+}
+.icon-btn:hover{background:rgba(186,214,247,0.08)}
+.icon-btn:focus-visible{outline:2px solid var(--color-frost-glow);outline-offset:2px}
+.ghost-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:8px 16px;
+  border-radius:var(--radius-buttons);
+  background:rgba(186,214,247,0.06);
+  color:var(--color-pure-white);
+  font-family:var(--font-body);
+  font-size:14px;font-weight:500;
+  letter-spacing:-0.01em;
+  border:none;
+  box-shadow:var(--hairline);
+  cursor:pointer;
+  text-decoration:none;
+  transition:background .18s ease;
+  white-space:nowrap;
+}
+.ghost-btn:hover{background:rgba(186,214,247,0.12)}
+.ghost-btn:focus-visible{outline:2px solid var(--color-frost-glow);outline-offset:2px}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;z-index:2;
+  max-width:var(--page-max);margin:0 auto;
+  padding:40px 40px 0;
+  text-align:center;
+}
+.eyebrow{
+  display:flex;align-items:center;justify-content:center;gap:18px;
+  margin-bottom:26px;
+}
+.eyebrow-line{
+  height:1px;flex:1;max-width:120px;
+  background:linear-gradient(90deg,transparent,rgba(186,215,247,0.12));
+}
+.eyebrow-line.right{background:linear-gradient(90deg,rgba(186,215,247,0.12),transparent)}
+.eyebrow-text{
+  font-family:var(--font-mono);
+  font-size:15px;font-weight:400;
+  letter-spacing:0.10em;
+  text-transform:uppercase;
+  color:var(--color-moon-mist);
+  white-space:nowrap;
+}
+.wordmark{
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:clamp(90px,15.5vw,220px);
+  line-height:0.95;
+  letter-spacing:-0.02em;
+  background:var(--gradient-ice);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  margin:0 auto 32px;
+  filter:drop-shadow(0 0 40px rgba(186,207,247,0.18));
+  position:relative;
+  user-select:none;
+}
+.subtitle{
+  font-family:var(--font-body);
+  font-size:clamp(16px,1.5vw,20px);
+  line-height:1.5;
+  color:var(--color-moon-mist);
+  max-width:520px;
+  margin:0 auto;
+  font-weight:400;
+}
+
+/* ============ HERO CARDS ============ */
+.cards-stage{
+  position:relative;z-index:2;
+  max-width:var(--page-max);
+  margin:70px auto 0;
+  height:560px;
+  display:flex;justify-content:center;align-items:flex-start;
+  padding:0 40px;
+}
+.card{
+  position:absolute;
+  border-radius:var(--radius-cards);
+  background:rgba(5,6,15,0.94);
+  box-shadow:var(--shadow-modal);
+  padding:24px;
+  font-family:var(--font-body);
+  text-align:left;
+  color:var(--color-frost-glow);
+}
+.card-center{
+  width:360px;
+  left:50%;transform:translateX(-50%);
+  top:0;z-index:3;
+  padding:26px 24px 22px;
+}
+.card-left{
+  width:320px;
+  top:96px;
+  right:calc(50% + 90px);
+  transform:rotate(-4deg);
+  transform-origin:100% 0;
+  z-index:2;
+  opacity:0.85;
+}
+.card-right{
+  width:320px;
+  top:80px;
+  left:calc(50% + 90px);
+  transform:rotate(4deg);
+  transform-origin:0 0;
+  z-index:2;
+  opacity:0.85;
+}
+.card-brand-row{display:flex;justify-content:center;margin-bottom:14px}
+.card-brand{
+  width:30px;height:30px;
+  color:var(--color-blueprint-blue);
+  opacity:0.9;
+}
+.card-title{
+  font-size:15px;font-weight:500;
+  color:var(--color-frost-glow);
+  text-align:center;
+  margin-bottom:20px;
+  letter-spacing:-0.01em;
+}
+.field-label{
+  display:block;
+  font-size:12px;
+  font-weight:500;
+  color:var(--color-moon-mist);
+  margin-bottom:6px;
+  letter-spacing:-0.01em;
+}
+.input{
+  width:100%;
+  padding:10px 12px;
+  background:rgba(199,211,234,0.06);
+  border:none;
+  border-radius:var(--radius-inputs);
+  color:var(--color-pure-white);
+  font-family:var(--font-body);
+  font-size:13px;
+  box-shadow:var(--hairline);
+  outline:none;
+  transition:box-shadow .18s ease;
+  letter-spacing:-0.01em;
+}
+.input::placeholder{color:rgba(199,211,234,0.5)}
+.input:focus{box-shadow:inset 0 0 0 1px rgba(186,215,247,0.24)}
+.input.invalid{box-shadow:inset 0 0 0 1px rgba(228,109,76,0.55)}
+.field-group{margin-bottom:12px}
+.btn-violet{
+  width:100%;
+  padding:11px 16px;
+  border-radius:var(--radius-inputs);
+  background:var(--color-void-violet);
+  color:var(--color-pure-white);
+  font-family:var(--font-body);
+  font-size:13px;
+  font-weight:500;
+  border:none;
+  cursor:pointer;
+  letter-spacing:-0.01em;
+  transition:filter .18s ease;
+  margin-top:6px;
+}
+.btn-violet:hover{filter:brightness(1.1)}
+.btn-violet:focus-visible{outline:2px solid var(--color-frost-glow);outline-offset:2px}
+.or-divider{
+  display:flex;align-items:center;gap:12px;
+  margin:16px 0 12px;
+  color:rgba(199,211,234,0.6);
+  font-size:11px;font-weight:500;
+  letter-spacing:0.14em;
+}
+.or-divider::before,.or-divider::after{
+  content:"";flex:1;height:1px;
+  background:rgba(186,215,247,0.12);
+}
+.provider-btn{
+  width:100%;
+  display:flex;align-items:center;
+  gap:10px;
+  padding:11px 16px;
+  border-radius:var(--radius-inputs);
+  background:rgba(199,211,234,0.06);
+  color:var(--color-frost-glow);
+  font-family:var(--font-body);
+  font-size:13px;font-weight:500;
+  border:none;
+  cursor:pointer;
+  box-shadow:var(--hairline);
+  margin-bottom:10px;
+  transition:background .18s ease;
+  letter-spacing:-0.01em;
+  text-align:left;
+}
+.provider-btn:hover{background:rgba(199,211,234,0.12)}
+.provider-btn:focus-visible{outline:2px solid var(--color-frost-glow);outline-offset:2px}
+.provider-btn svg{flex-shrink:0}
+.card-footnote{
+  text-align:center;
+  font-size:12px;
+  color:var(--color-moon-mist);
+  margin-top:14px;
+  letter-spacing:-0.01em;
+}
+.card-footnote a{color:var(--color-pure-white);text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.success-msg{
+  display:none;
+  text-align:center;
+  padding:12px 8px;
+  font-size:13px;
+  color:var(--color-frost-glow);
+  background:rgba(38,150,132,0.16);
+  border-radius:var(--radius-inputs);
+  box-shadow:inset 0 0 0 1px rgba(38,150,132,0.4);
+  margin-top:10px;
+}
+.success-msg.show{display:block}
+
+/* Left/right faded cards content */
+.mini-title{
+  font-size:14px;
+  font-weight:500;
+  color:var(--color-frost-glow);
+  margin-bottom:6px;
+  letter-spacing:-0.01em;
+}
+.mini-sub{
+  font-size:12px;
+  color:var(--color-fog-veil);
+  margin-bottom:20px;
+}
+.mini-label{
+  font-size:11px;
+  font-weight:500;
+  color:var(--color-moon-mist);
+  margin-bottom:6px;
+  display:block;
+}
+.mini-input{
+  width:100%;padding:9px 10px;
+  background:rgba(199,211,234,0.06);
+  border-radius:var(--radius-inputs);
+  box-shadow:var(--hairline);
+  font-size:12px;
+  color:rgba(199,211,234,0.5);
+  margin-bottom:8px;
+}
+.mini-btn{
+  width:100%;padding:9px;
+  border-radius:var(--radius-inputs);
+  background:rgba(199,211,234,0.12);
+  color:var(--color-frost-glow);
+  font-size:12px;
+  text-align:center;
+  box-shadow:var(--hairline);
+  margin-bottom:14px;
+}
+.mini-foot{
+  text-align:center;font-size:11px;color:var(--color-fog-veil);
+}
+.mini-foot strong{color:var(--color-moon-mist);font-weight:500}
+.code-row{display:flex;gap:6px;margin:10px 0 14px}
+.code-cell{
+  flex:1;height:36px;
+  background:rgba(199,211,234,0.06);
+  border-radius:6px;
+  box-shadow:var(--hairline);
+}
+
+/* ============ SECTIONS ============ */
+.section{
+  position:relative;z-index:2;
+  max-width:var(--page-max);
+  margin:0 auto;
+  padding:var(--section-gap) 40px 0;
+}
+.section-head{text-align:center;margin-bottom:56px}
+.section-head .eyebrow{margin-bottom:24px}
+.section-title{
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:var(--text-heading-lg);
+  line-height:1.16;
+  letter-spacing:-0.01em;
+  background:var(--gradient-ice);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  margin-bottom:16px;
+}
+.section-body{
+  font-size:16px;
+  color:var(--color-moon-mist);
+  max-width:640px;
+  margin:0 auto;
+  line-height:1.5;
+}
+
+/* Theme toggle */
+.theme-toggle-wrap{display:flex;flex-direction:column;align-items:center;gap:14px}
+.theme-toggle{
+  display:inline-flex;
+  background:rgba(186,214,247,0.06);
+  border-radius:var(--radius-buttons);
+  padding:3px;
+  box-shadow:var(--hairline);
+}
+.theme-seg{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:36px;height:30px;border-radius:var(--radius-buttons);
+  background:transparent;
+  border:none;cursor:pointer;
+  color:var(--color-moon-mist);
+  transition:background .2s ease,color .2s ease;
+}
+.theme-seg.active{
+  background:rgba(186,214,247,0.14);
+  color:var(--color-frost-glow);
+}
+.theme-seg:focus-visible{outline:2px solid var(--color-frost-glow);outline-offset:2px}
+.theme-toggle-label{
+  font-family:var(--font-mono);
+  font-size:13px;
+  letter-spacing:0.10em;
+  text-transform:uppercase;
+  color:var(--color-moon-mist);
+}
+
+/* Feature icons row */
+.feature-row{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:24px;
+  position:relative;
+  max-width:1100px;
+  margin:0 auto;
+}
+.feature-row::before{
+  content:"";
+  position:absolute;
+  top:32px;left:6%;right:6%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(186,215,247,0.12) 10%,rgba(186,215,247,0.12) 90%,transparent);
+  z-index:0;
+}
+.feature-item{
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;
+  position:relative;z-index:1;
+}
+.feature-icon{
+  width:64px;height:64px;
+  border-radius:var(--radius-icon);
+  background:rgba(186,214,247,0.06);
+  box-shadow:inset 0 0 0 1px rgba(186,215,247,0.12);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--color-frost-glow);
+  margin-bottom:16px;
+  backdrop-filter:blur(4px);
+}
+.feature-icon svg{width:26px;height:26px}
+.feature-label{
+  font-size:14px;
+  font-weight:500;
+  color:var(--color-frost-glow);
+  margin-bottom:4px;
+  letter-spacing:-0.01em;
+}
+.feature-desc{
+  font-size:12px;
+  color:var(--color-fog-veil);
+  line-height:1.4;
+  max-width:150px;
+}
+
+/* ============ EXTENSIBLE SECTION ============ */
+.extensible-grid{
+  display:grid;
+  grid-template-columns:1fr 1.15fr;
+  gap:64px;
+  align-items:center;
+  max-width:1040px;
+  margin:0 auto;
+}
+.extensible-copy h3{
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:36px;
+  line-height:1.15;
+  letter-spacing:-0.01em;
+  color:var(--color-ice-highlight);
+  margin-bottom:20px;
+}
+.extensible-copy p{
+  color:var(--color-moon-mist);
+  font-size:16px;
+  line-height:1.55;
+  margin-bottom:20px;
+  max-width:440px;
+}
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.feature-list li{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:14px;
+  color:var(--color-moon-mist);
+  line-height:1.4;
+}
+.feature-list svg{
+  flex-shrink:0;margin-top:2px;
+  color:var(--color-blueprint-blue);
+}
+
+/* dashboard illustration */
+.dashboard{
+  background:rgba(186,214,247,0.03);
+  border-radius:var(--radius-cards);
+  box-shadow:var(--shadow-card);
+  padding:16px;
+  position:relative;
+}
+.dash-topbar{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 12px 12px;
+  border-bottom:1px solid rgba(186,215,247,0.08);
+  margin-bottom:14px;
+}
+.dash-dot{width:9px;height:9px;border-radius:50%;background:rgba(186,215,247,0.18)}
+.dash-title{
+  font-size:12px;color:var(--color-fog-veil);
+  margin-left:8px;font-weight:500;
+  letter-spacing:-0.01em;
+}
+.dash-body{display:flex;gap:12px;min-height:220px}
+.dash-side{
+  width:120px;display:flex;flex-direction:column;gap:6px;
+  padding:6px 0;
+}
+.dash-side-item{
+  font-size:11px;color:var(--color-fog-veil);
+  padding:6px 10px;border-radius:6px;
+  letter-spacing:-0.01em;
+}
+.dash-side-item.active{
+  background:rgba(186,214,247,0.08);
+  color:var(--color-frost-glow);
+  box-shadow:var(--hairline);
+}
+.dash-main{
+  flex:1;
+  background:rgba(5,6,15,0.6);
+  border-radius:10px;
+  box-shadow:var(--hairline);
+  padding:14px;
+  display:flex;flex-direction:column;gap:12px;
+}
+.dash-stat-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.dash-stat{
+  background:rgba(186,214,247,0.04);
+  border-radius:6px;
+  padding:10px;
+  box-shadow:inset 0 0 0 1px rgba(186,215,247,0.08);
+}
+.dash-stat-label{font-size:10px;color:var(--color-fog-veil);margin-bottom:4px;letter-spacing:-0.01em}
+.dash-stat-val{font-size:16px;color:var(--color-frost-glow);font-weight:500}
+.dash-chart{
+  flex:1;
+  background:rgba(186,214,247,0.03);
+  border-radius:8px;
+  box-shadow:inset 0 0 0 1px rgba(186,215,247,0.08);
+  padding:12px;
+  position:relative;
+  min-height:100px;
+  overflow:hidden;
+}
+.dash-chart svg{width:100%;height:100%;display:block}
+
+/* ============ SHINE BRIGHT SECTION ============ */
+.shine-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:56px;
+  align-items:center;
+  max-width:1040px;
+  margin:0 auto;
+}
+.shine-copy h3{
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:36px;
+  line-height:1.15;
+  letter-spacing:-0.01em;
+  color:var(--color-ice-highlight);
+  margin-bottom:20px;
+}
+.shine-copy p{
+  color:var(--color-moon-mist);
+  font-size:16px;
+  line-height:1.55;
+  max-width:440px;
+  margin-bottom:24px;
+}
+
+/* Inspector workspace */
+.inspector-workspace{
+  position:relative;
+  height:460px;
+  background:rgba(186,214,247,0.02);
+  border-radius:var(--radius-cards);
+  box-shadow:var(--shadow-card);
+  padding:16px;
+  overflow:hidden;
+}
+.browser-window{
+  position:absolute;
+  top:70px;left:50%;transform:translateX(-50%);
+  width:260px;
+  border-radius:10px;
+  background:rgba(5,6,15,0.97);
+  box-shadow:var(--shadow-modal);
+  padding:0;
+  overflow:hidden;
+}
+.browser-bar{
+  display:flex;align-items:center;gap:5px;
+  padding:8px 10px;
+  border-bottom:1px solid rgba(186,215,247,0.08);
+}
+.browser-bar span{width:8px;height:8px;border-radius:50%;background:rgba(186,215,247,0.18)}
+.browser-content{padding:16px}
+.browser-logo{
+  width:26px;height:26px;
+  margin:0 auto 12px;
+  border-radius:6px;
+  background:var(--swatch-color,#663af3);
+  transition:background .2s ease;
+  box-shadow:0 0 12px rgba(102,58,243,0.35);
+}
+.browser-title{
+  text-align:center;font-size:11px;
+  color:var(--color-frost-glow);margin-bottom:12px;
+  font-weight:500;letter-spacing:-0.01em;
+}
+.browser-btn{
+  width:100%;
+  padding:9px;
+  border-radius:var(--radius-input-radius,6px);
+  background:var(--swatch-color,#663af3);
+  color:#fff;
+  font-size:11px;font-weight:500;
+  text-align:center;
+  transition:background .2s ease,border-radius .2s ease;
+  letter-spacing:-0.01em;
+}
+.inspector-panel{
+  position:absolute;
+  background:rgba(5,6,15,0.97);
+  border-radius:10px;
+  box-shadow:var(--shadow-modal);
+  padding:12px;
+  width:180px;
+  font-size:11px;
+  color:var(--color-moon-mist);
+}
+.inspector-panel .panel-label{
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:0.10em;
+  text-transform:uppercase;
+  color:var(--color-fog-veil);
+  margin-bottom:8px;
+}
+.panel-swatches{display:flex;gap:6px}
+.swatch{
+  width:22px;height:22px;
+  border-radius:5px;
+  cursor:pointer;
+  border:2px solid transparent;
+  transition:border-color .2s ease,transform .15s ease;
+  padding:0;
+}
+.swatch:hover{transform:scale(1.08)}
+.swatch.active{border-color:rgba(216,236,248,0.5)}
+.swatch:focus-visible{outline:2px solid var(--color-frost-glow);outline-offset:2px}
+.swatch[data-color="#663af3"]{background:#663af3}
+.swatch[data-color="#027dea"]{background:#027dea}
+.swatch[data-color="#269684"]{background:#269684}
+.swatch[data-color="#e46d4c"]{background:#e46d4c}
+
+.panel-radius{}
+.radius-slider{
+  width:100%;
+  -webkit-appearance:none;
+  appearance:none;
+  height:3px;
+  border-radius:2px;
+  background:rgba(186,215,247,0.12);
+  outline:none;
+  margin-top:6px;
+}
+.radius-slider::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:12px;height:12px;border-radius:50%;
+  background:var(--color-frost-glow);
+  cursor:pointer;
+  box-shadow:0 0 6px rgba(216,236,248,0.5);
+}
+.radius-slider::-moz-range-thumb{
+  width:12px;height:12px;border-radius:50%;
+  background:var(--color-frost-glow);
+  cursor:pointer;border:none;
+}
+.radius-val{
+  display:block;text-align:right;
+  font-family:var(--font-mono);font-size:10px;
+  color:var(--color-frost-glow);
+  margin-top:4px;
+}
+.panel-bg-field{}
+.bg-field{
+  display:flex;align-items:center;gap:8px;
+  margin-top:6px;
+}
+.bg-color-box{
+  width:22px;height:22px;border-radius:5px;
+  background:#05060f;
+  box-shadow:inset 0 0 0 1px rgba(186,215,247,0.18);
+  flex-shrink:0;
+}
+.bg-hex{
+  font-family:var(--font-mono);font-size:10px;
+  color:var(--color-moon-mist);
+}
+.panel-1{top:14px;left:14px}
+.panel-2{bottom:14px;left:14px}
+.panel-3{top:14px;right:14px}
+.panel-4{bottom:14px;right:14px}
+
+/* ============ FOOTER ============ */
+.footer{
+  position:relative;z-index:2;
+  max-width:var(--page-max);
+  margin:120px auto 0;
+  padding:40px 40px 60px;
+  text-align:center;
+  color:var(--color-fog-veil);
+  font-size:13px;
+  border-top:1px solid rgba(186,215,247,0.06);
+}
+.footer a{color:var(--color-moon-mist);text-decoration:none;margin:0 8px}
+.footer a:hover{color:var(--color-frost-glow)}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1024px){
+  .extensible-grid,.shine-grid{grid-template-columns:1fr;gap:40px}
+  .feature-row{grid-template-columns:repeat(3,1fr);gap:32px}
+  .feature-row::before{display:none}
+}
+@media (max-width:768px){
+  .header{grid-template-columns:auto 1fr auto;padding:18px 20px}
+  .header-center .workos-mark{width:28px;height:28px}
+  .hero{padding:20px 20px 0}
+  .cards-stage{height:auto;min-height:520px;padding:0 20px;display:block}
+  .card{position:relative;transform:none!important;left:auto!important;right:auto!important;top:auto!important;width:100%!important;margin-bottom:16px}
+  .card-center{max-width:360px;margin:0 auto 16px}
+  .card-left,.card-right{max-width:340px;margin-left:auto;margin-right:auto;opacity:0.6;display:none}
+  .section{padding:80px 20px 0}
+  .section-title{font-size:30px}
+  .extensible-copy h3,.shine-copy h3{font-size:26px}
+  .feature-row{grid-template-columns:repeat(2,1fr);gap:28px}
+  .inspector-workspace{height:420px}
+  .inspector-panel{width:150px;padding:10px;font-size:10px}
+  .swatch{width:18px;height:18px}
+  .browser-window{width:220px}
+  .footer{padding:32px 20px 48px;margin-top:80px}
+}
+@media (max-width:480px){
+  .wordmark{font-size:64px}
+  .feature-row{grid-template-columns:1fr 1fr;gap:24px}
+  .feature-icon{width:52px;height:52px}
+  .inspector-panel{width:130px}
+  .dash-side{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:0.01ms!important;animation-duration:0.01ms!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-canvas" aria-hidden="true"></div>
+<div class="bg-halo" aria-hidden="true"></div>
+<div class="bg-halo-soft" aria-hidden="true"></div>
+
+<!-- ============ HEADER ============ -->
+<header class="header">
+  <div class="header-left">
+    <span class="workos-wordmark">WorkOS</span>
+  </div>
+  <div class="header-center">
+    <svg class="workos-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M20 3L33.5 11.5V28.5L20 37L6.5 28.5V11.5L20 3Z" stroke="#d1e4fa" stroke-width="1.5" fill="none" opacity="0.9"/>
+      <path d="M20 10L27.5 14.5V23.5L20 28L12.5 23.5V14.5L20 10Z" fill="#d1e4fa" opacity="0.85"/>
+    </svg>
+  </div>
+  <div class="header-right">
+    <a class="icon-btn" href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub repository">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.69-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.41-5.26 5.69.41.35.78 1.05.78 2.12 0 1.53-.01 2.76-.01 3.14 0 .3.2.66.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
+      </svg>
+    </a>
+    <a class="ghost-btn" href="#get-started">Get started</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<main>
+<section class="hero">
+  <div class="eyebrow">
+    <span class="eyebrow-line"></span>
+    <span class="eyebrow-text">Introducing</span>
+    <span class="eyebrow-line right"></span>
+  </div>
+  <h1 class="wordmark">AuthKit</h1>
+  <p class="subtitle">The world's best login box,<br>powered by WorkOS + Radix.</p>
+</section>
+
+<!-- ============ HERO CARDS ============ -->
+<div class="cards-stage" aria-label="Auth form previews">
+  <!-- Left faded card -->
+  <div class="card card-left" aria-hidden="true">
+    <div class="mini-title">Welcome to Acme</div>
+    <div class="mini-sub">Log in to continue</div>
+    <label class="mini-label">Email</label>
+    <div class="mini-input">Your email address</div>
+    <div class="mini-btn">Continue</div>
+    <div class="mini-foot">Don't have an account? <strong>Sign up</strong></div>
+  </div>
+
+  <!-- Right faded card -->
+  <div class="card card-right" aria-hidden="true">
+    <div class="mini-title">Welcome to Clamer</div>
+    <div class="mini-sub">Enter the passcode from your authenticator app.</div>
+    <div class="code-row">
+      <div class="code-cell"></div><div class="code-cell"></div>
+      <div class="code-cell"></div><div class="code-cell"></div>
+      <div class="code-cell"></div><div class="code-cell"></div>
+    </div>
+    <div class="mini-btn">Continue</div>
+    <div class="mini-foot">Or <strong>sign in</strong> another way</div>
+  </div>
+
+  <!-- Center card -->
+  <div class="card card-center">
+    <div class="card-brand-row">
+      <svg class="card-brand" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="20" cy="20" r="15" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.9"/>
+        <circle cx="20" cy="20" r="8" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.7"/>
+        <circle cx="20" cy="20" r="3" fill="currentColor" opacity="0.9"/>
+      </svg>
+    </div>
+    <div class="card-title">Sign in to SuperApp</div>
+
+    <form id="loginForm" novalidate>
+      <div class="field-group">
+        <label class="field-label" for="emailInput">Email</label>
+        <input class="input" id="emailInput" type="email" placeholder="Your email address" autocomplete="email" required>
+      </div>
+      <button type="submit" class="btn-violet">Continue</button>
+      <div class="success-msg" id="loginSuccess" role="status">✓ Welcome! Check your inbox to finish signing in.</div>
+    </form>
+
+    <div class="or-divider">OR</div>
+
+    <button type="button" class="provider-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#EA4335" d="M12 10.2v3.9h5.5c-.24 1.42-1.7 4.17-5.5 4.17-3.31 0-6.01-2.74-6.01-6.12S8.69 6.03 12 6.03c1.88 0 3.14.8 3.86 1.49l2.63-2.53C16.79 3.4 14.58 2.5 12 2.5 6.87 2.5 2.72 6.65 2.72 11.78S6.87 21.06 12 21.06c6.92 0 9.16-4.86 9.16-7.62 0-.51-.06-.9-.12-1.29H12z"/>
+      </svg>
+      Continue with Google
+    </button>
+    <button type="button" class="provider-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="1" y="1" width="10" height="10" fill="#F25022"/>
+        <rect x="13" y="1" width="10" height="10" fill="#7FBA00"/>
+        <rect x="1" y="13" width="10" height="10" fill="#00A4EF"/>
+        <rect x="13" y="13" width="10" height="10" fill="#FFB900"/>
+      </svg>
+      Continue with Microsoft
+    </button>
+    <div class="card-footnote" id="get-started">Don't have an account? <a href="#signup" onclick="return false">Sign up</a></div>
+  </div>
+</div>
+
+<!-- ============ THEME TOGGLE SECTION ============ -->
+<section class="section" aria-label="Light and dark modes">
+  <div class="theme-toggle-wrap">
+    <div class="eyebrow">
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-text">Light and dark modes supported</span>
+      <span class="eyebrow-line right"></span>
+    </div>
+    <div class="theme-toggle" role="group" aria-label="Theme preview">
+      <button class="theme-seg active" data-theme="dark" aria-label="Dark mode preview" aria-pressed="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <button class="theme-seg" data-theme="light" aria-label="Light mode preview" aria-pressed="false">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+    </div>
+    <span class="theme-toggle-label" id="themeLabel">Dark mode active</span>
+  </div>
+</section>
+
+<!-- ============ FEATURE ICONS ============ -->
+<section class="section" aria-label="Features">
+  <div class="section-head">
+    <div class="eyebrow">
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-text">Built-in</span>
+      <span class="eyebrow-line right"></span>
+    </div>
+    <h2 class="section-title">Everything you need for auth</h2>
+    <p class="section-body">A complete authentication toolkit, ready to drop into any app.</p>
+  </div>
+  <div class="feature-row">
+    <div class="feature-item">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+      </div>
+      <div class="feature-label">Single Sign-On</div>
+      <div class="feature-desc">SAML &amp; OIDC out of the box</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+        </svg>
+      </div>
+      <div class="feature-label">Password</div>
+      <div class="feature-desc">Secure credential auth</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="2" width="14" height="20" rx="2"/>
+          <path d="M12 18h.01"/>
+        </svg>
+      </div>
+      <div class="feature-label">MFA</div>
+      <div class="feature-desc">TOTP &amp; passkey support</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
+      <div class="feature-label">Social Login</div>
+      <div class="feature-desc">Google, GitHub, Microsoft</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2l9 4v6c0 5-3.5 9-9 10-5.5-1-9-5-9-10V6l9-4z"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+      </div>
+      <div class="feature-label">RBAC</div>
+      <div class="feature-desc">Roles &amp; permissions</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+        </svg>
+      </div>
+      <div class="feature-label">Magic Auth</div>
+      <div class="feature-desc">Email link &amp; code login</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXTENSIBLE SECTION ============ -->
+<section class="section" aria-label="Extensible by design">
+  <div class="section-head">
+    <div class="eyebrow">
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-text">Extensible by design</span>
+      <span class="eyebrow-line right"></span>
+    </div>
+    <h2 class="section-title">Your users. Your data.<br>Maximum flexibility.</h2>
+    <p class="section-body">Bring your own database, identity provider, and UI. AuthKit adapts to your stack.</p>
+  </div>
+
+  <div class="extensible-grid">
+    <div class="extensible-copy">
+      <h3>Bring your own everything</h3>
+      <p>AuthKit is a thin layer on top of WorkOS that you can compose into any workflow. Swap providers, customize fields, and extend every step.</p>
+      <ul class="feature-list">
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Custom identity providers
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Webhooks &amp; events
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Drop-in React components
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Fully documented API
+        </li>
+      </ul>
+    </div>
+
+    <div class="dashboard" aria-label="Admin dashboard illustration">
+      <div class="dash-topbar">
+        <span class="dash-dot"></span>
+        <span class="dash-dot"></span>
+        <span class="dash-dot"></span>
+        <span class="dash-title">AuthKit Dashboard</span>
+      </div>
+      <div class="dash-body">
+        <div class="dash-side">
+          <div class="dash-side-item active">Overview</div>
+          <div class="dash-side-item">Users</div>
+          <div class="dash-side-item">Sessions</div>
+          <div class="dash-side-item">Providers</div>
+          <div class="dash-side-item">Logs</div>
+        </div>
+        <div class="dash-main">
+          <div class="dash-stat-row">
+            <div class="dash-stat">
+              <div class="dash-stat-label">Active users</div>
+              <div class="dash-stat-val">12,480</div>
+            </div>
+            <div class="dash-stat">
+              <div class="dash-stat-label">Sign-ins today</div>
+              <div class="dash-stat-val">3,201</div>
+            </div>
+            <div class="dash-stat">
+              <div class="dash-stat-label">Success rate</div>
+              <div class="dash-stat-val">99.7%</div>
+            </div>
+          </div>
+          <div class="dash-chart">
+            <svg viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#b6d9fc" stop-opacity="0.4"/>
+                  <stop offset="100%" stop-color="#b6d9fc" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path d="M0 90 L40 75 L80 82 L120 60 L160 68 L200 45 L240 52 L280 35 L320 40 L360 22 L400 30 L400 120 L0 120 Z" fill="url(#chartGrad)"/>
+              <path d="M0 90 L40 75 L80 82 L120 60 L160 68 L200 45 L240 52 L280 35 L320 40 L360 22 L400 30" fill="none" stroke="#b6d9fc" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHINE BRIGHT SECTION ============ -->
+<section class="section" aria-label="Shine bright">
+  <div class="section-head">
+    <div class="eyebrow">
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-text">Shine bright</span>
+      <span class="eyebrow-line right"></span>
+    </div>
+    <h2 class="section-title">Your brand. Your style.</h2>
+    <p class="section-body">Customize colors, radius, logo, and copy — live — without touching a single line of CSS.</p>
+  </div>
+
+  <div class="shine-grid">
+    <div class="shine-copy">
+      <h3>Make it unmistakably yours</h3>
+      <p>Every AuthKit screen is fully themeable. Adjust the accent color, corner radius, logo, and copy to match your product — then preview the change instantly.</p>
+      <p style="font-size:14px;color:var(--color-fog-veil);">Try the controls on the right to see the demo login card update in real time.</p>
+    </div>
+
+    <div class="inspector-workspace" id="inspectorWorkspace">
+      <!-- Browser window preview -->
+      <div class="browser-window" id="browserWindow">
+        <div class="browser-bar">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="browser-content">
+          <div class="browser-logo" id="browserLogo"></div>
+          <div class="browser-title">Sign in to SuperApp</div>
+          <div class="browser-btn" id="browserBtn">Continue</div>
+        </div>
+      </div>
+
+      <!-- Panel 1: Colour -->
+      <div class="inspector-panel panel-1">
+        <div class="panel-label">Colour</div>
+        <div class="panel-swatches" role="group" aria-label="Accent color">
+          <button class="swatch active" data-color="#663af3" aria-label="Violet (default)"></button>
+          <button class="swatch" data-color="#027dea" aria-label="Blue"></button>
+          <button class="swatch" data-color="#269684" aria-label="Teal"></button>
+          <button class="swatch" data-color="#e46d4c" aria-label="Ember"></button>
+        </div>
+      </div>
+
+      <!-- Panel 2: Radius -->
+      <div class="inspector-panel panel-2 panel-radius">
+        <div class="panel-label">Radius</div>
+        <input type="range" class="radius-slider" id="radiusSlider" min="0" max="24" value="6" aria-label="Corner radius">
+        <span class="radius-val" id="radiusVal">6px</span>
+      </div>
+
+      <!-- Panel 3: Background -->
+      <div class="inspector-panel panel-3 panel-bg-field">
+        <div class="panel-label">Page background</div>
+        <div class="bg-field">
+          <div class="bg-color-box"></div>
+          <span class="bg-hex">#05060F</span>
+        </div>
+      </div>
+
+      <!-- Panel 4: Logo -->
+      <div class="inspector-panel panel-4">
+        <div class="panel-label">Logo</div>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <div style="width:22px;height:22px;border-radius:5px;background:var(--swatch-color,#663af3);box-shadow:inset 0 0 0 1px rgba(186,215,247,0.18);"></div>
+          <span style="font-family:var(--font-mono);font-size:10px;color:var(--color-moon-mist);">icon.svg</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+    <a href="#" onclick="return false">Docs</a>
+    <a href="#" onclick="return false">Pricing</a>
+    <a href="#" onclick="return false">Changelog</a>
+    <a href="#" onclick="return false">GitHub</a>
+  </div>
+  <div>© 2025 AuthKit — a local visual reproduction. No credentials sent or stored.</div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Login form validation ---------- */
+  var loginForm = document.getElementById("loginForm");
+  var emailInput = document.getElementById("emailInput");
+  var loginSuccess = document.getElementById("loginSuccess");
+
+  if (loginForm) {
+    loginForm.addEventListener("submit", function(e){
+      e.preventDefault();
+      var val = emailInput.value.trim();
+      var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      if (!valid) {
+        emailInput.classList.add("invalid");
+        emailInput.focus();
+        loginSuccess.classList.remove("show");
+        return;
+      }
+      emailInput.classList.remove("invalid");
+      loginSuccess.classList.add("show");
+      // Local success only — nothing is sent or stored.
+      emailInput.value = "";
+    });
+    emailInput.addEventListener("input", function(){
+      if (emailInput.classList.contains("invalid") && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim())) {
+        emailInput.classList.remove("invalid");
+      }
+    });
+  }
+
+  /* ---------- Theme toggle ---------- */
+  var themeSegs = document.querySelectorAll(".theme-seg");
+  var themeLabel = document.getElementById("themeLabel");
+  themeSegs.forEach(function(seg){
+    seg.addEventListener("click", function(){
+      themeSegs.forEach(function(s){ s.classList.remove("active"); s.setAttribute("aria-pressed","false"); });
+      seg.classList.add("active");
+      seg.setAttribute("aria-pressed","true");
+      var t = seg.getAttribute("data-theme");
+      themeLabel.textContent = (t === "light" ? "Light mode preview" : "Dark mode active");
+    });
+  });
+
+  /* ---------- Inspector: color swatches ---------- */
+  var swatches = document.querySelectorAll(".swatch");
+  var browserLogo = document.getElementById("browserLogo");
+  var browserBtn = document.getElementById("browserBtn");
+  var workspace = document.getElementById("inspectorWorkspace");
+
+  function applyColor(color){
+    if (browserLogo) browserLogo.style.background = color;
+    if (browserBtn) browserBtn.style.background = color;
+    if (workspace) workspace.style.setProperty("--swatch-color", color);
+    // update the logo mini-box in panel 4
+    var panel4Box = document.querySelector(".panel-4 div[style*='border-radius:5px']");
+    if (panel4Box) panel4Box.style.background = color;
+  }
+
+  swatches.forEach(function(sw){
+    sw.addEventListener("click", function(){
+      swatches.forEach(function(s){ s.classList.remove("active"); });
+      sw.classList.add("active");
+      applyColor(sw.getAttribute("data-color"));
+    });
+    sw.addEventListener("keydown", function(e){
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); sw.click(); }
+    });
+  });
+
+  /* ---------- Inspector: radius slider ---------- */
+  var radiusSlider = document.getElementById("radiusSlider");
+  var radiusVal = document.getElementById("radiusVal");
+  var browserBtnEl = document.getElementById("browserBtn");
+  var browserWindowEl = document.getElementById("browserWindow");
+
+  function applyRadius(v){
+    v = parseInt(v, 10);
+    if (radiusVal) radiusVal.textContent = v + "px";
+    if (browserBtnEl) browserBtnEl.style.borderRadius = v + "px";
+    if (browserWindowEl) browserWindowEl.style.borderRadius = (v + 4) + "px";
+  }
+  if (radiusSlider) {
+    radiusSlider.addEventListener("input", function(){ applyRadius(radiusSlider.value); });
+    applyRadius(radiusSlider.value);
+  }
+
+  /* ---------- Smooth anchor guard ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener("click", function(e){
+      var href = a.getAttribute("href");
+      if (href === "#" || href === "#signup") { e.preventDefault(); return; }
+      var target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({behavior: "smooth", block: "start"});
+      }
+    });
+  });
+
+  /* ---------- Log that this is a local demo ---------- */
+  // No network calls. No credential storage. Purely visual reproduction.
+})();
+</script>
+</body>
+</html>

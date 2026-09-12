@@ -1,0 +1,9 @@
+{
+  "feedback": [
+    "Check your inbox — we simulated a sign-in link.",
+    "Demo only. Nothing was sent or stored.",
+    "ubmitted. A sign-in link was simulated locally. Nothing was sent."
+  ],
+  "formText": "\n          \n            Email\n            \n          \n          Continue\n          \n        ",
+  "url": "http://127.0.0.1:8765/results/deepastra-loop-1/index.html"
+}

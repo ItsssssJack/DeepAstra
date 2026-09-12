@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#05060f">
+<title>AuthKit — The world’s best login box</title>
+<style>
+:root{
+  color-scheme:dark;
+  --canvas:#05060f;
+  --text:#c7d3ea;
+  --muted:#929eb3;
+  --frost:#d1e4fa;
+  --edge:rgba(186,215,247,.12);
+  --accent:#663af3;
+  --glass-shadow:inset 0 1px 1px rgba(216,236,248,.2),inset 0 24px 48px rgba(168,216,245,.045),0 16px 32px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:30px}
+body{margin:0;background:var(--canvas);color:var(--text);font-family:Arial,Helvetica,sans-serif;font-size:14px;-webkit-font-smoothing:antialiased}
+button,input{font:inherit}
+button,a,input{-webkit-tap-highlight-color:transparent}
+button{cursor:pointer}
+button,a{touch-action:manipulation}
+button{color:inherit}
+a{color:inherit;text-decoration:none}
+button{border:0}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #b6d9fc;outline-offset:4px}
+input:focus-visible{outline-offset:2px}
+button:disabled{cursor:default}
+[hidden]{display:none!important}
+svg{display:block}
+.icon{width:20px;height:20px;flex:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.page-top{position:relative;isolation:isolate;overflow:hidden}
+.atmosphere{position:absolute;z-index:-1;inset:0 0 auto;height:1100px;pointer-events:none;background:radial-gradient(ellipse 345px 480px at 50% 490px,rgba(82,101,147,.19),transparent 78%),radial-gradient(ellipse 570px 700px at 50% 320px,rgba(8,25,37,.32),transparent 85%)}
+.beam{position:absolute;top:79px;left:50%;width:720px;height:830px;transform:translateX(-50%);filter:blur(22px);opacity:.76}
+.beam:before{content:"";position:absolute;inset:0;clip-path:polygon(49% 0,51% 0,100% 100%,0 100%);background:linear-gradient(180deg,rgba(128,144,181,.08),rgba(133,149,191,.17) 36%,rgba(98,119,163,.12) 66%,transparent)}
+.beam:after{content:"";position:absolute;inset:0 27%;background:radial-gradient(ellipse at 50% 48%,rgba(131,146,188,.07),transparent 68%)}
+.blueprint{position:absolute;top:0;left:50%;transform:translateX(-50%);width:1200px;height:1050px;opacity:.83;mask-image:radial-gradient(ellipse 55% 67% at 50% 38%,#000 30%,transparent 95%)}
+.site-header{position:relative;z-index:3;width:calc(100% - 48px);max-width:800px;height:108px;margin:auto;padding-left:48px;display:flex;align-items:center;justify-content:space-between}
+.workos{font-size:20px;font-weight:500;letter-spacing:-.9px;color:#909db1}
+.header-symbol{position:absolute;left:50%;top:35px;transform:translateX(-50%);padding:2px;color:#7d8ba5}
+.header-symbol svg{width:36px;height:36px;filter:drop-shadow(0 0 9px rgba(171,196,241,.12))}
+.header-actions{display:flex;align-items:center;gap:16px}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:36px;padding:9px 17px;border-radius:999px;background:rgba(186,214,247,.055);box-shadow:inset 0 0 0 1px var(--edge),inset 0 1px 1px rgba(199,211,234,.04);color:#bdc9dd;font-size:14px;line-height:18px;transition:background .18s,color .18s}
+.pill:hover{background:rgba(186,214,247,.115);color:#edf4ff}
+.github-button{padding:0;width:36px;height:36px;border-radius:50%;background:rgba(186,214,247,.025)}
+.github-button .icon{width:17px;height:17px}
+.hero-copy{position:relative;text-align:center;padding-top:100px}
+.eyebrow{display:flex;align-items:center;justify-content:center;gap:22px;margin:0;color:#a5b2c8;font:400 13px/20px "Courier New",monospace;letter-spacing:1.5px;text-transform:uppercase}
+.eyebrow:before,.eyebrow:after{content:"";width:100px;height:1px;background:linear-gradient(90deg,transparent,rgba(186,215,247,.17))}
+.eyebrow:after{transform:rotate(180deg)}
+.introducing{font:400 14px/18px Arial,Helvetica,sans-serif;letter-spacing:0;text-transform:none;color:#a6b2c7;gap:22px;text-shadow:0 0 8px rgba(186,207,247,.22)}
+.introducing:before,.introducing:after{width:78px}
+.hero-copy h1{position:relative;display:table;margin:16px auto 4px;font-size:150px;font-weight:500;line-height:152px;letter-spacing:-.7px;background:linear-gradient(180deg,#91afe0 5%,#b8d2f4 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 4px rgba(164,185,227,.12))}
+.hero-subtitle{font-size:24px;line-height:30px;font-weight:400;letter-spacing:-.3px;color:#9facc4;margin:0;text-shadow:0 0 10px rgba(190,211,247,.14)}
+.auth-scene{position:relative;margin:63px auto 0;height:480px;width:100%;max-width:1040px}
+.auth-scene:before{content:"";position:absolute;inset:0 10% -20px;background:radial-gradient(ellipse at 50% 34%,rgba(126,157,214,.065),transparent 70%);filter:blur(20px)}
+.login-card{position:relative;background:linear-gradient(160deg,rgba(17,24,41,.97),rgba(11,14,26,.98));box-shadow:var(--glass-shadow),inset 0 0 0 1px rgba(186,215,247,.085);border-radius:16px;color:#bfc9db}
+.hero-card{position:absolute;left:50%;top:0;transform:translateX(-50%);z-index:2;width:392px;height:460px;padding:42px 36px 32px}
+.pin{position:absolute;width:3px;height:3px;border-radius:50%;background:#8392a7;box-shadow:0 0 3px #a9bad048;opacity:.68;pointer-events:none}
+.pin.tl{top:17px;left:17px}.pin.tr{top:17px;right:17px}.pin.bl{bottom:17px;left:17px}.pin.br{bottom:17px;right:17px}
+.card-brand{width:32px;height:32px;margin:auto;color:#66758f;opacity:.65}
+.card-title{text-align:center;font-size:16px;font-weight:400;line-height:20px;margin:16px 0 18px;letter-spacing:-.2px;color:#cbd3e3}
+.form-field{display:block;margin:0}
+.form-field+ .form-field{margin-top:16px}
+.form-field label,.field-label{display:block;font-size:14px;line-height:18px;margin:0 0 4px;color:#bdc8dc}
+.text-input,.mock-input{display:block;width:100%;height:34px;border:0;border-radius:6px;padding:0 12px;background:rgba(199,211,234,.055);box-shadow:inset 0 0 0 1px rgba(186,215,247,.09),inset 0 1px 3px rgba(202,215,246,.025);color:#e4eafa;font-size:14px;line-height:34px}
+.text-input::placeholder{color:#768198;opacity:.66}
+.hero-card .text-input{border-radius:999px}
+.submit-button{display:flex;align-items:center;justify-content:center;width:100%;height:34px;padding:0 14px;margin-top:14px;border-radius:999px;background:rgba(4,8,19,.24);box-shadow:inset 0 0 0 1px rgba(186,215,247,.09),inset 0 2px 5px rgba(186,215,247,.03);font-size:14px;color:#c5d0e2}
+.submit-button:hover{background:rgba(186,215,247,.065)}
+.divider{display:flex;align-items:center;gap:15px;margin:26px 0;font-size:12px;line-height:16px;color:#657187}
+.divider:before,.divider:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,rgba(186,215,247,.07))}
+.divider:after{transform:rotate(180deg)}
+.provider{position:relative;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:34px;border-radius:999px;background:rgba(5,8,18,.2);box-shadow:inset 0 0 0 1px rgba(186,215,247,.085),inset 0 2px 4px rgba(186,215,247,.02);font-size:14px;line-height:18px;color:#c4d0e2}
+.provider:hover{background:rgba(186,215,247,.07)}
+.provider+.provider{margin-top:12px}
+.provider .icon{width:17px;height:17px;color:#d5e2f5}
+.account-prompt{text-align:center;font-size:12px;line-height:20px;margin:18px -8px 0;color:#768197}
+.text-button{background:none;padding:0;border:0;color:#c7d3ea;font-weight:500;font-size:inherit;line-height:inherit}
+.text-button:hover{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.side-card{position:absolute;top:35px;width:350px;height:380px;padding:38px 32px 28px;z-index:1;color:#9ba8bf;opacity:.79}
+.side-left{left:calc(50% - 368px);transform:perspective(1000px) rotateY(-6deg) rotateZ(-.6deg);transform-origin:right center}
+.side-right{right:calc(50% - 368px);transform:perspective(1000px) rotateY(6deg) rotateZ(.6deg);transform-origin:left center}
+.side-card .card-title{margin:14px 0 12px;font-size:16px}
+.side-card .card-brand{width:30px;height:30px}
+.card-description{text-align:center;font-size:13px;line-height:20px;color:#8b98af;margin:0}
+.mock-form{margin-top:39px}
+.mock-input{font-size:12px;color:#626f85;border-radius:4px;height:33px;line-height:33px}
+.mock-button{height:34px;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(186,215,247,.085);background:rgba(3,7,15,.22);margin-top:13px;border-radius:4px;color:#b9c6da;font-size:13px}
+.side-card .account-prompt{margin-top:15px}
+.code-boxes{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:39px}
+.code-boxes span{height:46px;background:rgba(199,211,234,.075);box-shadow:inset 0 0 0 1px rgba(186,215,247,.12);border-radius:3px}
+.back-signin{text-align:center;font-size:13px;margin-top:19px;color:#c6d1e4}
+.form-error{color:#efb6b2;font-size:12px;line-height:16px;margin:7px 0 -5px}
+.hero-card:has(.form-error:not([hidden])) .divider{margin:18px 0}
+.success-body{text-align:center;padding:34px 0 18px}
+.success-symbol{display:grid;place-items:center;width:56px;height:56px;margin:0 auto 22px;border-radius:50%;background:rgba(186,215,247,.07);box-shadow:inset 0 0 0 1px var(--edge);color:#cde1fa}
+.success-symbol svg{width:28px;height:28px}
+.success-body h3{font-weight:400;font-size:22px;margin:0 0 12px}
+.success-body p{font-size:14px;line-height:22px;color:var(--muted);margin:0 auto 24px;max-width:270px}
+.mode-demo{text-align:center;margin:52px auto 0;padding-bottom:98px}
+.mode-demo .eyebrow{font-size:11px;letter-spacing:1.6px}
+.mode-demo .eyebrow:before,.mode-demo .eyebrow:after{width:60px}
+.segmented{display:inline-flex;padding:4px;background:rgba(186,215,247,.025);box-shadow:inset 0 0 0 1px var(--edge);border-radius:999px;gap:3px}
+.mode-demo .segmented{margin-top:20px}
+.segmented button{display:flex;align-items:center;justify-content:center;gap:7px;height:30px;min-width:43px;padding:0 12px;border-radius:999px;background:transparent;color:#758299;font-size:12px;transition:background .18s,color .18s}
+.segmented button[aria-pressed=true]{background:rgba(186,215,247,.10);box-shadow:inset 0 1px 1px rgba(199,211,234,.09);color:#d1e0f5}
+.segmented button:hover{color:#d1e0f5}
+.segmented .icon{width:16px;height:16px}
+.scene-light .login-card,.custom-card.light{color-scheme:light;background:linear-gradient(160deg,#f7f9fd,#e6ecf5);color:#28374e;box-shadow:inset 0 1px 1px #fff,0 16px 32px #0004,inset 0 0 0 1px #b8c7da}
+.scene-light .card-title,.custom-card.light .card-title{color:#26364d}
+.scene-light .form-field label,.custom-card.light .form-field label,.scene-light .field-label{color:#45536b}
+.scene-light .text-input,.scene-light .mock-input,.custom-card.light .text-input{background:#dce4ef88;box-shadow:inset 0 0 0 1px #24385820;color:#25334a}
+.scene-light .text-input::placeholder,.custom-card.light .text-input::placeholder{color:#7b889d;opacity:1}
+.scene-light .submit-button{background:#29374e;color:white}
+.scene-light .provider,.custom-card.light .provider{background:#ffffff50;box-shadow:inset 0 0 0 1px #24385820;color:#354761}
+.scene-light .provider .icon,.custom-card.light .provider .icon{color:#354761}
+.scene-light .text-button,.custom-card.light .text-button{color:#344863}
+.scene-light .divider:before,.scene-light .divider:after,.custom-card.light .divider:before,.custom-card.light .divider:after{background:#24385817}
+.scene-light .code-boxes span{background:#dce4ef;box-shadow:inset 0 0 0 1px #24385820}
+.scene-light .mock-button{color:#354761;box-shadow:inset 0 0 0 1px #24385820;background:#dce4ef}
+.scene-light .card-description,.scene-light .back-signin{color:#68778c}
+.scene-light .form-error,.custom-card.light .form-error{color:#a63232}
+.content-width{width:calc(100% - 48px);max-width:1040px;margin-inline:auto}
+.features{position:relative;padding-top:10px}
+.feature-row{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.feature-row:before{content:"";position:absolute;top:32px;left:8%;right:8%;height:1px;background:linear-gradient(90deg,transparent,rgba(186,215,247,.14) 15%,rgba(186,215,247,.14) 85%,transparent)}
+.feature{position:relative;display:flex;align-items:center;flex-direction:column;gap:20px;background:none;padding:0 4px;color:#8d9cb4;font-size:13px;line-height:20px}
+.feature-orb{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:linear-gradient(145deg,#151c2a,#080b15);box-shadow:inset 0 1px 1px rgba(216,236,248,.15),inset 0 0 0 1px rgba(186,215,247,.09),0 10px 25px #05060f;color:#a9bedb;transition:box-shadow .2s,background .2s}
+.feature-orb .icon{width:25px;height:25px}
+.feature:hover .feature-orb,.feature[aria-pressed=true] .feature-orb{background:linear-gradient(145deg,#222e41,#0b101d);box-shadow:inset 0 1px 1px rgba(216,236,248,.25),inset 0 0 0 1px rgba(186,215,247,.15),0 0 30px #a3c9ff09;color:#d6e6fc}
+.feature[aria-pressed=true]{color:#c7d8f0}
+.feature-detail{max-width:590px;min-height:88px;margin:40px auto 0;text-align:center;font-size:14px;line-height:24px;color:#8796ad}
+.feature-detail strong{color:#bdcee6;font-weight:400}
+.section{position:relative;margin-top:120px;text-align:center}
+.section h2{margin:26px 0 20px;font-size:48px;line-height:1.15;font-weight:400;letter-spacing:-1.5px;background:linear-gradient(180deg,#d8e7f7,#a1bce0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.section-copy{max-width:610px;margin:0 auto;color:#8f9fb8;font-size:16px;line-height:26px;letter-spacing:-.1px}
+.section-link{margin-top:25px}
+.dashboard-wrap{position:relative;margin-top:64px;padding:0 18px 34px}
+.dashboard-wrap:before{content:"";position:absolute;inset:18% -5% -6%;z-index:-1;background:radial-gradient(ellipse,rgba(104,133,180,.10),transparent 68%);filter:blur(25px)}
+.dashboard{position:relative;overflow:hidden;text-align:left;border-radius:16px;background:linear-gradient(135deg,#101521,#090c15);box-shadow:var(--glass-shadow),inset 0 0 0 1px var(--edge)}
+.window-bar{height:42px;display:flex;align-items:center;gap:6px;padding:0 18px;border-bottom:1px solid rgba(186,215,247,.075);color:#75869f;font-size:11px}
+.window-dot{width:6px;height:6px;border-radius:50%;background:#657288;opacity:.55}
+.window-title{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:7px;white-space:nowrap}
+.window-title .icon{width:12px;height:12px}
+.dashboard-body{display:grid;grid-template-columns:185px 1fr;min-height:390px}
+.dashboard-sidebar{padding:26px 15px;border-right:1px solid rgba(186,215,247,.075)}
+.workspace-name{display:flex;align-items:center;gap:9px;margin:0 10px 31px;color:#c3d0e4;font-size:14px}
+.workspace-logo{width:24px;height:24px;display:grid;place-items:center;border-radius:6px;background:#d1e4fa12;box-shadow:inset 0 0 0 1px var(--edge)}
+.workspace-logo svg{width:16px;height:16px}
+.nav-caption{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#5f708b;margin:0 11px 10px}
+.dashboard-tab{width:100%;display:flex;align-items:center;gap:10px;text-align:left;background:transparent;padding:11px;border-radius:6px;font-size:12px;color:#7f90ac;margin-bottom:4px}
+.dashboard-tab .icon{width:16px;height:16px}
+.dashboard-tab[aria-selected=true]{color:#cbd9ed;background:rgba(186,215,247,.065);box-shadow:inset 0 0 0 1px rgba(186,215,247,.05)}
+.dashboard-tab:hover{background:rgba(186,215,247,.045)}
+.sidebar-bottom{margin:105px 10px 0;font-size:11px;color:#566981}
+.dashboard-main{min-width:0;padding:29px 30px}
+.dashboard-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:23px;gap:12px}
+.dashboard-heading h3{font-size:22px;line-height:28px;color:#c7d5e9;font-weight:400;margin:0 0 3px}
+.dashboard-heading p{font-size:12px;line-height:20px;color:#71839e;margin:0}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border-radius:6px;background:rgba(199,211,234,.06);box-shadow:inset 0 0 0 1px rgba(199,211,234,.06);font-size:10px;color:#9eafc6;white-space:nowrap}
+.badge-dot{width:4px;height:4px;border-radius:50%;background:#a3b8d2}
+.table-toolbar{position:relative;display:flex;align-items:center;margin-bottom:17px}
+.table-toolbar .icon{position:absolute;left:11px;width:14px;height:14px;color:#6a7d98}
+.search-input{max-width:238px;height:32px;padding-left:34px;font-size:11px;background:#c7d3ea03}
+.user-table{width:100%;border-collapse:collapse;font-size:12px}
+.user-table th{font-size:10px;color:#647993;font-weight:400;padding:0 0 12px;text-align:left;border-bottom:1px solid #bad7f712}
+.user-table td{height:52px;border-bottom:1px solid #bad7f70a;color:#91a4bf}
+.user-table tr:last-child td{border-bottom:0}
+.user-person{display:flex;align-items:center;gap:10px;color:#b9c9de}
+.avatar{width:26px;height:26px;display:grid;place-items:center;border-radius:50%;background:linear-gradient(135deg,#293549,#172133);box-shadow:inset 0 1px 1px #bad7f719;font-size:9px;color:#b4c9e4}
+.table-email{font-size:10px;color:#6c819f;margin-top:3px}
+.table-provider{font-size:11px;color:#8ca0bd}
+.table-provider .icon{display:inline-block;vertical-align:middle;width:11px;height:11px;margin-right:6px}
+.dashboard-foot{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:#536780;margin-top:15px}
+.org-list{display:grid;gap:12px;margin-top:30px}
+.org-item{display:flex;align-items:center;gap:14px;padding:16px;border-radius:9px;box-shadow:inset 0 0 0 1px var(--edge);color:#a7bbd6;font-size:13px}
+.org-item small{display:block;color:#6e839e;margin-top:5px}
+.org-item .badge{margin-left:auto}
+.auth-setting{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid #bad7f711;font-size:13px;color:#a7bbd6}
+.auth-setting small{display:block;color:#6e839e;margin-top:6px;font-size:11px}
+.dashboard-caption{margin:24px 0 0;font:11px/18px "Courier New",monospace;letter-spacing:1px;color:#667a96}
+.customization{margin-top:106px}
+.custom-window{position:relative;margin-top:62px;border-radius:16px;background:linear-gradient(150deg,#101622,#080b14);box-shadow:var(--glass-shadow),inset 0 0 0 1px var(--edge);text-align:left}
+.custom-window .window-bar{position:relative}
+.custom-workspace{position:relative;min-height:622px;padding:56px 0 60px;overflow:hidden;border-radius:0 0 16px 16px;background:radial-gradient(ellipse at 50% 44%,rgba(103,135,184,.075),transparent 65%)}
+.custom-workspace:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#bad7f706 1px,transparent 1px),linear-gradient(90deg,#bad7f706 1px,transparent 1px);background-size:52px 52px;mask-image:radial-gradient(ellipse,#000,transparent 78%);pointer-events:none}
+.custom-card{--demo-accent:#663af3;--demo-radius:6px;position:relative;width:340px;min-height:494px;margin:auto;padding:28px 30px;border-radius:calc(var(--demo-radius) + 10px);z-index:1}
+.custom-card .card-brand{width:30px;height:30px;color:var(--demo-accent);opacity:1}
+.custom-card .card-title{margin:13px 0 24px;font-size:18px}
+.custom-card .text-input{height:38px;line-height:38px;border-radius:var(--demo-radius)}
+.custom-card .form-field label{font-size:12px;margin-bottom:6px}
+.custom-card .submit-button{height:38px;margin-top:20px;background:var(--demo-accent);color:#fff;border-radius:var(--demo-radius);box-shadow:inset 0 1px 1px #ffffff22}
+.custom-card .submit-button:hover{filter:brightness(1.12)}
+.custom-card .divider{margin:20px 0}
+.custom-card .provider{height:38px;border-radius:var(--demo-radius);font-size:12px}
+.custom-card .account-prompt{font-size:11px;margin-top:22px}
+.custom-card .success-body{padding-top:52px}
+.inspector{position:absolute;z-index:2;width:190px;padding:17px;border-radius:12px;background:linear-gradient(135deg,rgba(25,33,48,.97),rgba(13,18,29,.98));box-shadow:inset 0 1px 1px #d8ecf826,inset 0 0 0 1px #bad7f712,0 16px 25px #0003}
+.inspector h3,.inspector>label{display:block;font-size:12px;line-height:18px;font-weight:400;color:#b7c9e1;margin:0 0 15px}
+.inspector h3 .icon{display:inline-block;vertical-align:-3px;width:14px;height:14px;margin-right:7px;color:#7f94b1}
+.color-panel{left:28px;top:108px;transform:rotate(-3deg)}
+.radius-panel{left:48px;top:287px;transform:rotate(2deg)}
+.theme-panel{right:28px;top:145px;transform:rotate(3deg)}
+.brand-panel{right:45px;top:324px;transform:rotate(-2deg)}
+.swatches{display:flex;align-items:center;gap:9px}
+.swatch{position:relative;width:27px;height:27px;background:var(--swatch);border-radius:5px;box-shadow:inset 0 0 0 1px #ffffff12}
+.swatch[aria-pressed=true]:after{content:"";position:absolute;inset:-4px;border:1px solid #c7d3ea80;border-radius:8px}
+.swatch[aria-pressed=true]:before{content:"✓";color:white;font-size:14px}
+.inspector-small{display:flex;align-items:center;justify-content:space-between;margin-top:15px;color:#6e839f;font-size:10px}
+.color-value{font-family:monospace;font-size:10px;color:#9fb3ce}
+.range-label{display:flex;justify-content:space-between;align-items:center}
+.range-label output{font-size:11px;color:#859cbb}
+input[type=range]{display:block;width:100%;height:18px;margin:4px 0;accent-color:#bdd0ea;cursor:pointer}
+.range-limits{display:flex;justify-content:space-between;font-size:9px;color:#627a98;margin-top:8px}
+.theme-panel .segmented{display:flex}
+.theme-panel .segmented button{flex:1;min-width:0;padding-inline:8px;font-size:11px}
+.inspector .text-input{height:30px;line-height:30px;font-size:11px;border-radius:5px;padding:0 9px}
+.inspector .minor-label{display:block;font-size:10px;color:#7d92ad;margin:12px 0 6px}
+.demo-notice{text-align:center;font-size:12px;color:#70829f;line-height:20px;margin:24px auto 0}
+.demo-notice .icon{display:inline-block;width:12px;height:12px;vertical-align:-2px;margin-right:5px}
+.closing{margin:120px auto;text-align:center}
+.closing .closing-symbol{width:33px;height:33px;color:#859bb9;margin:0 auto 24px}
+.closing h2{font-size:32px;font-weight:400;letter-spacing:-.7px;color:#bfd2eb;margin:0 0 17px}
+.closing p{font-size:14px;color:#8093b0;line-height:23px;margin:0 0 25px}
+.site-footer{max-width:1040px;width:calc(100% - 48px);margin:0 auto;padding:31px 0 36px;border-top:1px solid #bad7f711;display:flex;align-items:center;gap:28px;justify-content:space-between}
+.site-footer .workos{font-size:18px}
+.footer-links{display:flex;gap:24px;font-size:12px;color:#7e90ad;align-items:center}
+.footer-links a:hover,.footer-links button:hover{color:#d1e4fa}
+.footer-links button{color:inherit;font-weight:400}
+.footer-note{font-size:11px;color:#526580}
+dialog{width:min(460px,calc(100% - 36px));padding:32px;border:0;border-radius:16px;background:#101522;color:#c7d3ea;box-shadow:var(--glass-shadow),inset 0 0 0 1px var(--edge)}
+dialog::backdrop{background:#02040bbd;backdrop-filter:blur(7px)}
+.dialog-close{position:absolute;right:16px;top:16px;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#bad7f709;color:#9eb2cf}
+.dialog-close .icon{width:16px;height:16px}
+.dialog-symbol{width:28px;height:28px;color:#a9c0e0;margin-bottom:22px}
+dialog h2{font-size:25px;font-weight:400;letter-spacing:-.5px;margin:0 0 15px}
+dialog p{font-size:14px;line-height:23px;color:#91a3be}
+dialog pre{white-space:pre-wrap;overflow-wrap:anywhere;padding:17px;background:#05060f88;border-radius:8px;box-shadow:inset 0 0 0 1px #bad7f712;font-size:11px;line-height:19px;color:#a6bbd8;margin:22px 0}
+.dialog-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.dialog-footnote{font-size:11px!important;color:#657a97!important;margin-top:22px!important}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:20;width:max-content;max-width:calc(100% - 36px);padding:12px 20px;background:#1a2333;border-radius:999px;box-shadow:var(--glass-shadow);color:#cbdcf2;font-size:12px;line-height:18px;text-align:center}
+@media(min-width:1400px){.content-width{max-width:1040px}}
+@media(max-width:900px){
+ .inspector{width:160px;padding:14px}
+ .color-panel{left:18px}.radius-panel{left:25px}.theme-panel{right:18px}.brand-panel{right:25px}
+ .custom-card{width:310px;padding-inline:25px}
+ .swatches{gap:8px}.swatch{width:24px;height:24px}
+ .dashboard-body{grid-template-columns:155px 1fr}
+ .dashboard-main{padding:25px 20px}
+ .feature{font-size:12px}
+}
+@media(max-width:700px){
+ .site-header{width:calc(100% - 40px);height:88px;padding-left:0}
+ .workos{font-size:18px}
+ .header-symbol{top:29px}.header-symbol svg{width:28px;height:28px}
+ .header-actions{gap:10px}
+ .header-actions .pill{min-height:32px;font-size:12px;padding:7px 12px}
+ .header-actions .github-button{width:32px;height:32px;padding:0}
+ .header-actions .github-button .icon{width:15px;height:15px}
+ .blueprint{width:720px;height:950px;opacity:.65}
+ .atmosphere{height:920px;background:radial-gradient(ellipse 260px 450px at 50% 420px,rgba(82,101,147,.17),transparent 80%)}
+ .beam{width:540px;height:750px;top:69px;opacity:.65}
+ .hero-copy{padding-top:64px}
+ .introducing{font-size:12px;line-height:18px;gap:16px}
+ .introducing:before,.introducing:after{width:49px}
+ .hero-copy h1{font-size:94px;line-height:106px;letter-spacing:-1px;margin:17px auto 8px}
+ .hero-subtitle{font-size:20px;line-height:27px;letter-spacing:-.3px}
+ .auth-scene{margin-top:45px;height:444px}
+ .hero-card{width:302px;height:424px;padding:32px 25px 26px}
+ .hero-card .card-brand{width:28px;height:28px}
+ .hero-card .card-title{font-size:15px;margin:14px 0 18px}
+ .hero-card .form-field label{font-size:12px}
+ .hero-card .text-input,.hero-card .submit-button,.hero-card .provider{font-size:12px;height:34px}
+ .hero-card .divider{margin:22px 0}
+ .hero-card .account-prompt{font-size:10px;margin-top:18px}
+ .side-card{width:270px;height:348px;top:34px;padding:32px 23px}
+ .side-left{left:calc(50% - 237px)}
+ .side-right{right:calc(50% - 237px)}
+ .side-card .card-title{font-size:13px;white-space:nowrap}
+ .side-card .card-description{font-size:11px}
+ .side-card .mock-form{margin-top:29px}
+ .code-boxes{gap:5px;margin-top:28px}
+ .code-boxes span{height:37px}
+ .mode-demo{margin-top:35px;padding-bottom:76px}
+ .mode-demo .eyebrow{font-size:9px;letter-spacing:1px;gap:13px}
+ .mode-demo .eyebrow:before,.mode-demo .eyebrow:after{width:28px}
+ .content-width{width:calc(100% - 36px)}
+ .feature-row{grid-template-columns:repeat(3,1fr);gap:31px 8px}
+ .feature-row:before{display:none}
+ .feature{gap:12px;font-size:11px}
+ .feature-orb{width:56px;height:56px}
+ .feature-orb .icon{width:23px;height:23px}
+ .feature-detail{font-size:13px;line-height:22px;margin-top:30px;min-height:108px;padding:0 9px}
+ .section{margin-top:78px}
+ .eyebrow{font-size:10px;letter-spacing:1.3px;gap:14px}
+ .eyebrow:before,.eyebrow:after{width:40px}
+ .section h2{font-size:35px;line-height:1.18;letter-spacing:-1px;margin:21px 0 18px}
+ .section-copy{font-size:14px;line-height:23px;padding:0 5px}
+ .section-copy br{display:none}
+ .section-link{font-size:12px;margin-top:23px}
+ .dashboard-wrap{padding:0;margin-top:39px}
+ .dashboard{border-radius:12px}
+ .window-bar{height:35px;padding-inline:12px}
+ .window-title{font-size:9px}
+ .window-dot{width:5px;height:5px}
+ .dashboard-body{display:block;min-height:395px}
+ .dashboard-sidebar{padding:15px 12px 0;border-right:0}
+ .workspace-name{margin:0 4px 14px;font-size:12px}
+ .workspace-logo{width:21px;height:21px}
+ .nav-caption,.sidebar-bottom{display:none}
+ .dashboard-tabs{display:flex;gap:4px}
+ .dashboard-tab{padding:8px;justify-content:center;gap:5px;font-size:10px;white-space:nowrap}
+ .dashboard-tab .icon{width:13px;height:13px}
+ .dashboard-main{padding:19px 16px}
+ .dashboard-heading{margin-bottom:16px}
+ .dashboard-heading h3{font-size:19px;line-height:24px}
+ .dashboard-heading p{font-size:10px}
+ .dashboard-heading .badge{font-size:8px}
+ .table-toolbar{margin-bottom:16px}
+ .search-input{height:30px;max-width:100%}
+ .user-table{font-size:10px}
+ .user-table th{font-size:9px}
+ .user-table td{height:49px}
+ .table-email{font-size:8px}
+ .user-person{gap:8px}
+ .avatar{width:24px;height:24px;font-size:8px}
+ .user-table th:last-child,.user-table td:last-child{display:none}
+ .table-provider{font-size:9px}
+ .dashboard-caption{font-size:9px;letter-spacing:.6px;margin-top:17px}
+ .custom-window{margin-top:38px}
+ .custom-workspace{display:flex;flex-wrap:wrap;gap:14px;padding:26px 14px 23px;min-height:0}
+ .custom-card{order:0;width:min(100%,302px);margin:0 auto 12px;min-height:478px;padding:26px 25px}
+ .custom-card .card-title{font-size:17px}
+ .inspector{position:relative;inset:auto;transform:none;order:1;width:calc(50% - 7px);padding:13px;border-radius:10px}
+ .color-panel{order:1}.theme-panel{order:2}.radius-panel{order:3}.brand-panel{order:4}
+ .inspector h3,.inspector>label{font-size:11px;margin-bottom:13px}
+ .inspector h3 .icon{width:12px;height:12px;margin-right:4px}
+ .swatches{gap:8px;justify-content:space-between}
+ .swatch{width:23px;height:23px}
+ .inspector-small{font-size:9px;margin-top:15px}
+ .color-value{font-size:9px}
+ .theme-panel .segmented button{font-size:10px;gap:4px;padding-inline:5px}
+ .theme-panel .segmented .icon{width:12px;height:12px}
+ .range-label{align-items:flex-start;gap:6px}
+ .range-label output{font-size:10px;white-space:nowrap}
+ .demo-notice{font-size:11px;padding-inline:14px}
+ .closing{margin:82px auto}
+ .closing h2{font-size:28px}
+ .closing p{font-size:13px;padding:0 20px}
+ .site-footer{width:calc(100% - 40px);flex-wrap:wrap;gap:23px;padding-top:27px}
+ .footer-links{gap:16px;font-size:11px}
+ .footer-note{width:100%;font-size:10px}
+}
+@media(max-width:360px){
+ .header-symbol{left:47%}.header-actions{gap:6px}
+ .hero-copy h1{font-size:84px}
+ .hero-card{width:284px;padding-inline:23px}
+ .custom-workspace{padding-inline:10px;gap:10px}
+ .inspector{width:calc(50% - 5px);padding:11px}
+ .swatches{gap:6px}.swatch{width:21px;height:21px}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ *,*:before,*:after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
+<defs>
+  <symbol id="auth-mark" viewBox="0 0 32 32"><path fill="currentColor" d="M12.5 2H7.7L.5 16l7.2 14h7L7.4 16l7.3-14h-2.2ZM19.5 2h4.8l7.2 14-7.2 14h-7l7.3-14-7.3-14h2.2Z"/></symbol>
+  <symbol id="super-mark" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="18" cy="18" r="15"/><ellipse cx="18" cy="18" rx="8" ry="15" transform="rotate(34 18 18)"/><ellipse cx="18" cy="18" rx="8" ry="15" transform="rotate(-34 18 18)"/><path d="M4.5 11.5 28 29M7.5 7.5 31 23"/></g></symbol>
+  <symbol id="acme-mark" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="m16 3 13 25H3L16 3Z"/><path d="m16 13 7 15H9l7-15Z"/></g></symbol>
+  <symbol id="github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1.8a10.2 10.2 0 0 0-3.23 19.88c.51.09.7-.22.7-.49v-1.9c-2.85.62-3.46-1.21-3.46-1.21-.46-1.18-1.14-1.5-1.14-1.5-.93-.63.07-.62.07-.62 1.03.07 1.57 1.06 1.57 1.06.91 1.56 2.39 1.11 2.97.85.09-.66.36-1.11.65-1.36-2.27-.26-4.66-1.14-4.66-5.05 0-1.12.4-2.03 1.06-2.75-.1-.26-.46-1.3.1-2.71 0 0 .86-.28 2.8 1.05a9.7 9.7 0 0 1 5.1 0c1.95-1.33 2.8-1.05 2.8-1.05.56 1.41.21 2.45.1 2.71.66.72 1.06 1.63 1.06 2.75 0 3.92-2.39 4.78-4.68 5.04.37.32.7.94.7 1.9v2.79c0 .27.18.59.7.49A10.2 10.2 0 0 0 12 1.8Z"/></symbol>
+  <symbol id="google" viewBox="0 0 24 24"><path fill="currentColor" d="M21.7 12.2c0-.7-.1-1.4-.2-2.1H12v4h5.4a4.6 4.6 0 0 1-2 3 6.1 6.1 0 0 1-9.2-5.2 6 6 0 0 1 6-6.1c1.6 0 2.9.6 4 1.6l3-2.9A10.2 10.2 0 0 0 12 1.8a10.2 10.2 0 1 0 0 20.4c5.9 0 9.7-4.1 9.7-10Z"/></symbol>
+  <symbol id="microsoft" viewBox="0 0 24 24"><g fill="currentColor"><path d="M2 2h9v9H2zM13 2h9v9h-9zM2 13h9v9H2zM13 13h9v9h-9z"/></g></symbol>
+  <symbol id="moon" viewBox="0 0 24 24"><path d="M20 15.3A8.5 8.5 0 0 1 8.7 4 8.5 8.5 0 1 0 20 15.3Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+  <symbol id="sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></g></symbol>
+  <symbol id="sso" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="3" width="9" height="18" rx="2"/><path d="M3 12h11m-4-4 4 4-4 4M16.5 12h.1"/></g></symbol>
+  <symbol id="lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="5" y="10" width="14" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/></g></symbol>
+  <symbol id="shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 8 3v6c0 5-4 8-8 11-4-3-8-6-8-11V5l8-3Z"/><path d="m8.5 11.5 2.5 2.5 4.5-5"/></g></symbol>
+  <symbol id="social" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="5" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-4m-6.8 7 6.8 4"/></g></symbol>
+  <symbol id="users" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M16 5a3 3 0 0 1 0 6m2 4a5 5 0 0 1 3 4v2"/></g></symbol>
+  <symbol id="magic" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m4 20 12-12 3 3L7 23l-3-3Zm9-9 3 3M5 3v5M2.5 5.5h5M18 1v4m-2-2h4M21 16v4m-2-2h4"/></g></symbol>
+  <symbol id="check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></g></symbol>
+  <symbol id="building" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M4 21V3h12v18M16 10h5v11M2 21h21M8 7h1m3 0h1M8 11h1m3 0h1M8 15h1m3 0h1M9 21v-3h3v3"/></g></symbol>
+  <symbol id="palette" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 3a9 9 0 1 0 0 18h1a2.4 2.4 0 0 0 1.8-4c-.8-.9-.2-2.3 1-2.3H18A4 4 0 0 0 22 11c0-4.4-4.6-8-10-8Z"/><path d="M7 10h.1M10 6.5h.1M15 7h.1M18 10h.1" stroke-width="2.5"/></g></symbol>
+  <symbol id="radius" viewBox="0 0 24 24"><path d="M4 20V10a6 6 0 0 1 6-6h10M4 4h.01M9 20h2m5 0h4v-4m0-5V9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+</defs>
+</svg>
+
+<div class="page-top" id="top">
+  <div class="atmosphere" aria-hidden="true">
+    <div class="beam"></div>
+    <svg class="blueprint" viewBox="0 0 1200 1050" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="grid-fade"><stop stop-color="#bad7f7" stop-opacity="0"/><stop offset=".25" stop-color="#bad7f7" stop-opacity=".07"/><stop offset=".5" stop-color="#bad7f7" stop-opacity=".09"/><stop offset=".75" stop-color="#bad7f7" stop-opacity=".07"/><stop offset="1" stop-color="#bad7f7" stop-opacity="0"/></linearGradient>
+        <linearGradient id="vertical-fade" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#bad7f7" stop-opacity=".045"/><stop offset=".4" stop-color="#bad7f7" stop-opacity=".085"/><stop offset="1" stop-color="#bad7f7" stop-opacity="0"/></linearGradient>
+        <filter id="line-soft"><feGaussianBlur stdDeviation="2"/></filter>
+      </defs>
+      <g fill="none" stroke="url(#grid-fade)">
+        <path d="M0 106h1200M0 177h1200M0 249h1200M0 385h1200M0 471h1200M0 557h1200"/>
+        <path d="M0 249h1200M0 471h1200" stroke-width="4" opacity=".3" filter="url(#line-soft)"/>
+      </g>
+      <g fill="none" stroke="url(#vertical-fade)">
+        <path d="M272 0v1040M344 0v1040M856 0v1040M928 0v1040"/>
+        <path d="M272 0v1040M928 0v1040" stroke-width="6" opacity=".4" filter="url(#line-soft)"/>
+        <path d="M272 167 344 238M928 167l-72 71" opacity=".5"/>
+      </g>
+      <g fill="#b8d1f0" opacity=".4">
+        <circle cx="344" cy="249" r="1.5"/><circle cx="856" cy="249" r="1.5"/>
+        <circle cx="344" cy="385" r="1.5"/><circle cx="856" cy="385" r="1.5"/>
+        <circle cx="344" cy="471" r="1.5"/><circle cx="856" cy="471" r="1.5"/>
+      </g>
+      <g fill="none" stroke="#b8d1f0" stroke-opacity=".12">
+        <path d="M339 249h10m-5-5v10M851 249h10m-5-5v10M339 385h10m-5-5v10M851 385h10m-5-5v10M339 471h10m-5-5v10M851 471h10m-5-5v10"/>
+      </g>
+    </svg>
+  </div>
+
+  <header class="site-header">
+    <a class="workos" href="#top" aria-label="WorkOS — back to top">WorkOS</a>
+    <a class="header-symbol" href="#top" aria-label="AuthKit home"><svg aria-hidden="true"><use href="#auth-mark"/></svg></a>
+    <nav class="header-actions" aria-label="Main navigation">
+      <button class="pill github-button" type="button" data-open-notes aria-label="GitHub — local developer notes"><svg class="icon" aria-hidden="true"><use href="#github"/></svg></button>
+      <a class="pill" href="#customize">Get started</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow introducing">Introducing</p>
+        <h1 id="hero-title">AuthKit</h1>
+        <p class="hero-subtitle">The world’s best login box,<br>powered by WorkOS + Radix.</p>
+      </div>
+
+      <div class="auth-scene" id="hero-scene">
+        <div class="login-card side-card side-left" aria-hidden="true">
+          <i class="pin tl"></i><i class="pin tr"></i><i class="pin bl"></i><i class="pin br"></i>
+          <svg class="card-brand"><use href="#acme-mark"/></svg>
+          <h2 class="card-title">Welcome to Acme</h2>
+          <p class="card-description">Log in to get started.</p>
+          <div class="mock-form">
+            <span class="field-label">Email</span>
+            <div class="mock-input">Your email address</div>
+            <div class="mock-button">Continue</div>
+          </div>
+          <p class="account-prompt">Don’t have an account? <span class="text-button">Sign up</span></p>
+        </div>
+
+        <div class="login-card side-card side-right" aria-hidden="true">
+          <i class="pin tl"></i><i class="pin tr"></i><i class="pin bl"></i><i class="pin br"></i>
+          <svg class="card-brand"><use href="#auth-mark"/></svg>
+          <h2 class="card-title">Sign in to Clamer</h2>
+          <p class="card-description">Enter the 6-digit passcode from your<br>authenticator app.</p>
+          <div class="code-boxes"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="mock-button">Continue</div>
+          <div class="back-signin">Back to sign in</div>
+        </div>
+
+        <article class="login-card hero-card" id="hero-login" aria-label="Interactive SuperApp sign-in demo">
+          <i class="pin tl" aria-hidden="true"></i><i class="pin tr" aria-hidden="true"></i><i class="pin bl" aria-hidden="true"></i><i class="pin br" aria-hidden="true"></i>
+          <div class="auth-content">
+            <svg class="card-brand" aria-hidden="true"><use href="#super-mark"/></svg>
+            <h2 class="card-title" id="hero-card-title">Sign in to SuperApp</h2>
+            <form class="local-auth-form" novalidate autocomplete="off" data-demo="hero">
+              <div class="form-field">
+                <label for="hero-email">Email</label>
+                <input class="text-input" id="hero-email" type="email" placeholder="Your email address" autocomplete="off" required aria-describedby="hero-error">
+              </div>
+              <p class="form-error" id="hero-error" role="alert" hidden></p>
+              <button class="submit-button" type="submit">Continue</button>
+            </form>
+            <div class="divider">OR</div>
+            <button class="provider" type="button" data-provider="Google"><svg class="icon" aria-hidden="true"><use href="#google"/></svg>Continue with Google</button>
+            <button class="provider" type="button" data-provider="Microsoft"><svg class="icon" aria-hidden="true"><use href="#microsoft"/></svg>Continue with Microsoft</button>
+            <p class="account-prompt"><span class="account-question">Don’t have an account?</span> <button class="text-button account-toggle" type="button">Sign up</button></p>
+          </div>
+          <div class="success-body" tabindex="-1" hidden>
+            <div class="success-symbol"><svg aria-hidden="true"><use href="#check"/></svg></div>
+            <h3>You’re all set.</h3>
+            <p class="success-message">Demo sign-in complete. Nothing was sent or saved.</p>
+            <button class="pill reset-demo" type="button">Try again <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></button>
+          </div>
+        </article>
+      </div>
+
+      <div class="mode-demo">
+        <p class="eyebrow">Light and dark modes supported</p>
+        <div class="segmented" role="group" aria-label="Hero login card theme">
+          <button type="button" data-hero-theme="dark" aria-pressed="true" aria-label="Dark login cards"><svg class="icon" aria-hidden="true"><use href="#moon"/></svg></button>
+          <button type="button" data-hero-theme="light" aria-pressed="false" aria-label="Light login cards"><svg class="icon" aria-hidden="true"><use href="#sun"/></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="features content-width" id="features" aria-label="Authentication features">
+      <div class="feature-row">
+        <button type="button" class="feature" data-feature="sso" aria-pressed="true" aria-controls="feature-detail"><span class="feature-orb"><svg class="icon" aria-hidden="true"><use href="#sso"/></svg></span><span>Single Sign-On</span></button>
+        <button type="button" class="feature" data-feature="password" aria-pressed="false" aria-controls="feature-detail"><span class="feature-orb"><svg class="icon" aria-hidden="true"><use href="#lock"/></svg></span><span>Email &amp; Password</span></button>
+        <button type="button" class="feature" data-feature="mfa" aria-pressed="false" aria-controls="feature-detail"><span class="feature-orb"><svg class="icon" aria-hidden="true"><use href="#shield"/></svg></span><span>Multi-Factor Auth</span></button>
+        <button type="button" class="feature" data-feature="social" aria-pressed="false" aria-controls="feature-detail"><span class="feature-orb"><svg class="icon" aria-hidden="true"><use href="#social"/></svg></span><span>Social Login</span></button>
+        <button type="button" class="feature" data-feature="roles" aria-pressed="false" aria-controls="feature-detail"><span class="feature-orb"><svg class="icon" aria-hidden="true"><use href="#users"/></svg></span><span>Role-Based Access</span></button>
+        <button type="button" class="feature" data-feature="magic" aria-pressed="false" aria-controls="feature-detail"><span class="feature-orb"><svg class="icon" aria-hidden="true"><use href="#magic"/></svg></span><span>Magic Auth</span></button>
+      </div>
+      <div class="feature-detail" id="feature-detail" aria-live="polite">
+        <strong>One sign-in. Every enterprise.</strong><br>
+        A seamless login experience with your customers’ identity providers, from the very first user to your largest organization.
+      </div>
+    </section>
+
+    <section class="section content-width" id="extensible" aria-labelledby="extensible-title">
+      <p class="eyebrow">Extensible by design</p>
+      <h2 id="extensible-title">Your users. Your data.<br>Maximum flexibility.</h2>
+      <p class="section-copy">Everything you need to manage your users, all in one place.<br>Built on WorkOS, with the flexibility to make it your own.</p>
+      <a class="pill section-link" href="#customize">Explore the demo <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a>
+
+      <div class="dashboard-wrap">
+        <div class="dashboard" aria-label="Interactive sample user management dashboard">
+          <div class="window-bar">
+            <span class="window-dot" aria-hidden="true"></span><span class="window-dot" aria-hidden="true"></span><span class="window-dot" aria-hidden="true"></span>
+            <span class="window-title"><svg class="icon" aria-hidden="true"><use href="#lock"/></svg>dashboard.workos.com</span>
+          </div>
+          <div class="dashboard-body">
+            <aside class="dashboard-sidebar">
+              <div class="workspace-name"><span class="workspace-logo"><svg aria-hidden="true"><use href="#acme-mark"/></svg></span>Acme</div>
+              <div class="nav-caption">Workspace</div>
+              <div class="dashboard-tabs" role="tablist" aria-label="Dashboard views">
+                <button class="dashboard-tab" id="tab-users" role="tab" type="button" data-panel="users-panel" aria-selected="true" aria-controls="users-panel"><svg class="icon" aria-hidden="true"><use href="#users"/></svg>Users</button>
+                <button class="dashboard-tab" id="tab-orgs" role="tab" type="button" data-panel="orgs-panel" aria-selected="false" aria-controls="orgs-panel" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#building"/></svg>Organizations</button>
+                <button class="dashboard-tab" id="tab-auth" role="tab" type="button" data-panel="auth-panel" aria-selected="false" aria-controls="auth-panel" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#shield"/></svg>Authentication</button>
+              </div>
+              <div class="sidebar-bottom">Powered by WorkOS</div>
+            </aside>
+            <div class="dashboard-main">
+              <div id="users-panel" class="dashboard-panel" role="tabpanel" aria-labelledby="tab-users">
+                <div class="dashboard-heading"><div><h3>Users</h3><p>A home for all your users.</p></div><span class="badge"><span class="badge-dot"></span>Development</span></div>
+                <div class="table-toolbar">
+                  <svg class="icon" aria-hidden="true"><use href="#search"/></svg>
+                  <label class="sr-only" for="user-search">Search sample users</label>
+                  <input class="text-input search-input" id="user-search" type="search" placeholder="Search users..." autocomplete="off">
+                </div>
+                <table class="user-table">
+                  <thead><tr><th>User</th><th>Authentication</th><th>Last active</th></tr></thead>
+                  <tbody>
+                    <tr data-user="Alex Morgan alex example"><td><div class="user-person"><span class="avatar">AM</span><div>Alex Morgan<div class="table-email">alex@example.com</div></div></div></td><td><span class="table-provider"><svg class="icon" aria-hidden="true"><use href="#google"/></svg>Google</span></td><td>Just now</td></tr>
+                    <tr data-user="Jordan Lee jordan example"><td><div class="user-person"><span class="avatar">JL</span><div>Jordan Lee<div class="table-email">jordan@example.com</div></div></div></td><td><span class="table-provider">Email &amp; Password</span></td><td>2 minutes ago</td></tr>
+                    <tr data-user="Taylor Kim taylor example"><td><div class="user-person"><span class="avatar">TK</span><div>Taylor Kim<div class="table-email">taylor@example.com</div></div></div></td><td><span class="table-provider"><svg class="icon" aria-hidden="true"><use href="#microsoft"/></svg>Microsoft</span></td><td>5 minutes ago</td></tr>
+                    <tr data-user="Sam Rivera sam example"><td><div class="user-person"><span class="avatar">SR</span><div>Sam Rivera<div class="table-email">sam@example.com</div></div></div></td><td><span class="table-provider">Single Sign-On</span></td><td>12 minutes ago</td></tr>
+                  </tbody>
+                </table>
+                <p id="no-users" class="card-description" hidden>No sample users match your search.</p>
+                <div class="dashboard-foot"><span id="user-count">4 sample users</span><span>All systems operational</span></div>
+              </div>
+              <div id="orgs-panel" class="dashboard-panel" role="tabpanel" aria-labelledby="tab-orgs" hidden>
+                <div class="dashboard-heading"><div><h3>Organizations</h3><p>Your customers, connected.</p></div><span class="badge">Development</span></div>
+                <div class="org-list">
+                  <div class="org-item"><span class="workspace-logo"><svg aria-hidden="true"><use href="#acme-mark"/></svg></span><div>Acme<small>acme.example · 24 members</small></div><span class="badge">SSO enabled</span></div>
+                  <div class="org-item"><span class="workspace-logo"><svg aria-hidden="true"><use href="#super-mark"/></svg></span><div>SuperApp<small>superapp.example · 12 members</small></div><span class="badge">Active</span></div>
+                  <div class="org-item"><span class="workspace-logo"><svg aria-hidden="true"><use href="#auth-mark"/></svg></span><div>Clamer<small>clamer.example · 8 members</small></div><span class="badge">Active</span></div>
+                </div>
+              </div>
+              <div id="auth-panel" class="dashboard-panel" role="tabpanel" aria-labelledby="tab-auth" hidden>
+                <div class="dashboard-heading"><div><h3>Authentication</h3><p>A great first impression, built in.</p></div><span class="badge">Development</span></div>
+                <div class="auth-setting"><div>Email &amp; Password<small>A familiar way to get started.</small></div><span class="badge">Enabled</span></div>
+                <div class="auth-setting"><div>Social Login<small>Google and Microsoft.</small></div><span class="badge">Enabled</span></div>
+                <div class="auth-setting"><div>Multi-Factor Auth<small>An extra layer of protection.</small></div><span class="badge">Enabled</span></div>
+                <div class="auth-setting"><div>Hosted login page<small>Your brand. Your style.</small></div><a class="pill" href="#customize" style="font-size:11px;min-height:30px;padding:6px 12px">Customize <svg class="icon" style="width:14px;height:14px" aria-hidden="true"><use href="#arrow"/></svg></a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="dashboard-caption">YOUR APPLICATION. POWERED BY WORKOS.</p>
+      </div>
+    </section>
+
+    <section class="section customization content-width" id="customize" aria-labelledby="customize-title">
+      <p class="eyebrow">Shine bright</p>
+      <h2 id="customize-title">Your brand. Your style.</h2>
+      <p class="section-copy">A beautiful login experience that feels like you.<br>Make it your own, down to the smallest detail.</p>
+
+      <div class="custom-window">
+        <div class="window-bar">
+          <span class="window-dot" aria-hidden="true"></span><span class="window-dot" aria-hidden="true"></span><span class="window-dot" aria-hidden="true"></span>
+          <span class="window-title"><svg class="icon" aria-hidden="true"><use href="#lock"/></svg>login.your-app.com</span>
+        </div>
+        <div class="custom-workspace">
+          <div class="inspector color-panel">
+            <h3><svg class="icon" aria-hidden="true"><use href="#palette"/></svg>Brand color</h3>
+            <div class="swatches" role="group" aria-label="Demo brand color">
+              <button class="swatch" type="button" style="--swatch:#663af3" data-color="#663af3" aria-label="Violet" aria-pressed="true"></button>
+              <button class="swatch" type="button" style="--swatch:#027dea" data-color="#027dea" aria-label="Blue" aria-pressed="false"></button>
+              <button class="swatch" type="button" style="--swatch:#269684" data-color="#269684" aria-label="Teal" aria-pressed="false"></button>
+              <button class="swatch" type="button" style="--swatch:#e46d4c" data-color="#e46d4c" aria-label="Ember" aria-pressed="false"></button>
+            </div>
+            <div class="inspector-small"><span>Primary</span><output class="color-value" id="color-value">#663AF3</output></div>
+          </div>
+
+          <div class="inspector radius-panel">
+            <div class="range-label"><label for="radius-control" style="font-size:12px"><svg class="icon" style="display:inline-block;width:13px;height:13px;vertical-align:-2px;margin-right:5px" aria-hidden="true"><use href="#radius"/></svg>Corner radius</label><output id="radius-value" for="radius-control">6 px</output></div>
+            <input id="radius-control" type="range" min="0" max="24" value="6" aria-valuetext="6 pixels">
+            <div class="range-limits"><span>Square</span><span>Round</span></div>
+          </div>
+
+          <article class="login-card custom-card" id="custom-card" aria-label="Customizable local login demo">
+            <div class="auth-content">
+              <svg class="card-brand" aria-hidden="true"><use href="#acme-mark"/></svg>
+              <h3 class="card-title" id="custom-card-title">Sign in to Acme</h3>
+              <button class="provider" type="button" data-provider="Google"><svg class="icon" aria-hidden="true"><use href="#google"/></svg>Continue with Google</button>
+              <div class="divider">OR</div>
+              <form class="local-auth-form" novalidate autocomplete="off" data-demo="custom">
+                <div class="form-field">
+                  <label for="custom-email">Email</label>
+                  <input class="text-input" id="custom-email" type="email" placeholder="you@example.com" required autocomplete="off" aria-describedby="custom-error">
+                </div>
+                <div class="form-field">
+                  <label for="custom-password">Demo password</label>
+                  <input class="text-input" id="custom-password" type="password" placeholder="At least 8 characters" required minlength="8" autocomplete="off" aria-describedby="custom-error">
+                </div>
+                <p class="form-error" id="custom-error" role="alert" hidden></p>
+                <button class="submit-button" id="custom-submit" type="submit">Continue</button>
+              </form>
+              <p class="account-prompt"><span class="account-question">Don’t have an account?</span> <button class="text-button account-toggle" type="button">Sign up</button></p>
+            </div>
+            <div class="success-body" tabindex="-1" hidden>
+              <div class="success-symbol"><svg aria-hidden="true"><use href="#check"/></svg></div>
+              <h3>You’re all set.</h3>
+              <p class="success-message">Demo sign-in complete. Nothing was sent or saved.</p>
+              <button class="pill reset-demo" type="button">Try again <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></button>
+            </div>
+          </article>
+
+          <div class="inspector theme-panel">
+            <h3>Appearance</h3>
+            <div class="segmented" role="group" aria-label="Customized demo theme">
+              <button type="button" data-demo-theme="light" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#sun"/></svg>Light</button>
+              <button type="button" data-demo-theme="dark" aria-pressed="true"><svg class="icon" aria-hidden="true"><use href="#moon"/></svg>Dark</button>
+            </div>
+            <div class="inspector-small"><span>Made for both.</span></div>
+          </div>
+
+          <div class="inspector brand-panel">
+            <label for="brand-name">Make it yours</label>
+            <input class="text-input" id="brand-name" type="text" value="Acme" maxlength="22" autocomplete="off" aria-label="Demo application name">
+            <label class="minor-label" for="button-label">Button label</label>
+            <input class="text-input" id="button-label" type="text" value="Continue" maxlength="24" autocomplete="off">
+          </div>
+        </div>
+      </div>
+      <p class="demo-notice"><svg class="icon" aria-hidden="true"><use href="#lock"/></svg>A local playground. Use dummy details — nothing is sent or saved.</p>
+    </section>
+
+    <section class="closing content-width" aria-labelledby="closing-title">
+      <svg class="closing-symbol" aria-hidden="true"><use href="#auth-mark"/></svg>
+      <h2 id="closing-title">A better beginning.</h2>
+      <p>The first thing your users see. The last login box you’ll need.</p>
+      <a class="pill" href="#customize">Get started with AuthKit <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="workos" href="#top" aria-label="WorkOS — back to top">WorkOS</a>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="#features">Features</a>
+      <a href="#customize">Customize</a>
+      <button class="text-button" type="button" data-open-notes>Developer notes</button>
+    </nav>
+    <span class="footer-note">AuthKit · A local visual demo</span>
+  </footer>
+</div>
+
+<dialog id="developer-dialog" aria-labelledby="developer-title">
+  <button class="dialog-close" type="button" aria-label="Close developer notes"><svg class="icon" aria-hidden="true"><use href="#close"/></svg></button>
+  <svg class="dialog-symbol" aria-hidden="true"><use href="#github"/></svg>
+  <h2 id="developer-title">Open by design.</h2>
+  <p>AuthKit brings together WorkOS and Radix. This self-contained reproduction lets you explore the experience without connecting to GitHub or an authentication service.</p>
+  <pre id="demo-snippet">// This demo stays in your browser.
+form.addEventListener('submit', event =&gt; {
+  event.preventDefault();
+  if (validateDummyInput()) {
+    form.reset();
+    showLocalSuccess();
+  }
+});</pre>
+  <div class="dialog-actions">
+    <button type="button" class="pill" id="copy-snippet">Copy demo snippet</button>
+    <a href="#extensible" class="pill" id="explore-local">Explore locally <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a>
+  </div>
+  <p class="dialog-footnote">No dependencies, network requests, cookies, or credential storage.</p>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<noscript><p style="text-align:center;padding:20px;color:#9da7ba">Enable JavaScript to use the local theme, customization, and login demos. Do not enter real credentials.</p></noscript>
+
+<script>
+(function(){
+  'use strict';
+  const $ = (selector, scope=document) => scope.querySelector(selector);
+  const $$ = (selector, scope=document) => Array.from(scope.querySelectorAll(selector));
+  const customCard = $('#custom-card');
+  let toastTimer;
+
+  function notify(message){
+    const toast = $('#toast');
+    toast.textContent = message;
+    toast.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { toast.hidden = true; }, 3500);
+  }
+
+  function setPressed(buttons, active){
+    buttons.forEach(button => button.setAttribute('aria-pressed', String(button === active)));
+  }
+
+  const heroThemeButtons = $$('[data-hero-theme]');
+  heroThemeButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      $('#hero-scene').classList.toggle('scene-light', button.dataset.heroTheme === 'light');
+      setPressed(heroThemeButtons, button);
+    });
+  });
+
+  const demoThemeButtons = $$('[data-demo-theme]');
+  demoThemeButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      customCard.classList.toggle('light', button.dataset.demoTheme === 'light');
+      setPressed(demoThemeButtons, button);
+    });
+  });
+
+  const swatches = $$('[data-color]');
+  swatches.forEach(button => {
+    button.addEventListener('click', () => {
+      customCard.style.setProperty('--demo-accent', button.dataset.color);
+      $('#color-value').textContent = button.dataset.color.toUpperCase();
+      setPressed(swatches, button);
+    });
+  });
+
+  $('#radius-control').addEventListener('input', function(){
+    customCard.style.setProperty('--demo-radius', this.value + 'px');
+    $('#radius-value').textContent = this.value + ' px';
+    this.setAttribute('aria-valuetext', this.value + ' pixels');
+  });
+
+  function updateCustomHeading(){
+    const brand = $('#brand-name').value.trim() || 'Acme';
+    $('#custom-card-title').textContent = (customCard.dataset.signup === 'true' ? 'Join ' : 'Sign in to ') + brand;
+  }
+  $('#brand-name').addEventListener('input', updateCustomHeading);
+  $('#button-label').addEventListener('input', function(){
+    $('#custom-submit').textContent = this.value.trim() || 'Continue';
+  });
+
+  function clearError(form){
+    const error = $('.form-error', form);
+    error.hidden = true;
+    error.textContent = '';
+    $$('input', form).forEach(input => input.removeAttribute('aria-invalid'));
+  }
+
+  function showSuccess(card, message){
+    const form = $('form', card);
+    if(form){
+      form.reset();
+      clearError(form);
+    }
+    $('.auth-content', card).hidden = true;
+    const success = $('.success-body', card);
+    $('.success-message', success).textContent = message;
+    success.hidden = false;
+    success.focus({preventScroll:true});
+  }
+
+  $$('.local-auth-form').forEach(form => {
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      clearError(form);
+      const email = $('input[type=email]', form);
+      const password = $('input[type=password]', form);
+      let invalidInput = null;
+      let message = '';
+
+      if(!email.value.trim() || !email.validity.valid || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())){
+        invalidInput = email;
+        message = 'Enter a valid dummy email, such as you@example.com.';
+      } else if(password && password.value.length < 8){
+        invalidInput = password;
+        message = 'Use a dummy password with at least 8 characters.';
+      }
+
+      if(invalidInput){
+        const error = $('.form-error', form);
+        error.textContent = message;
+        error.hidden = false;
+        invalidInput.setAttribute('aria-invalid','true');
+        invalidInput.focus({preventScroll:true});
+        return;
+      }
+
+      const card = form.closest('.login-card');
+      const messageText = card.dataset.signup === 'true'
+        ? 'Demo account created. Nothing was sent or saved.'
+        : 'Demo sign-in complete. Nothing was sent or saved.';
+      showSuccess(card, messageText);
+    });
+
+    $$('input', form).forEach(input => {
+      input.addEventListener('input', () => {
+        if(!$('.form-error', form).hidden) clearError(form);
+      });
+    });
+  });
+
+  $$('[data-provider]').forEach(button => {
+    button.addEventListener('click', () => {
+      showSuccess(button.closest('.login-card'), button.dataset.provider + ' sign-in simulated. No account was connected and nothing was sent or saved.');
+    });
+  });
+
+  $$('.reset-demo').forEach(button => {
+    button.addEventListener('click', () => {
+      const card = button.closest('.login-card');
+      $('.success-body', card).hidden = true;
+      $('.auth-content', card).hidden = false;
+      $('input[type=email]', card).focus({preventScroll:true});
+    });
+  });
+
+  $$('.account-toggle').forEach(button => {
+    button.addEventListener('click', () => {
+      const card = button.closest('.login-card');
+      const signup = card.dataset.signup !== 'true';
+      card.dataset.signup = String(signup);
+      button.textContent = signup ? 'Sign in' : 'Sign up';
+      $('.account-question', card).textContent = signup ? 'Already have an account?' : 'Don’t have an account?';
+      clearError($('form', card));
+      if(card.id === 'hero-login'){
+        $('#hero-card-title').textContent = signup ? 'Create your SuperApp account' : 'Sign in to SuperApp';
+        $('.submit-button', card).textContent = signup ? 'Create account' : 'Continue';
+      } else {
+        updateCustomHeading();
+      }
+      $('input[type=email]', card).focus({preventScroll:true});
+    });
+  });
+
+  const featureContent = {
+    sso:['One sign-in. Every enterprise.','A seamless login experience with your customers’ identity providers, from the very first user to your largest organization.'],
+    password:['Familiar. Simple. Beautiful.','Give your users a polished email and password experience. Try the local demo below with any dummy email and an eight-character password.'],
+    mfa:['A little extra peace of mind.','An additional verification step helps keep accounts protected, with a clear and considered experience from start to finish.'],
+    social:['A familiar face at the front door.','Let users get started with Google or Microsoft. The provider buttons in this playground simulate success without connecting an account.'],
+    roles:['The right access, for every user.','Organize users and permissions as your application grows. Explore the sample organizations in the dashboard below.'],
+    magic:['Less friction. A little magic.','A passwordless path to your application. Start with an email address and give your users a simpler way in.']
+  };
+  const featureButtons = $$('[data-feature]');
+  featureButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      setPressed(featureButtons, button);
+      const content = featureContent[button.dataset.feature];
+      const detail = $('#feature-detail');
+      const title = document.createElement('strong');
+      title.textContent = content[0];
+      detail.replaceChildren(title, document.createElement('br'), document.createTextNode(content[1]));
+    });
+  });
+
+  const dashboardTabs = $$('.dashboard-tab');
+  function selectDashboardTab(tab){
+    dashboardTabs.forEach(button => {
+      const selected = button === tab;
+      button.setAttribute('aria-selected', String(selected));
+      button.tabIndex = selected ? 0 : -1;
+      document.getElementById(button.dataset.panel).hidden = !selected;
+    });
+  }
+  dashboardTabs.forEach((button, index) => {
+    button.addEventListener('click', () => selectDashboardTab(button));
+    button.addEventListener('keydown', event => {
+      let target;
+      if(event.key === 'ArrowRight' || event.key === 'ArrowDown') target = (index + 1) % dashboardTabs.length;
+      if(event.key === 'ArrowLeft' || event.key === 'ArrowUp') target = (index + dashboardTabs.length - 1) % dashboardTabs.length;
+      if(event.key === 'Home') target = 0;
+      if(event.key === 'End') target = dashboardTabs.length - 1;
+      if(target !== undefined){
+        event.preventDefault();
+        selectDashboardTab(dashboardTabs[target]);
+        dashboardTabs[target].focus();
+      }
+    });
+  });
+
+  $('#user-search').addEventListener('input', function(){
+    const query = this.value.toLowerCase().trim();
+    let count = 0;
+    $$('[data-user]').forEach(row => {
+      row.hidden = !row.dataset.user.toLowerCase().includes(query);
+      if(!row.hidden) count++;
+    });
+    $('#no-users').hidden = count !== 0;
+    $('#user-count').textContent = count + ' sample ' + (count === 1 ? 'user' : 'users');
+  });
+
+  const dialog = $('#developer-dialog');
+  $$('[data-open-notes]').forEach(button => button.addEventListener('click', () => dialog.showModal()));
+  $('.dialog-close', dialog).addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', event => {
+    if(event.target === dialog){
+      const rect = dialog.getBoundingClientRect();
+      if(event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
+    }
+  });
+  $('#explore-local').addEventListener('click', () => dialog.close());
+  $('#copy-snippet').addEventListener('click', async function(){
+    try{
+      if(!navigator.clipboard) throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText($('#demo-snippet').textContent);
+      this.textContent = 'Copied';
+      notify('Demo snippet copied.');
+      setTimeout(() => { this.textContent = 'Copy demo snippet'; }, 2500);
+    } catch(error){
+      const range = document.createRange();
+      range.selectNodeContents($('#demo-snippet'));
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      notify('Snippet selected. Use your keyboard’s copy command.');
+    }
+  });
+
+  window.addEventListener('pagehide', () => {
+    $$('.local-auth-form').forEach(form => form.reset());
+  });
+})();
+</script>
+</body>
+</html>

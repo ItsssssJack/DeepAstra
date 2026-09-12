@@ -1,0 +1,19 @@
+Comparing the two 1600×1000 renders, the compositions are close but several concrete offsets and finishes diverge. Fixes ranked by visual impact:
+
+1. **AuthKit wordmark is undersized.** Reference cap-height of "A" is ≈125px (wordmark spans ~465px wide). Current render is ≈95–100px tall / ~440px wide — noticeably shorter. The CSS `font-size:clamp(88px, 9vw, 150px)` yields ~144px at 1600px; raise to `clamp(104px, 11.4vw, 190px)` so the effective size is ~180px. This is the single biggest delta.
+
+2. **Wordmark gradient too pale/uniform.** Reference top is ice-white (#eaf3fe) and bottom sinks to a distinct soft blue (#8fb8ea), giving a lit-from-behind look. Current `linear-gradient(180deg,#e2eefc,#c3d8f5 48%,#98c0ef)` reads flatter and lighter overall. Push stops to `0% #eef6ff, 42% #cfe0f7, 100% #8ab4e6` and remove the ±1px vertical blur from the ::before halo (widen to ~140% × 200%, opacity .18).
+
+3. **Card fan sits ~10px too low and content is over-stretched.** Reference center-card top edge ≈ y=525; current ≈ y=535. `margin:64px auto 0` → `54px`. Inside the center card, Email label / input / Continue in the reference sit tighter (label y≈650, CTA y≈730); current has them ~25–30px further down because `card-field{margin-top:22px}` + 44px top padding is too generous — reduce to `margin-top:16px` and card padding `40px 32px 22px`.
+
+4. **Side cards are dimmed a shade too much.** `.auth-card.side{filter:brightness(.82)}` mutes them below reference; reference left/right cards read as visible glass plates with crisp top-edge hairline. Drop to `filter:brightness(.92)` and raise their card title-`color` from `#eaf1fc` to `#eef4fd` so "Welcome to" / "Enter your code" carry the same small luminance as the reference.
+
+5. **Header center diamond is wrong geometry.** Reference shows a solid/mostly-filled diamond glyph (dark interior, subtle light rim). Current `<path d="M16 7.6 24.4 16 16 24.4 7.6 16Z" fill="url(#symGrad)"/>` with an inner dark diamond reads as an outlined target. Replace with a single filled light diamond (#cfe0f8) at ~22×22px, no outer stroke.
+
+6. **Hero spotlight column is too cool and too narrow.** Reference has a wide, soft, slightly warmer light column behind the wordmark reaching from y≈90 to y≈500 and ~900px wide. Current `.hero-haze` is width 1120px but opacity .35 with a cool tint — raise opacity to `.5`, use `rgba(200,220,248,.28)→transparent`, and extend height to 720px.
+
+7. **Registration crosshair marks are mis-positioned.** Reference shows 6 small `+` marks arranged as two vertical ladders (x≈505/1095) hugging the wordmark at roughly y≈230/318/406 — they frame the wordmark. Current sets them at y=176/306/434 with `margin-left:±270px` (x≈530/1070), which places the outer marks past the wordmark corners. Move to `margin-left:±262px` and `top:230px/318px/406px`.
+
+8. **Card corner "punch" dots too bright / square.** Reference corner markers read as faint single dots; current `::after` draws 4 × ~1.6px circles at full `rgba(216,236,248,.5)`. Reduce size to 1.2px, opacity to `.32`, and pull inset positions from 10/16px to 12/14px so they hug the corner radius rather than the body.
+
+Minor: subtitle in the reference sits ~10px closer to the wordmark (`margin:14px auto 0` → `4px`), and the "Introducing" flanking rules in the reference are ~46px, not 58px (`width:58px` → `46px`). Neither should be touched before items 1–4.

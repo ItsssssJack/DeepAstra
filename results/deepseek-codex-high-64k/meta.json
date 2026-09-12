@@ -1,0 +1,10 @@
+{
+  "run": "deepseek-codex-high-64k",
+  "model": "deepseek/deepseek-v4.1-flash",
+  "effort": "high",
+  "harness": "Codex CLI 0.154.0, Responses API, file + shell tools",
+  "exit_code": 1,
+  "seconds": 102.941,
+  "completed": "2026-09-12T13:27:27.751601+00:00",
+  "has_html": false
+}

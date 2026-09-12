@@ -1,0 +1,41 @@
+{
+  "control_labels": {
+    "color": "Signal blue",
+    "radius": "radiusRange"
+  },
+  "changed_rendered_elements": [
+    {
+      "id": "demoEmail",
+      "before": {
+        "background": "rgba(9, 13, 25, 0.74)",
+        "radius": "6px"
+      },
+      "after": {
+        "background": "rgba(9, 13, 25, 0.74)",
+        "radius": "16px"
+      }
+    },
+    {
+      "id": "demoReset",
+      "before": {
+        "background": "rgb(102, 58, 243)",
+        "radius": "6px"
+      },
+      "after": {
+        "background": "rgb(2, 125, 234)",
+        "radius": "16px"
+      }
+    },
+    {
+      "id": "previewEmail",
+      "before": {
+        "background": "rgba(9, 13, 25, 0.74)",
+        "radius": "6px"
+      },
+      "after": {
+        "background": "rgba(9, 13, 25, 0.74)",
+        "radius": "16px"
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "feedback": [
+    "es instantly. Try it, then submit the form to see the local success state.",
+    "Check your inbox",
+    "We sent a sign-in link to demo@example.com.",
+    "Local demo only — nothing was sent or stored.",
+    "Form validation runs locally. No credentials are sent or stored."
+  ],
+  "url": "http://127.0.0.1:8765/results/astra-critic-2/index.html"
+}

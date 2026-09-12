@@ -1,0 +1,8 @@
+{
+  "run": "deepseek-raw-none",
+  "model": "deepseek/deepseek-v4.1-flash",
+  "effort": "none",
+  "harness": "direct API, one response",
+  "plan": null,
+  "completed": "2026-09-12T13:22:28.178330+00:00"
+}

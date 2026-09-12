@@ -1,0 +1,8 @@
+{
+  "run": "astra-raw-high-64k",
+  "model": "openai/gpt-6-astra",
+  "effort": "high",
+  "harness": "direct API, one response",
+  "plan": null,
+  "completed": "2026-09-12T13:32:41.012905+00:00"
+}

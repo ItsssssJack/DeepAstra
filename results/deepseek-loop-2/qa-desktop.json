@@ -1,0 +1,19 @@
+{
+  "forms": [
+    {
+      "buttons": [
+        "Continue",
+        "Continue with Google",
+        "Continue with Microsoft",
+        "Use a different email"
+      ],
+      "i": 0,
+      "inputs": [
+        "email"
+      ]
+    }
+  ],
+  "height": 1000,
+  "scrollWidth": 1600,
+  "width": 1600
+}

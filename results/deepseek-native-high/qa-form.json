@@ -1,0 +1,9 @@
+{
+  "input": "demo@example.com",
+  "success": [
+    {
+      "text": "Magic link sent to demo@example.com. Local demo only.",
+      "visible": true
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+## Implementation plan
+
+### 1. File and visual priorities
+Deliver one self-contained `index.html`: semantic HTML, inline CSS, inline SVG symbols and vanilla JavaScript. No external assets, fonts, dependencies or network requests.
+
+Treat the screenshot as authoritative: this is a subdued, nearly monochromatic composition, not a bright glassmorphism landing page. In particular, **hero Continue buttons appear dark and outlined**, despite the generic violet-button rule. Reserve violet for the lower interactive customization demo.
+
+### 2. Desktop first viewport: 1600 × 1000
+Use a near-black `#05060f` canvas. Center the composition at **x=800**. Although lower sections can reach 1200px wide, the visible header and hero cards occupy approximately 760px.
+
+- **Header:** top around 35px; height 38px. WorkOS starts at x≈447, vertically centered at y≈54, in muted blue-gray, 18px medium. Center an angular, mirrored-bracket AuthKit symbol at x=800, approximately 36×34px. Place the circular GitHub control at x≈1041, 36px square, then a 106×36px Get started pill at x≈1093. Use faint inset edges and minimal fills.
+- **Introducing:** centered at y≈214, 14px, sentence case as pictured. Add short, barely visible fading rules on either side.
+- **AuthKit:** target visible letter bounds approximately **x=561–1039, y=265–370**. Start with a 144–150px medium sans-serif and adjust font size/tracking to achieve that silhouette. Keep the heading’s line box around y=247–385. Use a restrained pale steel-blue gradient, not white neon.
+- **Subtitle:** centered, 24px regular, approximately 30px line height. Preserve exactly:
+  “The world’s best login box,”
+  “powered by WorkOS + Radix.”
+  Its visible bounds should run approximately y=404–455.
+- Start the card arrangement at y≈521. Do not add a separate hero CTA or extra explanatory copy.
+
+### 3. Auth-card composition
+The **central card is x≈604, y≈521, width≈392px, height≈459px**, ending near the viewport bottom. Use 16px corners and 35–36px horizontal inner padding.
+
+Inside, place a faint circular geometric logo at y≈578, “Sign in to SuperApp” around y≈619, then:
+- Email label and a 320×34px rounded input around y≈670.
+- Dark outlined Continue button around y≈718.
+- Quiet OR divider around y≈787.
+- Google and Microsoft buttons around y≈822 and 870.
+- Muted signup sentence around y≈929.
+
+Use 14px form text, 16px title, monochrome provider symbols, and low-contrast blue-white edges.
+
+Behind it, place two approximately **334×380px** cards:
+- Left: x≈433, top≈555.
+- Right: x≈833, top≈555.
+
+Their outer edges end near y≈935. Apply only a very slight opposing perspective/skew: these are almost upright plates, not an exaggerated rotating fan. The center card fully occludes their inner content. Left shows an email login; right shows an authenticator-code flow. Add tiny frost-colored corner registration dots matching the screenshot. Keep side cards dimmer than the center.
+
+### 4. Lighting and typography
+Construct the atmosphere with layered CSS gradients:
+1. Near-black base.
+2. Broad, extremely faint cool haze behind the hero.
+3. A blurred spotlight beginning beneath the centered header symbol, widening toward the subtitle and cards.
+4. A subtle local glow behind the wordmark.
+
+Avoid saturated purple, rainbow blooms or luminous card outlines.
+
+Grid lines should be nearly subliminal and fade toward all outer edges. Emphasize vertical guides near **x=471, 543, 1055 and 1127**, with horizontal guides near **y=105, 177, 249, 385 and 471**. Add tiny intersection marks on the inner guides.
+
+Cards use dark navy translucent fills, a delicate top inset highlight, broad faint inner illumination and restrained black depth shadows. No heavy blur of foreground text.
+
+Use system sans-serif fallbacks resembling Untitled Sans/Aeonik; regular or medium display weights. Lower eyebrows use 15px tracked monospace capitals.
+
+### 5. Below-hero rhythm
+Place the centered moon/sun segmented switch after the cards, followed by six connected circular feature icons: Single Sign-On, Password, MFA, Social Login, RBAC and Magic Auth.
+
+Maintain approximately 120px between major sections:
+- **EXTENSIBLE BY DESIGN:** “Your users. Your data. Maximum flexibility.” Use a 44–48px centered heading, concise muted supporting copy and a frosted dashboard illustration containing sidebar navigation, user rows and authentication badges.
+- **SHINE BRIGHT:** “Your brand. Your style.” Follow with a browser-frame illustration containing a usable login card and floating inspector panels.
+
+Include color swatches, radius control and dark/light selection. Keep desktop illustrations within 1000–1100px.
+
+### 6. Responsive and local behavior
+At 390px, use 20px page gutters, retain the centered header symbol, reduce AuthKit to approximately 88px and subtitle to 19px. Center a 310px-wide primary card around y=400; show narrow, dim side-card glimpses behind it. Clip only decorative overflow and disable obscured side-card interactions. Stack feature icons in a 3×2 grid and customization controls below their preview.
+
+Get started scrolls to customization; WorkOS returns to top; GitHub opens an accessible local project-information dialog. Theme controls alter demo surfaces only. Swatches change the demo CTA/logo, and radius controls visibly update card/input geometry.
+
+Forms prevent submission, validate email and six-digit dummy codes where applicable, clear entered values and show a local success/reset state. Provider buttons simulate success without OAuth. Never send or persist credentials. Provide visible keyboard focus, accessible labels, live status announcements, dialog Escape/focus handling and reduced-motion support.

@@ -1,0 +1,30 @@
+{
+  "control_labels": {
+    "color": "Signal blue accent",
+    "radius": "radiusRange"
+  },
+  "changed_rendered_elements": [
+    {
+      "id": "demoCta",
+      "before": {
+        "background": "rgb(102, 58, 243)",
+        "radius": "6px"
+      },
+      "after": {
+        "background": "rgb(2, 125, 234)",
+        "radius": "6px"
+      }
+    },
+    {
+      "id": "demoLogo",
+      "before": {
+        "background": "rgb(102, 58, 243)",
+        "radius": "999px"
+      },
+      "after": {
+        "background": "rgb(2, 125, 234)",
+        "radius": "999px"
+      }
+    }
+  ]
+}

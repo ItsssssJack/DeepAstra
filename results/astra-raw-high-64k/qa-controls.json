@@ -1,0 +1,52 @@
+{
+  "control_labels": {
+    "color": "Blue",
+    "radius": "radius-control"
+  },
+  "changed_rendered_elements": [
+    {
+      "id": "custom-card",
+      "before": {
+        "background": "rgba(0, 0, 0, 0)",
+        "radius": "16px"
+      },
+      "after": {
+        "background": "rgba(0, 0, 0, 0)",
+        "radius": "34px"
+      }
+    },
+    {
+      "id": "custom-email",
+      "before": {
+        "background": "rgba(199, 211, 234, 0.055)",
+        "radius": "6px"
+      },
+      "after": {
+        "background": "rgba(199, 211, 234, 0.055)",
+        "radius": "24px"
+      }
+    },
+    {
+      "id": "custom-password",
+      "before": {
+        "background": "rgba(199, 211, 234, 0.055)",
+        "radius": "6px"
+      },
+      "after": {
+        "background": "rgba(199, 211, 234, 0.055)",
+        "radius": "24px"
+      }
+    },
+    {
+      "id": "custom-submit",
+      "before": {
+        "background": "rgb(102, 58, 243)",
+        "radius": "6px"
+      },
+      "after": {
+        "background": "rgb(2, 125, 234)",
+        "radius": "24px"
+      }
+    }
+  ]
+}

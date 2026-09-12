@@ -1,0 +1,16 @@
+{
+  "run": "deepastra-mobile-ds",
+  "model": "deepseek/deepseek-v4.1-flash",
+  "critic": "deepseek/deepseek-v4.1-flash",
+  "critic_effort": "low",
+  "effort": "high",
+  "harness": "visual critic + direct API rewrite",
+  "source": "deepastra-loop-2",
+  "iteration": 3,
+  "diagnostics_included": [
+    "qa-mobile.json",
+    "qa-form.json"
+  ],
+  "mobile_image_included": true,
+  "completed": "2026-09-12T14:01:19.709143+00:00"
+}

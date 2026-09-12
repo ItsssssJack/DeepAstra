@@ -1,0 +1,19 @@
+{
+  "control_labels": {
+    "color": "Blue brand colour",
+    "radius": "radius-control"
+  },
+  "changed_rendered_elements": [
+    {
+      "id": "custom-email",
+      "before": {
+        "background": "rgba(153, 174, 211, 0.067)",
+        "radius": "10px"
+      },
+      "after": {
+        "background": "rgba(153, 174, 211, 0.067)",
+        "radius": "24px"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1286 @@
+Here is the complete HTML document for the AuthKit marketing website reproduction. It includes all styles, SVG graphics, and JavaScript inline, delivering a fully functional demo with local form validation, theme switching, and responsive layout.
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AuthKit — The world's best login box</title>
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  --canvas:#05060f;
+  --steel:#2f343e;
+  --fog:#9da7ba;
+  --moon:#c7d3ea;
+  --frost:#d1e4fa;
+  --ice:#d8ecf8;
+  --violet:#663af3;
+  --blueprint:#b6d9fc;
+  --ember:#e46d4c;
+  --signal:#027dea;
+  --teal:#269684;
+  --gridline:#3f4959;
+  --hairline:rgba(186,215,247,.12);
+  --luminous:rgba(199,211,234,.12);
+
+  --font-sans:'Inter','Untitled Sans',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-display:'Space Grotesk','aeonikPro','Inter',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --font-mono:'JetBrains Mono','dotDigital',ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+
+  --page-max:1200px;
+  --section-gap:120px;
+
+  --radius-card:16px;
+  --radius-input:6px;
+  --radius-pill:999px;
+
+  --shadow-card:inset 0 1px 1px rgba(216,236,248,.2), inset 0 24px 48px rgba(168,216,245,.06), 0 16px 32px rgba(0,0,0,.3);
+  --shadow-panel:inset 0 1px 1px rgba(199,211,234,.12), inset 0 24px 48px rgba(199,211,234,.05), 0 24px 32px rgba(6,6,14,.7);
+  --hairline-inset:inset 0 0 0 1px rgba(186,215,247,.12);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+html,body{margin:0;padding:0}
+body{
+  background:var(--canvas);
+  color:var(--moon);
+  font-family:var(--font-sans);
+  font-size:16px;
+  line-height:1.5;
+  letter-spacing:-0.01em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  position:relative;
+}
+img,svg{display:block}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:none}
+a{color:inherit}
+:focus-visible{outline:2px solid rgba(152,192,239,.8);outline-offset:2px;border-radius:4px}
+
+.visually-hidden{
+  position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
+
+/* ============================================================
+   AMBIENT BACKGROUND
+   ============================================================ */
+.bg-grid{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(to right, rgba(186,215,247,.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(186,215,247,.06) 1px, transparent 1px);
+  background-size:80px 80px;
+  -webkit-mask-image:radial-gradient(130% 85% at 50% 0%, #000 15%, rgba(0,0,0,.55) 55%, transparent 88%);
+  mask-image:radial-gradient(130% 85% at 50% 0%, #000 15%, rgba(0,0,0,.55) 55%, transparent 88%);
+}
+.bg-vignette{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(120% 70% at 50% 0%, rgba(24,34,64,.55) 0%, transparent 60%);
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.site-header{position:relative;z-index:6}
+.header-inner{
+  max-width:760px;margin:0 auto;padding:34px 24px;
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;
+}
+.brand{
+  font-size:16px;font-weight:500;letter-spacing:-0.01em;color:var(--frost);
+  text-decoration:none;justify-self:start;border-radius:4px;
+}
+.brand:hover{color:#fff}
+.header-mark{display:flex;justify-content:center}
+.header-mark svg{opacity:.92}
+.header-actions{display:flex;align-items:center;gap:12px;justify-self:end}
+
+.pill{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 16px;border-radius:var(--radius-pill);
+  font-size:14px;font-weight:500;letter-spacing:-0.01em;
+  color:#fff;text-decoration:none;white-space:nowrap;
+  background:rgba(186,214,247,.06);
+  box-shadow:inset 0 0 0 1px rgba(186,215,247,.12);
+  transition:background .18s ease, box-shadow .18s ease;
+}
+.pill:hover{background:rgba(186,214,247,.12);box-shadow:inset 0 0 0 1px rgba(186,215,247,.2)}
+.pill-outline{background:transparent;color:var(--frost)}
+.pill-outline:hover{background:rgba(186,214,247,.08)}
+.pill-icon{padding:8px;width:36px;height:36px;justify-content:center}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative;z-index:1;
+  padding:80px 24px 0;
+  text-align:center;
+  isolation:isolate;
+}
+.hero-spot{
+  position:absolute;top:-190px;left:50%;transform:translateX(-50%);
+  width:1500px;height:1000px;max-width:none;z-index:-1;pointer-events:none;
+  background:
+    conic-gradient(at 50% 12%, transparent 44.2%, rgba(124,145,182,.16) 48%, rgba(124,145,182,.34) 50%, rgba(124,145,182,.16) 52%, transparent 55.8%),
+    radial-gradient(42% 34% at 50% 12%, rgba(120,160,225,.22), transparent 72%);
+  filter:blur(3px);
+  opacity:.95;
+}
+.hero-halo{
+  position:absolute;left:50%;top:210px;transform:translateX(-50%);
+  width:900px;height:420px;z-index:-1;pointer-events:none;
+  background:radial-gradient(50% 55% at 50% 45%, rgba(146,186,238,.24), rgba(120,150,210,.07) 55%, transparent 75%);
+  filter:blur(28px);
+}
+.eyebrow-row{
+  display:flex;align-items:center;justify-content:center;gap:18px;
+  max-width:520px;margin:0 auto;
+}
+.eyebrow-row .rule{
+  flex:1;height:1px;min-width:24px;
+  background:linear-gradient(90deg, transparent, rgba(186,215,247,.18), transparent);
+}
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:15px;line-height:1.2;font-weight:400;
+  letter-spacing:.1em;
+  color:var(--moon);
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+.wordmark{
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:clamp(60px,9vw,150px);
+  line-height:1;
+  letter-spacing:-0.035em;
+  margin:34px 0 0;
+  background:linear-gradient(0deg,#d8ecf8 0%, #98c0ef 100%);
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;
+  -webkit-text-fill-color:transparent;
+  padding-bottom:.06em;
+}
+.hero-sub{
+  margin:26px auto 0;
+  max-width:520px;
+  font-size:clamp(17px,1.4vw,20px);
+  line-height:1.45;
+  color:#c3cfe6;
+  letter-spacing:-0.01em;
+}
+
+/* ---------- Hero floating cards ---------- */
+.hero-cards{
+  position:relative;
+  width:100%;max-width:1080px;margin:62px auto 0;height:520px;
+}
+.auth-card{
+  position:absolute;
+  border-radius:var(--radius-card);
+  padding:24px;
+  text-align:left;
+  color:var(--frost);
+  background:linear-gradient(180deg, rgba(24,31,50,.72) 0%, rgba(8,10,20,.94) 100%);
+  box-shadow:var(--shadow-card), inset 0 0 0 1px rgba(186,215,247,.06);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  pointer-events:none;
+  overflow:hidden;
+}
+.card-center{
+  left:50%;transform:translateX(-50%);
+  width:400px;height:472px;top:0;z-index:3;
+}
+.card-left{
+  left:130px;top:44px;width:340px;height:428px;z-index:2;opacity:.9;
+  transform:rotate(-1.2deg);
+}
+.card-right{
+  right:130px;top:44px;width:340px;height:428px;z-index:2;opacity:.9;
+  transform:rotate(1.2deg);
+}
+.ac-logo{
+  width:40px;height:40px;margin:2px auto 14px;border-radius:9999px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(186,214,247,.06);
+  box-shadow:inset 0 0 0 1px rgba(186,215,247,.12);
+}
+.ac-avatar{
+  width:34px;height:34px;margin:0 auto 12px;border-radius:9999px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(186,214,247,.06);
+  box-shadow:inset 0 0 0 1px rgba(186,215,247,.12);
+}
+.ac-title{
+  margin:0 0 4px;font-size:17px;font-weight:500;color:#ffffff;text-align:center;
+  letter-spacing:-0.01em;
+}
+.ac-sub{
+  margin:0 0 16px;font-size:13px;line-height:1.4;color:var(--fog);text-align:center;
+}
+.ac-label{
+  display:block;font-size:13px;color:#c7d3ea;margin:14px 0 6px;font-weight:400;
+}
+.ac-input{
+  width:100%;height:38px;padding:0 12px;border-radius:var(--radius-input);
+  background:rgba(199,211,234,.06);
+  box-shadow:inset 0 0 0 1px rgba(186,215,247,.12);
+  border:none;color:#fff;font-size:13px;
+}
+.ac-input::placeholder{color:rgba(199,211,234,.55)}
+.ac-btn{
+  width:100%;height:38px;margin-top:14px;border-radius:var(--radius-input);
+  font-size:13px;font-weight:500;color:#fff;
+  background:rgba(199,211,234,.08);
+  box-shadow:inset 0 0 0 1px rgba(186,215,247,.12);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.ac-divider{
+  display:flex;align-items:center;gap:10px;margin:16px 0 2px;
+  font-size:11px;letter-spacing:.08em;color:#8d97ab;
+}
+.ac-divider::before,.ac-divider::after{
+  content:"";flex:1;height:1px;background:rgba(186,215,247,.1);
+}
+.ac-foot{
+  margin:16px 0 0;text-align:center;font-size:12.5px;color:var(--fog);
+}
+.ac-foot strong{color:var(--frost);font-weight:500}
+.otp-row{display:flex;gap:8px;margin-top:16px}
+.otp-row span{
+  flex:1;height:38px;border-radius:var(--radius-input);
+  background:rgba(199,211,234,.06);
+  box-shadow:inset 0 0 0 1px rgba(186,215,247,.12);
+}
+
+/* ============================================================
+   SHARED SECTION PIECES
+   ============================================================ */
+.section{
+  position:relative;z-index:2;
+  max-width:var(--page-max);
+  margin:0 auto;
+  padding:var(--section-gap) 24px 0;
+  text-align:center;
+}
+.section-title{
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:clamp(30px,4vw,46px);
+  line-height:1.16;
+  letter-spacing:-0.02em;
+  color:#d8ecf8;
+  margin:26px auto 0;
+  max-width:800px;
+}
+.section-body{
+  margin:18px auto 0;max-width:640px;
+  font-size:16px;line-height:1.55;color:#9da7ba;
+}
+
+/* ============================================================
+   THEME TOGGLE
+   ============================================================ */
+.modes{padding-top:100px}
+.segmented{
+  display:inline-flex;align-items:center;gap:4px;padding:4px;
+  margin-top:26px;border-radius:var(--radius-pill);
+  background:rgba(186,214,247,.04);
+  box-shadow:inset 0 0 0 1px rgba(186,215,247,.12);
+}
+.seg{
+  display:inline-flex;align-items:center;gap:8px;
+  height:32px;padding:0 14px;border-radius:var(--radius-pill);
+  font-size:13px;font-weight:500;color:#9da7ba;
+  transition:background .18s ease,color .18s ease;
+}
+.seg[aria-pressed="true"]{
+  background:rgba(199,211,234,.12);
+  color:#ffffff;
+  box-shadow:inset 0 1px 1px rgba(216,236,248,.14);
+}
+.seg:hover{color:#e6eefb}
+.modes-note{margin:16px auto 0;font-size:13px;color:#7f8a9e;max-width:440px}
+
+/* ============================================================
+   FEATURES
+   ============================================================ */
+.features{padding-top:110px}
+.feature-track{
+  position:relative;
+  display:flex;justify-content:space-between;gap:8px;
+  max-width:980px;margin:0 auto;
+}
+.feature-track::before{
+  content:"";position:absolute;left:36px;right:36px;top:28px;height:1px;
+  background:linear-gradient(90deg, transparent, rgba(186,215,247,.12) 12%, rgba(186,215,247,.12) 88%, transparent);
+}
+.feature{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  flex:1;min-width:0;
+}
+.feature .tile{
+  width:56px;height:56px;border-radius:9999px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--frost);
+  background:rgba(186,214,247,.06);
+  box-shadow:inset 0 1px 1px rgba(199,211,234,.12), inset 0 12px 24px rgba(168,216,245,.05), 0 8px 20px rgba(6,6,14,.6);
+}
+.feature .label{
+  font-size:13.5px;line-height:1.3;color:#c7d3ea;text-align:center;max-width:120px;
+}
+.features-note{
+  margin:44px auto 0;max-width:620px;font-size:16px;line-height:1.55;color:#9da7ba;
+}
+
+/* ============================================================
+   DASHBOARD ILLUSTRATION
+   ============================================================ */
+.dashboard{
+  margin:64px auto 0;max-width:940px;text-align:left;
+  border-radius:var(--radius-card);overflow:hidden;
+  background:linear-gradient(180deg, rgba(20,26,44,.65), rgba(6,8,16,.92));
+  box-shadow:var(--shadow-panel), inset 0 0 0 1px rgba(186,215,247,.07);
+}
+.dash-bar{
+  display:flex;align-items:center;gap:6px;
+  padding:12px 16px;border-bottom:1px solid rgba(186,215,247,.07);
+}
+.dash-bar .dot{width:8px;height:8px;border-radius:999px;background:rgba(199,211,234,.18)}
+.dash-url{
+  margin-left:12px;flex:1;height:24px;border-radius:6px;
+  background:rgba(199,211,234,.05);
+  box-shadow:inset 0 0 0 1px rgba(186,215,247,.08);
+  display:flex;align-items:center;padding:0 10px;
+  font-size:11.5px;color:#7f8a9e;font-family:var(--font-mono);letter-spacing:.02em;
+}
+.dash-body{display:grid;grid-template-columns:172px 1fr}
+.dash-side{
+  padding:18px 14px;border-right:1px solid rgba(186,215,247,.07);
+  display:flex;flex-direction:column;gap:4px;
+}
+.side-item{
+  font-size:12.5px;color:#8e99ad;padding:7px 10px;border-radius:6px;
+}
+.side-item.active{
+  color:#e7eefb;background:rgba(199,211,234,.08);
+  box-shadow:inset 0 0 0 1px rgba(186,215,247,.1);
+}
+.dash-main{padding:20px 22px 24px;min-width:0}
+.dash-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.dash-title{font-size:11px;letter-spacing:.1em;font-family:var(--font-mono);color:#8b96aa;text-transform:uppercase}
+.dash-metric{font-family:var(--font-display);font-size:34px;font-weight:500;color:#d8ecf8;line-height:1.1;margin-top:6px}
+.dash-bars{display:flex;align-items:flex-end;gap:6px;height:54px}
+.dash-bars i{
+  display:block;width:10px;border-radius:3px;
+  background:linear-gradient(180deg, rgba(152,192,239,.75), rgba(102,58,243,.35));
+  opacity:.85;
+}
+.dash-table{margin-top:22px;display:flex;flex-direction:column}
+.dash-row{
+  display:grid;grid-template-columns:1.6fr 1fr 1fr auto;gap:12px;align-items:center;
+  padding:11px 4px;border-top:1px solid rgba(186,215,247,.06);
+  font-size:12.5px;color:#aab5c8;
+}
+.dash-row .who{display:flex;align-items:center;gap:10px;min-width:0}
+.dash-row .av{
+  width:24px;height:24px;border-radius:999px;flex:none;
+  background:linear-gradient(140deg, rgba(152,192,239,.5), rgba(102,58,243,.35));
+}
+.dash-row .em{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.badge{
+  display:inline-flex;align-items:center;
+  padding:3px 8px;border-radius:6px;
+  font-size:11px;font-weight:500;color:#d1e4fa;
+  background:rgba(199,211,234,.12);
+  box-shadow:inset 0 1px 1px rgba(216,236,248,.12), inset 0 0 0 1px rgba(186,214,247,.06);
+  white-space:nowrap;
+}
+.tag-ok{color:#bcd8f7}
+.dash-row .status{display:flex;align-items:center;gap:6px;color:#8e99ad;font-size:11.5px;white-space:nowrap}
+.dot-ok{width:6px;height:6px;border-radius:999px;background:#7fd0b0;box-shadow:0 0 6px rgba(127,208,176,.6)}
+
+/* ============================================================
+   SHINE BRIGHT / STUDIO
+   ============================================================ */
+.studio{
+  position:relative;
+  max-width:1080px;margin:70px auto 0;
+  padding:20px 0 20px;
+}
+.browser{
+  max-width:620px;margin:0 auto;border-radius:var(--radius-card);overflow:hidden;
+  background:linear-gradient(180deg, rgba(19,24,40,.7), rgba(6,8,16,.9));
+  box-shadow:var(--shadow-panel), inset 0 0 0 1px rgba(186,215,247,.08);
+}
+.browser-bar{
+  display:flex;align-items:center;gap:6px;padding:11px 14px;
+  border-bottom:1px solid rgba(186,215,247,.07);
+}
+.browser-bar .dot{width:8px;height:8px;border-radius:999px;background:rgba(199,211,234,.18)}
+.browser-url{
+  margin-left:10px;height:24px;border-radius:6px;flex:1;
+  background:rgba(199,211,234,.05);
+  box-shadow:inset 0 0 0 1px rgba(186,215,247,.08);
+  display:flex;align-items:center;padding:0 10px;
+  font-size:11.5px;color:#7f8a9e;font-family:var(--font-mono);
+  overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+}
+.browser-body{
+  padding:44px 24px;
+  background:#0a0d18;
+  transition:background .25s ease;
+  display:flex;justify-content:center;
+}
+
+/* ---------- Demo login card ---------- */
+.demo-card{
+  --brand:#663af3;
+  --dc-radius:6px;
+  --dc-surface:#05060f;
+  --dc-text:#ffffff;
+  --dc-muted:#c7d3ea;
+  --dc-field:rgba(199,211,234,.06);
+  --dc-hairline:rgba(186,215,247,.12);
+  width:100%;max-width:340px;text-align:left;
+  padding:24px;border-radius:16px;
+  background:var(--dc-surface);
+  color:var(--dc-text);
+  box-shadow:inset 0 1px 1px rgba(216,236,248,.2), inset 0 24px 48px rgba(168,216,245,.06), 0 16px 32px rgba(0,0,0,.35);
+  transition:background .25s ease, color .25s ease;
+}
+.demo-card[data-theme="light"]{
+  --dc-surface:#ffffff;
+  --dc-text:#0b0d18;
+  --dc-muted:#5c657a;
+  --dc-field:rgba(11,13,24,.04);
+  --dc-hairline:rgba(11,13,24,.14);
+  box-shadow:0 16px 40px rgba(0,0,0,.28), inset 0 0 0 1px rgba(11,13,24,.06);
+}
+.dc-head{text-align:center;margin-bottom:18px}
+.dc-logo{
+  width:40px;height:40px;margin:0 auto 12px;border-radius:9999px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--dc-field);
+  box-shadow:inset 0 0 0 1px var(--dc-hairline);
+  color:var(--brand);
+}
+.dc-title{margin:0;font-size:17px;font-weight:500;letter-spacing:-0.01em;color:var(--dc-text)}
+.dc-sub{margin:5px 0 0;font-size:12.5px;color:var(--dc-muted);opacity:.85}
+.dc-label{
+  display:block;font-size:12.5px;margin:12px 0 6px;color:var(--dc-muted);font-weight:400;
+}
+.dc-input{
+  width:100%;height:38px;padding:0 12px;
+  border-radius:var(--dc-radius);
+  background:var(--dc-field);
+  box-shadow:inset 0 0 0 1px var(--dc-hairline);
+  border:none;color:var(--dc-text);font-size:13px;
+  transition:box-shadow .18s ease, border-radius .18s ease;
+}
+.dc-input::placeholder{color:var(--dc-muted);opacity:.6}
+.dc-input:focus{outline:none;box-shadow:inset 0 0 0 1px rgba(186,215,247,.24), 0 0 0 3px rgba(102,58,243,.18)}
+.demo-card[data-theme="light"] .dc-input:focus{box-shadow:inset 0 0 0 1px rgba(11,13,24,.3), 0 0 0 3px rgba(102,58,243,.18)}
+.dc-input[aria-invalid="true"]{box-shadow:inset 0 0 0 1px rgba(228,109,76,.7)}
+.dc-msg{margin:6px 0 0;font-size:12px;color:#ff9b7c;min-height:0}
+.dc-submit{
+  width:100%;height:42px;margin-top:18px;
+  border-radius:var(--dc-radius);
+  background:var(--brand);color:#fff;
+  font-size:14px;font-weight:500;
+  transition:filter .18s ease, border-radius .18s ease, opacity .18s ease;
+}
+.dc-submit:hover{filter:brightness(1.08)}
+.dc-submit:disabled{opacity:.65;cursor:progress}
+.dc-divider{
+  display:flex;align-items:center;gap:10px;margin:18px 0 0;
+  font-size:11px;letter-spacing:.08em;color:var(--dc-muted);opacity:.7;
+}
+.dc-divider::before,.dc-divider::after{content:"";flex:1;height:1px;background:var(--dc-hairline)}
+.dc-provider{
+  width:100%;height:40px;margin-top:12px;
+  border-radius:var(--dc-radius);
+  background:var(--dc-field);
+  box-shadow:inset 0 0 0 1px var(--dc-hairline);
+  color:var(--dc-text);font-size:13px;font-weight:500;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:background .18s ease, border-radius .18s ease;
+}
+.dc-provider:hover{background:rgba(186,214,247,.12)}
+.demo-card[data-theme="light"] .dc-provider:hover{background:rgba(11,13,24,.07)}
+.dc-success{text-align:center;padding:8px 0}
+.dc-check{
+  width:44px;height:44px;margin:0 auto 14px;border-radius:9999px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(102,58,243,.14);
+  box-shadow:inset 0 0 0 1px rgba(102,58,243,.4);
+  color:var(--brand);
+}
+.dc-success h4{margin:0 0 6px;font-size:16px;font-weight:500;color:var(--dc-text)}
+.dc-success p{margin:0;font-size:12.5px;line-height:1.5;color:var(--dc-muted);word-break:break-word}
+.dc-success strong{color:var(--dc-text);font-weight:500}
+
+/* ---------- Floating inspector panels ---------- */
+.panel{
+  position:absolute;width:216px;text-align:left;
+  padding:14px;border-radius:12px;
+  background:linear-gradient(180deg, rgba(21,27,45,.82), rgba(8,10,20,.92));
+  box-shadow:var(--shadow-panel), inset 0 0 0 1px rgba(186,215,247,.08);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+.panel-title{
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:#8b96aa;margin:0 0 10px;
+}
+.panel-swatches{left:0;top:10px}
+.panel-radius{left:0;top:190px}
+.panel-bg{left:0;top:330px}
+.panel-logo{right:0;top:44px}
+.panel-text{right:0;top:200px}
+
+.swatches{display:flex;gap:5px}
+.swatch{
+  width:26px;height:26px;border-radius:6px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.swatch:hover{transform:translateY(-1px)}
+.swatch[aria-pressed="true"]{box-shadow:0 0 0 2px var(--canvas), 0 0 0 3px rgba(199,211,234,.5)}
+
+.range{width:100%;accent-color:#98c0ef;height:20px}
+.range-labels{display:flex;justify-content:space-between;font-size:11px;color:#7f8a9e;margin-top:2px}
+
+.logo-picker{display:flex;gap:8px}
+.logo-btn{
+  width:36px;height:36px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(199,211,234,.06);
+  box-shadow:inset 0 0 0 1px rgba(186,215,247,.12);
+  color:#c7d3ea;
+  transition:background .15s ease;
+}
+.logo-btn:hover{background:rgba(186,214,247,.12)}
+.logo-btn[aria-pressed="true"]{background:rgba(199,211,234,.16);color:#fff;box-shadow:inset 0 0 0 1px rgba(186,215,247,.28)}
+
+.field-input{
+  width:100%;height:34px;padding:0 10px;border-radius:6px;
+  background:rgba(199,211,234,.06);
+  box-shadow:inset 0 0 0 1px rgba(186,215,247,.12);
+  border:none;color:#fff;font-size:12.5px;
+}
+.field-input::placeholder{color:rgba(199,211,234,.5)}
+.field-input:focus{outline:none;box-shadow:inset 0 0 0 1px rgba(186,215,247,.28), 0 0 0 3px rgba(102,58,243,.18)}
+.color-input{
+  width:100%;height:34px;padding:2px;border-radius:6px;background:rgba(199,211,234,.06);
+  box-shadow:inset 0 0 0 1px rgba(186,215,247,.12);
+  border:none;cursor:pointer;
+}
+.color-input::-webkit-color-swatch-wrapper{padding:2px}
+.color-input::-webkit-color-swatch{border:none;border-radius:4px}
+.color-input::-moz-color-swatch{border:none;border-radius:4px}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer{
+  position:relative;z-index:2;
+  max-width:var(--page-max);margin:0 auto;
+  padding:120px 24px 64px;text-align:center;
+}
+.footer-rule{height:1px;background:linear-gradient(90deg,transparent,rgba(186,215,247,.12),transparent)}
+.footer-inner{
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  flex-wrap:wrap;padding-top:28px;
+}
+.footer-note{font-size:13px;color:#7f8a9e}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap}
+.footer-links a{font-size:13px;color:#aab5c8;text-decoration:none;border-radius:4px}
+.footer-links a:hover{color:#fff}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1080px){
+  .panel-swatches{left:-8px}
+  .panel-radius{left:-8px}
+  .panel-bg{left:-8px}
+  .panel-logo{right:-8px}
+  .panel-text{right:-8px}
+}
+@media (max-width:900px){
+  .studio{padding-bottom:0}
+  .panel{
+    position:static;width:100%;margin-top:14px;
+  }
+  .studio{display:flex;flex-direction:column}
+  .studio .browser{order:-1}
+}
+@media (max-width:860px){
+  .hero-cards{height:500px;max-width:520px}
+  .card-left,.card-right{display:none}
+  .card-center{width:100%;max-width:400px;height:auto;min-height:470px}
+}
+@media (max-width:760px){
+  :root{--section-gap:86px}
+  .header-inner{padding:22px 18px;max-width:100%}
+  .hero{padding-top:48px}
+  .hero-sub{margin-top:20px}
+  .hero-cards{margin-top:44px}
+  .feature-track{flex-wrap:wrap;gap:28px 8px;justify-content:center}
+  .feature-track::before{display:none}
+  .feature{flex:0 0 30%}
+  .dash-body{grid-template-columns:1fr}
+  .dash-side{
+    flex-direction:row;overflow-x:auto;border-right:none;
+    border-bottom:1px solid rgba(186,215,247,.07);padding:10px;
+  }
+  .side-item{white-space:nowrap}
+  .dash-row{grid-template-columns:1.4fr auto}
+  .dash-row .col-role,.dash-row .status{display:none}
+  .footer-inner{justify-content:center;text-align:center}
+}
+@media (max-width:430px){
+  .feature{flex:0 0 44%}
+  .hero-spot{width:900px}
+}
+
+/* ============================================================
+   MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.001ms!important;
+    scroll-behavior:auto!important;
+  }
+}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body id="top">
+
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-vignette" aria-hidden="true"></div>
+
+<!-- ============================ HEADER ============================ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="#top">WorkOS</a>
+
+    <div class="header-mark" aria-hidden="true">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+        <defs>
+          <linearGradient id="wmGrad" x1="12" y1="1" x2="12" y2="23" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#e6f1fb"/>
+            <stop offset="1" stop-color="#8fa8c8"/>
+          </linearGradient>
+        </defs>
+        <path d="M12 1.6 21.2 7v10L12 22.4 2.8 17V7z" fill="url(#wmGrad)" opacity=".9"/>
+        <path d="M12 1.6 21.2 7 12 12.4 2.8 7z" fill="#ffffff" opacity=".22"/>
+      </svg>
+    </div>
+
+    <div class="header-actions">
+      <a class="pill pill-icon pill-outline" href="https://github.com/workos" target="_blank" rel="noopener noreferrer" aria-label="AuthKit on GitHub">
+        <svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+      </a>
+      <a class="pill" href="#get-started">Get started</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ============================ HERO ============================ -->
+<section class="hero">
+  <div class="hero-spot" aria-hidden="true"></div>
+  <div class="hero-halo" aria-hidden="true"></div>
+
+  <div class="eyebrow-row">
+    <span class="rule" aria-hidden="true"></span>
+    <span class="eyebrow">Introducing</span>
+    <span class="rule" aria-hidden="true"></span>
+  </div>
+
+  <h1 class="wordmark">AuthKit</h1>
+
+  <p class="hero-sub">The world’s best login box,<br>powered by WorkOS + Radix.</p>
+
+  <div class="hero-cards">
+    <!-- left decorative card -->
+    <div class="auth-card card-left" aria-hidden="true">
+      <div class="ac-avatar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d1e4fa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6"/>
+        </svg>
+      </div>
+      <h3 class="ac-title">Welcome to SuperApp</h3>
+      <p class="ac-sub">Log in to continue</p>
+      <label class="ac-label">Email</label>
+      <input class="ac-input" type="email" placeholder="Your email address" tabindex="-1" aria-hidden="true">
+      <button class="ac-btn" type="button" tabindex="-1">Continue</button>
+      <p class="ac-foot">Don’t have an account? <strong>Sign up</strong></p>
+    </div>
+
+    <!-- right decorative card -->
+    <div class="auth-card card-right" aria-hidden="true">
+      <h3 class="ac-title">Sign in to Clamer</h3>
+      <p class="ac-sub">Enter the passcode from your authenticator app.</p>
+      <div class="otp-row"><span></span><span></span><span></span><span></span><span></span></div>
+      <button class="ac-btn" type="button" tabindex="-1">Continue</button>
+      <p class="ac-foot">Use a different sign in method</p>
+    </div>
+
+    <!-- center card -->
+    <div class="auth-card card-center" aria-hidden="true">
+      <div class="ac-logo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="8" stroke="#d1e4fa" stroke-width="1.5" opacity=".55"/>
+          <path d="M12 6.5 17 12l-5 5.5L7 12z" stroke="#d1e4fa" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3 class="ac-title">Sign in to SuperApp</h3>
+      <label class="ac-label">Email</label>
+      <input class="ac-input" type="email" placeholder="Your email address" tabindex="-1" aria-hidden="true">
+      <button class="ac-btn" type="button" tabindex="-1">Continue</button>
+      <div class="ac-divider"><span>OR</span></div>
+      <button class="ac-btn" type="button" tabindex="-1">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 11v2.8h6.3c-.3 1.6-1.9 4.7-6.3 4.7-3.8 0-6.9-3.1-6.9-7s3.1-7 6.9-7c2.2 0 3.6.9 4.4 1.7l2-1.9C16.9 2.7 14.7 1.7 12 1.7 6.3 1.7 1.7 6.3 1.7 12s4.6 10.3 10.3 10.3c5.9 0 9.9-4.2 9.9-10.1 0-.7-.1-1.2-.2-1.7H12z"/>
+        </svg>
+        Continue with Google
+      </button>
+      <button class="ac-btn" type="button" tabindex="-1">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <rect x="2" y="2" width="9" height="9" rx="1.5"/><rect x="13" y="2" width="9" height="9" rx="1.5"/>
+          <rect x="2" y="13" width="9" height="9" rx="1.5"/><rect x="13" y="13" width="9" height="9" rx="1.5"/>
+        </svg>
+        Continue with Microsoft
+      </button>
+      <p class="ac-foot">Don’t have an account? <strong>Sign up</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ THEME TOGGLE ============================ -->
+<section class="section modes" aria-labelledby="modes-title">
+  <div class="eyebrow-row">
+    <span class="rule" aria-hidden="true"></span>
+    <span class="eyebrow" id="modes-title">Light and dark modes supported</span>
+    <span class="rule" aria-hidden="true"></span>
+  </div>
+
+  <div class="segmented" role="group" aria-label="Demo login card theme">
+    <button class="seg" type="button" data-set-theme="dark" aria-pressed="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/>
+      </svg>
+      Dark
+    </button>
+    <button class="seg" type="button" data-set-theme="light" aria-pressed="false">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+      </svg>
+      Light
+    </button>
+  </div>
+
+  <p class="modes-note">Toggle to preview the AuthKit sign-in card in either mode. The live card lives in the “Your brand. Your style.” studio below.</p>
+</section>
+
+<!-- ============================ FEATURES ============================ -->
+<section class="section features" aria-labelledby="features-title">
+  <h2 class="visually-hidden" id="features-title">Authentication features</h2>
+
+  <div class="feature-track">
+    <div class="feature">
+      <div class="tile">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="7.5" cy="15.5" r="3.6"/>
+          <path d="M10.4 13.4 20 3.8M17.2 6.6l2.3 2.3M14.6 9.2l2 2"/>
+        </svg>
+      </div>
+      <span class="label">Single Sign-On</span>
+    </div>
+
+    <div class="feature">
+      <div class="tile">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="4.5" y="10.5" width="15" height="9.5" rx="2.5"/>
+          <path d="M8 10.5V7.2a4 4 0 0 1 8 0v3.3"/>
+          <path d="M12 14.4v2"/>
+        </svg>
+      </div>
+      <span class="label">Password</span>
+    </div>
+
+    <div class="feature">
+      <div class="tile">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3.2 19 6v5.9c0 4.1-2.9 7.9-7 9-4.1-1.1-7-4.9-7-9V6z"/>
+          <path d="M9.2 12.1l2 2 3.6-3.8"/>
+        </svg>
+      </div>
+      <span class="label">MFA</span>
+    </div>
+
+    <div class="feature">
+      <div class="tile">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="10" cy="8.2" r="3.4"/>
+          <path d="M3.6 19.6c0-3.5 2.9-6.4 6.4-6.4 1.2 0 2.3.3 3.3.9"/>
+          <path d="M17.4 13.6v6.2M14.3 16.7h6.2"/>
+        </svg>
+      </div>
+      <span class="label">Social Login</span>
+    </div>
+
+    <div class="feature">
+      <div class="tile">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="9" cy="8" r="3.2"/>
+          <path d="M3 19.6c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
+          <path d="M16.2 5.6a3.1 3.1 0 0 1 0 6"/>
+          <path d="M18.2 14.3c1.9.9 3.1 2.8 3.1 5.1"/>
+        </svg>
+      </div>
+      <span class="label">RBAC</span>
+    </div>
+
+    <div class="feature">
+      <div class="tile">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M11.2 3.4 12.8 8l4.6 1.6-4.6 1.6-1.6 4.6L9.6 11.2 5 9.6 9.6 8z"/>
+          <path d="M17.8 15.4l.7 1.9 1.9.7-1.9.7-.7 1.9-.7-1.9-1.9-.7 1.9-.7z"/>
+        </svg>
+      </div>
+      <span class="label">Magic Auth</span>
+    </div>
+  </div>
+
+  <p class="features-note">One login box, every authentication method your users expect — drop it in and AuthKit handles the rest.</p>
+</section>
+
+<!-- ============================ EXTENSIBLE ============================ -->
+<section class="section" id="extensible" aria-labelledby="extensible-title">
+  <div class="eyebrow-row">
+    <span class="rule" aria-hidden="true"></span>
+    <span class="eyebrow">Extensible by design</span>
+    <span class="rule" aria-hidden="true"></span>
+  </div>
+
+  <h2 class="section-title" id="extensible-title">Your users. Your data.<br>Maximum flexibility.</h2>
+
+  <p class="section-body">AuthKit sits on top of the WorkOS User Management API, so every login writes back to your own directory. Extend flows with webhooks, map roles to your product, and keep full control of the data.</p>
+
+  <div class="dashboard" aria-hidden="true">
+    <div class="dash-bar">
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <div class="dash-url">dashboard.workos.com/users</div>
+    </div>
+    <div class="dash-body">
+      <aside class="dash-side">
+        <div class="side-item active">Users</div>
+        <div class="side-item">Organizations</div>
+        <div class="side-item">Roles</div>
+        <div class="side-item">Sessions</div>
+        <div class="side-item">Webhooks</div>
+      </aside>
+      <div class="dash-main">
+        <div class="dash-head">
+          <div>
+            <div class="dash-title">Users</div>
+            <div class="dash-metric">2,481</div>
+          </div>
+          <div class="dash-bars">
+            <i style="height:22%"></i>
+            <i style="height:38%"></i>
+            <i style="height:30%"></i>
+            <i style="height:54%"></i>
+            <i style="height:46%"></i>
+            <i style="height:72%"></i>
+            <i style="height:64%"></i>
+            <i style="height:92%"></i>
+          </div>
+        </div>
+        <div class="dash-table">
+          <div class="dash-row">
+            <div class="who"><span class="av"></span><span class="em">maya.oduya@acme.com</span></div>
+            <div class="col-role"><span class="badge">Admin</span></div>
+            <div class="col-role"><span class="badge tag-ok">SSO</span></div>
+            <div class="status"><span class="dot-ok"></span>Active</div>
+          </div>
+          <div class="dash-row">
+            <div class="who"><span class="av"></span><span class="em">r.kellerman@acme.com</span></div>
+            <div class="col-role"><span class="badge">Member</span></div>
+            <div class="col-role"><span class="badge tag-ok">MFA</span></div>
+            <div class="status"><span class="dot-ok"></span>Active</div>
+          </div>
+          <div class="dash-row">
+            <div class="who"><span class="av"></span><span class="em">dev@acme.com</span></div>
+            <div class="col-role"><span class="badge">Viewer</span></div>
+            <div class="col-role"><span class="badge tag-ok">Magic Auth</span></div>
+            <div class="status"><span class="dot-ok"></span>Active</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SHINE BRIGHT ============================ -->
+<section class="section" id="get-started" aria-labelledby="shine-title">
+  <div class="eyebrow-row">
+    <span class="rule" aria-hidden="true"></span>
+    <span class="eyebrow">Shine bright</span>
+    <span class="rule" aria-hidden="true"></span>
+  </div>
+
+  <h2 class="section-title" id="shine-title">Your brand. Your style.</h2>
+
+  <p class="section-body">Match the login box to your product in a few lines of configuration — colours, logo, radius, and copy. Everything below is a live local preview.</p>
+
+  <div class="studio">
+    <!-- Browser mock -->
+    <div class="browser">
+      <div class="browser-bar" aria-hidden="true">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <div class="browser-url">app.example.com/sign-in</div>
+      </div>
+      <div class="browser-body" id="browserBody">
+        <form class="demo-card" id="demoCard" data-theme="dark" novalidate>
+          <div class="dc-head">
+            <div class="dc-logo" id="dcLogo">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3l7 5.4v7.2L12 21l-7-5.4V8.4z"/>
+              </svg>
+            </div>
+            <h3 class="dc-title">Sign in to Acme</h3>
+            <p class="dc-sub">Use your work email to continue</p>
+          </div>
+
+          <div class="dc-fields" id="dcFields">
+            <label class="dc-label" for="dc-email">Email</label>
+            <input class="dc-input" id="dc-email" name="email" type="email" inputmode="email" autocomplete="off" placeholder="you@example.com" aria-describedby="dc-email-msg">
+            <p class="dc-msg" id="dc-email-msg" aria-live="polite"></p>
+
+            <label class="dc-label" for="dc-password">Password</label>
+            <input class="dc-input" id="dc-password" name="password" type="password" autocomplete="off" placeholder="At least 6 characters" aria-describedby="dc-password-msg">
+            <p class="dc-msg" id="dc-password-msg" aria-live="polite"></p>
+
+            <button class="dc-submit" id="dc-submit" type="submit">Continue</button>
+
+            <div class="dc-divider"><span>OR</span></div>
+            <button class="dc-provider" type="button" id="dc-provider">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 11v2.8h6.3c-.3 1.6-1.9 4.7-6.3 4.7-3.8 0-6.9-3.1-6.9-7s3.1-7 6.9-7c2.2 0 3.6.9 4.4 1.7l2-1.9C16.9 2.7 14.7 1.7 12 1.7 6.3 1.7 1.7 6.3 1.7 12s4.6 10.3 10.3 10.3c5.9 0 9.9-4.2 9.9-10.1 0-.7-.1-1.2-.2-1.7H12z"/>
+              </svg>
+              Continue with Google
+            </button>
+          </div>
+
+          <div class="dc-success" id="dcSuccess" hidden>
+            <div class="dc-check">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12.5l4.5 4.5L19 7.5"/>
+              </svg>
+            </div>
+            <h4>Check your inbox</h4>
+            <p>We sent a sign-in link to <strong id="dcSentTo">you@example.com</strong>.</p>
+            <button class="dc-provider" type="button" id="dcReset">Use a different email</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Inspector panels -->
+    <div class="panel panel-swatches">
+      <p class="panel-title">Colour</p>
+      <div class="swatches" role="group" aria-label="Brand colour">
+        <button class="swatch" type="button" data-color="#663af3" style="background:#663af3" aria-label="Void violet" aria-pressed="true"></button>
+        <button class="swatch" type="button" data-color="#027dea" style="background:#027dea" aria-label="Signal blue" aria-pressed="false"></button>
+        <button class="swatch" type="button" data-color="#269684" style="background:#269684" aria-label="Deep teal" aria-pressed="false"></button>
+        <button class="swatch" type="button" data-color="#e46d4c" style="background:#e46d4c" aria-label="Ember glow" aria-pressed="false"></button>
+      </div>
+    </div>
+
+    <div class="panel panel-radius">
+      <p class="panel-title"><label for="radiusRange">Radius</label></p>
+      <input class="range" id="radiusRange" type="range" min="0" max="16" step="1" value="6" aria-valuetext="6 pixels">
+      <div class="range-labels"><span>0</span><span id="radiusValue">6px</span><span>16</span></div>
+    </div>
+
+    <div class="panel panel-bg">
+      <p class="panel-title"><label for="bgColor">Page background</label></p>
+      <input class="color-input" id="bgColor" type="color" value="#0a0d18" aria-label="Demo page background colour">
+    </div>
+
+    <div class="panel panel-logo">
+      <p class="panel-title">Logo</p>
+      <div class="logo-picker" role="group" aria-label="Logo mark">
+        <button class="logo-btn" type="button" data-logo="diamond" aria-label="Diamond mark" aria-pressed="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3l7 5.4v7.2L12 21l-7-5.4V8.4z"/>
+          </svg>
+        </button>
+        <button class="logo-btn" type="button" data-logo="hex" aria-label="Hexagon mark" aria-pressed="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2.8 19.4 7v10L12 21.2 4.6 17V7z"/>
+            <circle cx="12" cy="12" r="2.6"/>
+          </svg>
+        </button>
+        <button class="logo-btn" type="button" data-logo="circle" aria-label="Circle mark" aria-pressed="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <circle cx="12" cy="12" r="7.4"/>
+            <path d="M12 8.2v7.6"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="panel panel-text">
+      <p class="panel-title"><label for="buttonText">Button text</label></p>
+      <input class="field-input" id="buttonText" type="text" value="Continue" maxlength="24" placeholder="Continue" aria-label="Submit button label">
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="site-footer">
+  <div class="footer-rule" aria-hidden="true"></div>
+  <div class="footer-inner">
+    <p class="footer-note">AuthKit — a local visual reproduction. No credentials are sent or stored.</p>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="#extensible">Extensible by design</a>
+      <a href="#get-started">Shine bright</a>
+      <a href="#top">Back to top</a>
+    </nav>
+  </div>
+</footer>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  var demoCard   = document.getElementById('demoCard');
+  var browserBody= document.getElementById('browserBody');
+  var dcFields   = document.getElementById('dcFields');
+  var dcSuccess  = document.getElementById('dcSuccess');
+  var dcSentTo   = document.getElementById('dcSentTo');
+  var dcReset    = document.getElementById('dcReset');
+  var emailInput = document.getElementById('dc-email');
+  var passInput  = document.getElementById('dc-password');
+  var emailMsg   = document.getElementById('dc-email-msg');
+  var passMsg    = document.getElementById('dc-password-msg');
+  var submitBtn  = document.getElementById('dc-submit');
+  var dcLogo     = document.getElementById('dcLogo');
+  var dcProvider = document.getElementById('dc-provider');
+
+  /* ---------------- Logo marks ---------------- */
+  var LOGOS = {
+    diamond: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 5.4v7.2L12 21l-7-5.4V8.4z"/></svg>',
+    hex: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8 19.4 7v10L12 21.2 4.6 17V7z"/><circle cx="12" cy="12" r="2.6"/></svg>',
+    circle: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7.4"/><path d="M12 8.2v7.6"/></svg>'
+  };
+
+  /* ---------------- Theme ---------------- */
+  function setTheme(theme) {
+    demoCard.setAttribute('data-theme', theme);
+    var buttons = document.querySelectorAll('[data-set-theme]');
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].setAttribute('aria-pressed', buttons[i].getAttribute('data-set-theme') === theme ? 'true' : 'false');
+    }
+  }
+
+  var themeButtons = document.querySelectorAll('[data-set-theme]');
+  for (var i = 0; i < themeButtons.length; i++) {
+    themeButtons[i].addEventListener('click', function () {
+      setTheme(this.getAttribute('data-set-theme'));
+    });
+  }
+
+  /* ---------------- Brand colour ---------------- */
+  var swatches = document.querySelectorAll('.swatch');
+  for (var s = 0; s < swatches.length; s++) {
+    swatches[s].addEventListener('click', function () {
+      var color = this.getAttribute('data-color');
+      demoCard.style.setProperty('--brand', color);
+      for (var k = 0; k < swatches.length; k++) {
+        swatches[k].setAttribute('aria-pressed', swatches[k] === this ? 'true' : 'false');
+      }
+    });
+  }
+
+  /* ---------------- Radius ---------------- */
+  var radiusRange = document.getElementById('radiusRange');
+  var radiusValue = document.getElementById('radiusValue');
+  function applyRadius() {
+    var v = radiusRange.value;
+    demoCard.style.setProperty('--dc-radius', v + 'px');
+    radiusValue.textContent = v + 'px';
+    radiusRange.setAttribute('aria-valuetext', v + ' pixels');
+  }
+  radiusRange.addEventListener('input', applyRadius);
+  applyRadius();
+
+  /* ---------------- Page background ---------------- */
+  var bgColor = document.getElementById('bgColor');
+  bgColor.addEventListener('input', function () {
+    browserBody.style.background = bgColor.value;
+  });
+
+  /* ---------------- Logo picker ---------------- */
+  var logoButtons = document.querySelectorAll('.logo-btn');
+  for (var l = 0; l < logoButtons.length; l++) {
+    logoButtons[l].addEventListener('click', function () {
+      var key = this.getAttribute('data-logo');
+      dcLogo.innerHTML = LOGOS[key] || LOGOS.diamond;
+      for (var k = 0; k < logoButtons.length; k++) {
+        logoButtons[k].setAttribute('aria-pressed', logoButtons[k] === this ? 'true' : 'false');
+      }
+    });
+  }
+
+  /* ---------------- Button text ---------------- */
+  var buttonText = document.getElementById('buttonText');
+  buttonText.addEventListener('input', function () {
+    var v = this.value.trim();
+    submitBtn.textContent = v.length ? v : 'Continue';
+  });
+
+  /* ---------------- Form validation ---------------- */
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  function clearErrors() {
+    emailMsg.textContent = '';
+    passMsg.textContent = '';
+    emailInput.removeAttribute('aria-invalid');
+    passInput.removeAttribute('aria-invalid');
+  }
+
+  function showSuccess(email) {
+    dcFields.hidden = true;
+    dcSuccess.hidden = false;
+    dcSentTo.textContent = email;
+    dcReset.focus();
+  }
+
+  function resetForm() {
+    clearErrors();
+    dcFields.hidden = false;
+    dcSuccess.hidden = true;
+    demoCard.removeAttribute('data-state');
+    emailInput.value = '';
+    passInput.value = '';
+    submitBtn.disabled = false;
+    submitBtn.textContent = buttonText.value.trim() || 'Continue';
+    emailInput.focus();
+  }
+
+  dcReset.addEventListener('click', resetForm);
+
+  demoCard.addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearErrors();
+
+    var email = emailInput.value.trim();
+    var pass = passInput.value;
+    var ok = true;
+
+    if (!email) {
+      emailMsg.textContent = 'Enter your email address.';
+      emailInput.setAttribute('aria-invalid', 'true');
+      ok = false;
+    } else if (!EMAIL_RE.test(email)) {
+      emailMsg.textContent = 'That does not look like a valid email address.';
+      emailInput.setAttribute('aria-invalid', 'true');
+      ok = false;
+    }
+
+    if (!pass) {
+      passMsg.textContent = 'Enter your password.';
+      passInput.setAttribute('aria-invalid', 'true');
+      ok = false;
+    } else if (pass.length < 6) {
+      passMsg.textContent = 'Password must be at least 6 characters.';
+      passInput.setAttribute('aria-invalid', 'true');
+      ok = false;
+    }
+
+    if (!ok) {
+      var firstInvalid = demoCard.querySelector('[aria-invalid="true"]');
+      if (firstInvalid) firstInvalid.focus();
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Signing in…';
+
+    var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var delay = prefersReduced ? 0 : 650;
+
+    window.setTimeout(function () {
+      submitBtn.disabled = false;
+      submitBtn.textContent = buttonText.value.trim() || 'Continue';
+      demoCard.setAttribute('data-state', 'success');
+      showSuccess(email);
+    }, delay);
+  });
+
+  /* Clear field errors as the user types */
+  emailInput.addEventListener('input', function () {
+    if (this.getAttribute('aria-invalid') === 'true') {
+      this.removeAttribute('aria-invalid');
+      emailMsg.textContent = '';
+    }
+  });
+  passInput.addEventListener('input', function () {
+    if (this.getAttribute('aria-invalid') === 'true') {
+      this.removeAttribute('aria-invalid');
+      passMsg.textContent = '';
+    }
+  });
+
+  dcProvider.addEventListener('click', function () {
+    clearErrors();
+    dcFields.hidden = true;
+    dcSuccess.hidden = false;
+    dcSentTo.textContent = 'your Google account';
+    dcReset.focus();
+  });
+
+  /* ---------------- Init ---------------- */
+  setTheme('dark');
+})();
+</script>
+</body>
+</html>
+```
+### Visual Design & Live Control Logic
+
+The page combines a dark, glass-morphism aesthetic with several interactive controls that let you adjust the demo card in real time.
+
+- **Hero and brand atmosphere** – The dark canvas, soft conic spotlight, and faint blueprint grid establish the midnight product-launch mood. The AuthKit wordmark uses a vertical gradient to maintain the luminous, frosted-glass feel.
+- **Theme and radius controls** – A segmented control below the hero toggles the demo card between dark and light surfaces. A radius slider inside the floating inspector panel updates the border radius of the card and its inputs immediately, showing how the UI adjusts.
+- **Color and text customization** – Swatches apply the four brand accent colors to the demo card, while the button text field changes the submit label live. The background color picker alters the browser mock area behind the card.
+- **Local form validation** – The email and password fields check for valid input before showing a success message. No data is sent or stored, and the reset button restores the form to its initial state.
+- **Responsive and accessible** – The layout collapses gracefully on mobile, all controls have proper labels, and reduced-motion preferences are respected. Keyboard focus remains visible throughout.
+---
+
+**Optimization Tip:** You can replace the placeholder app name "Acme" in the demo card, the sample email addresses, and the dashboard user rows with your own brand details. The brand swatches in the inspector panel use exact hex values that can be swapped to match your color palette.

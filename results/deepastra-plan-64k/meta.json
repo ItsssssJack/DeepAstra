@@ -1,0 +1,8 @@
+{
+  "run": "deepastra-plan-64k",
+  "model": "deepseek/deepseek-v4.1-flash",
+  "effort": "high",
+  "harness": "direct API, one response",
+  "plan": "outputs/DeepAstra/results/astra-plan/architect-answer.txt",
+  "completed": "2026-09-12T13:23:16.473759+00:00"
+}

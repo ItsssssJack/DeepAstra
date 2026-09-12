@@ -1,0 +1,8 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+.DS_Store
+reference/*.png
+work/
+node_modules/

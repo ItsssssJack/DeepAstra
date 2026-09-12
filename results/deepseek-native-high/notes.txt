@@ -1,0 +1,1 @@
+Website frozen at the 15-minute cutoff. The launcher timed out, but its child survived briefly until explicitly stopped. The high/max native sessions therefore have a combined bill; separate costs are unavailable. The runner now terminates its process group on timeout.

@@ -1,0 +1,17 @@
+**Reference vs. rendered (1600×1000), ranked by visual impact**
+
+1. **Hero spotlight is a hard-edged wedge.** In the current build a visible trapezoid beam starts at the header symbol and runs to the cards with crisp clip-path edges. The reference has no discrete geometry — just a soft, wide, dim wash behind the wordmark that fades to nothing by ~y=520. Fix: delete `clip-path:polygon(...)`, widen to ~1100px, raise `filter:blur` to 60–80px, drop `opacity` to ~.35, and lower the top of the gradient so it doesn't originate at the header.
+
+2. **Wordmark is ~15% too small and over-tracked.** Reference "AuthKit" spans roughly x=548→1055 (≈507px) with cap height ≈100px; the render spans x=600→1005 (≈405px, cap ≈85px). Fix: raise `font-size` toward `clamp(120px, 9.6vw, 158px)` and relax `letter-spacing` from `-.045em` to about `-.02em`. Keep the Skywash gradient and glow.
+
+3. **Card fan sits too high.** Reference center card top edge is ≈y=520 and the card is cut off by the viewport fold (bottom beyond 1000). The render's card ends at ≈y=985 with page background visible below. Fix: shift the whole `.cards-stage` down ~35–45px so the fan bleeds off the bottom exactly like the reference.
+
+4. **Side cards are spread too far apart.** Reference side-card outer edges are ≈x=455 and ≈x=1105 (gaps of ~150px from the center card). Rendered left card starts ≈x=430 and right card ends ≈x=1170, and both sit ~15px lower (top ≈y=565 vs ≈548). Fix: narrow the stage to ~700px and move the side cards up ~15px.
+
+5. **Registration crosshairs are in the page gutters.** The `.crosshair.*` marks sit at `left:6%/right:6%` (x≈96/1504) at y=300/520. In the reference they cluster tightly around the wordmark, roughly x=530/1065 at y=250/380/508. Fix: reposition to `left:33%`/`right:33%` at those three y-values.
+
+6. **Auth cards read flat/dark; the frosted top light is missing.** The reference cards show a distinctly lighter band across the top third fading downward. The rendered cards' `linear-gradient(180deg, rgba(24,34,58,.5)… )` is being flattened by the near-opaque `rgba(5,6,15,.96)` base. Fix: lighten the top stop (e.g. `rgba(38,54,86,.6)` at 0%, transparent by 55%) and add `inset 0 -1px 0 rgba(186,215,247,.06)` for the glass edge.
+
+7. **Background grid is slightly too dense and too bright, and doesn't fall off at the edges.** Rendered uses 72px cells at `rgba(186,215,247,.055)` visible almost to the left/right page edges; the reference's grid reads dimmer (≈.04) with a much shorter mask so beyond x≈1300 it goes to black. Fix: `background-size:96px 96px`, alpha `.042`, and tighten the radial mask to ≈`ellipse 900px 820px`.
+
+8. **Page-edge vignette is missing.** The reference darkens to near-black at all four corners, which is what makes the centered composition read as illuminated. Fix: add a fixed overlay `radial-gradient(ellipse 1200px 900px at 50% 42%, transparent 45%, rgba(3,4,10,.55) 100%)` above the grid layer (below content).

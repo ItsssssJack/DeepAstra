@@ -1,0 +1,21 @@
+{
+  "forms": 2,
+  "headings": [
+    "AuthKit",
+    "Welcome to Acme",
+    "Sign in to SuperApp",
+    "You’re all set.",
+    "Sign in to Clamer",
+    "Your users. Your data.Maximum flexibility.",
+    "Users",
+    "Your brand. Your style.",
+    "Sign in to SuperApp",
+    "You’re all set.",
+    "Colour",
+    "Appearance",
+    "Built with WorkOS + Radix."
+  ],
+  "height": 1000,
+  "scrollWidth": 1600,
+  "width": 1600
+}

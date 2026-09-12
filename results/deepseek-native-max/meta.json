@@ -1,0 +1,16 @@
+{
+  "run": "deepseek-native-max",
+  "model": "deepseek/deepseek-v4.1-flash",
+  "effort": "max",
+  "harness": "Native Codex CLI 0.154.0 direct to OpenRouter, documented command-auth integration",
+  "provider": "OpenRouter automatic provider routing; individual host not captured",
+  "exit_code": 124,
+  "seconds": 900.012,
+  "accounting": "combined native session bill; see native-codex-combined",
+  "call_count_known": false,
+  "tool_events": 43,
+  "has_html": false,
+  "completed": "2026-09-12T14:07:27.733039+00:00",
+  "cost_available": false,
+  "timed_out": true
+}

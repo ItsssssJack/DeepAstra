@@ -1,0 +1,41 @@
+{
+  "control_labels": {
+    "color": "Blue",
+    "radius": "radiusSlider"
+  },
+  "changed_rendered_elements": [
+    {
+      "id": "browserBtn",
+      "before": {
+        "background": "rgb(102, 58, 243)",
+        "radius": "6px"
+      },
+      "after": {
+        "background": "rgb(2, 125, 234)",
+        "radius": "6px"
+      }
+    },
+    {
+      "id": "browserLogo",
+      "before": {
+        "background": "rgb(102, 58, 243)",
+        "radius": "6px"
+      },
+      "after": {
+        "background": "rgb(2, 125, 234)",
+        "radius": "6px"
+      }
+    },
+    {
+      "id": "browserWindow",
+      "before": {
+        "background": "rgba(5, 6, 15, 0.97)",
+        "radius": "10px"
+      },
+      "after": {
+        "background": "rgba(5, 6, 15, 0.97)",
+        "radius": "28px"
+      }
+    }
+  ]
+}

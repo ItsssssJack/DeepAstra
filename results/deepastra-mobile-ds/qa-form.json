@@ -1,0 +1,7 @@
+{
+  "feedback": "WorkOS\nGet started\nIntroducing\nAuthKit\n\nThe world’s best login box,\npowered by WorkOS + Radix.\n\nWelcome to SuperApp\n\nLog in to your account\n\nEmail\nContinue\n\nDon’t have an account? Sign up\n\nCheck your inbox — we simulated a sign-in link.\n\nDemo only. Nothing was sent or stored.\n\nStart over\nEnter your code\n\nEnter the passcode from your authenticator app.\n\nContinue\n\nBack to sign in\n\nLIGHT AND DARK MODES SUPPORTED\nDark\nLight\nSingle Sign-On\nPassword\nMFA\nSocial Login\nRBAC\nMagic Auth\nEXTENSIBLE BY DESIGN\nYour users. Your data.\nMaximum flexibility.\n\nAuthKit drops into your app and hands you the whole auth surface — users, organizations, roles and sessions — behind a clean, composable API you can shape however you need.\n\nAuthKit\nUsers\nOrganizations\nSessions\nRoles\nAudit log\nTOTAL USERS\n12,480\nACTIVE SESSIONS\n3,192\nMFA ENROLLED\n86%\nAda Lovelace\nada@superapp.com\nSSO\nMFA\nGrace Hopper\ngrace@superapp.com\nEmail & Password\nRBAC\nAlan Turing\nalan@superapp.com\nSocial Login\nMFA\nKatherine Johnson\nkatherine@superapp.com\nMagic Auth\nSHINE BRIGHT\nYour brand. Your style.\n\nEvery surface is themeable — colour, ra",
+  "forms": [
+    "\n          \n            Email\n            \n          \n          Continue\n          \n        "
+  ],
+  "input": "demo@example.com"
+}

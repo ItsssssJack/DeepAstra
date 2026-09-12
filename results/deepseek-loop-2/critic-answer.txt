@@ -1,0 +1,27 @@
+# Critique — AuthKit hero, current vs. reference
+
+**1. Floating fan sits ~30px too high; cards too short.**
+Reference center card top at y≈525, bottom at y≈985 (≈460 tall). Current center card top at y≈522, bottom at y≈955 (≈433 tall); left/right cards end at y≈835 vs. reference ~940. Increase `.acard` vertical padding (~+16px top, +30px bottom) and set `.fan{height:520px}` so the center card reaches ~985 and side cards reach ~940.
+
+**2. Side cards too faded.**
+`.acard--left/.acard--right` set `opacity:.66`. Reference reads ~0.78–0.82 — "Welcome back" and "Clamer" copy remain legible. Raise to `0.8` and lighten the `rgba(5,6,15,.97)` fill slightly toward `rgba(8,10,20,.94)` so the cards read as glass, not shadow.
+
+**3. Blueprint hero frame too short and dashed.**
+Current frame: top y≈255, bottom y≈440 (~185px tall); corners are dashed. Reference frame: top y≈240 (above "Introducing"), bottom y≈465 (below the subtitle) → ~225px tall, drawn as a fine 1px solid hairline at `rgba(186,215,247,.06)` with clean 4px dot corners. Set `.hero-frame{top:150px;height:225px;width:520px;box-shadow:inset 0 0 0 1px rgba(186,215,247,.055)}` and remove any dashed stroke.
+
+**4. Subtitle sits ~30px too low; wordmark slightly too tall.**
+Reference wordmark y≈265→370 (105px). Current y≈275→390 (115px). Reference subtitle y≈395→455. Current y≈425→485. Reduce `.wordmark` line-height to `.92` and font-size cap to `144px`; reduce `.subtitle{margin-top:16px}`. Target subtitle baseline ~450 so the fan gap reads like the reference (~70px before the card fan, vs. current ~37px).
+
+**5. Wordmark gradient too saturated-blue.**
+Reference Skywash reads cool-grey-ice; current fills with a stronger azure. Change to `linear-gradient(180deg,#dbe9f8 0%,#e9f3fd 45%,#a9c9ee 100%)` and lower `filter:drop-shadow` alpha from `.34` to `.22` so the letters glow less aggressively.
+
+**6. Body copy contrast drift.**
+Reference subtitle line 1 is muted `#a8b8d2`; line 2 stays bright `#d5e1f4`. Current line 1 reads almost white. Set `.subtitle{color:#a8b8d2}` and keep `.subtitle span:last-child{color:#d5e1f4}`. Also raise `.demo-sub` / `.acard-sub` from `#8e9bb0` to `#97a4b9` — card helper copy in the reference is a step brighter.
+
+**7. Blueprint grid fade too tight.**
+`.bg-grid` mask resolves to transparent by ~62% vertical, so pattern disappears behind the fan. Reference keeps faint gridlines visible across the full hero (y≈100→900). Widen mask to `ellipse 92% 78% at 50% 30%` and hold opacity until ~72%.
+
+**8. Center card horizontal inset needs +4px.**
+Reference center card x≈612→985 (373 wide). Current x≈610→990 (380). Minor, but combined with the taller card it changes the fan silhouette — set `.acard{width:374px}` and adjust side offset to `translateX(±180px)`.
+
+Smaller: `.acard-or` gap should tighten to 10px (reference OR is compact); `.acard-btn` label weight 500 is correct, but bump the pill fill from `linear-gradient(...rgba(199,211,234,.12),... .06)` to `...14%,... .07` to match the reference Continue plate.

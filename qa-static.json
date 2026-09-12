@@ -1,0 +1,87 @@
+[
+  {
+    "file": "index.html",
+    "inline_scripts_valid": true,
+    "errors": []
+  },
+  {
+    "file": "results/deepseek-native-high/index.html",
+    "inline_scripts_valid": true,
+    "errors": []
+  },
+  {
+    "file": "results/deepseek-raw-high-64k/index.html",
+    "inline_scripts_valid": true,
+    "errors": []
+  },
+  {
+    "file": "results/astra-critic-1/index.html",
+    "inline_scripts_valid": true,
+    "errors": []
+  },
+  {
+    "file": "results/deepastra-loop-2/index.html",
+    "inline_scripts_valid": true,
+    "errors": []
+  },
+  {
+    "file": "results/deepastra-plan-64k/index.html",
+    "inline_scripts_valid": true,
+    "errors": []
+  },
+  {
+    "file": "results/deepseek-loop-2/index.html",
+    "inline_scripts_valid": true,
+    "errors": []
+  },
+  {
+    "file": "results/deepseek-raw-max-64k/index.html",
+    "inline_scripts_valid": true,
+    "errors": []
+  },
+  {
+    "file": "results/deepastra-mobile-ds/index.html",
+    "inline_scripts_valid": true,
+    "errors": []
+  },
+  {
+    "file": "results/astra-raw-high-64k/index.html",
+    "inline_scripts_valid": true,
+    "errors": []
+  },
+  {
+    "file": "results/astra-codex-high/index.html",
+    "inline_scripts_valid": true,
+    "errors": []
+  },
+  {
+    "file": "results/deepastra-final/index.html",
+    "inline_scripts_valid": true,
+    "errors": []
+  },
+  {
+    "file": "results/astra-critic-2/index.html",
+    "inline_scripts_valid": true,
+    "errors": []
+  },
+  {
+    "file": "results/deepastra-loop-1/index.html",
+    "inline_scripts_valid": true,
+    "errors": []
+  },
+  {
+    "file": "results/deepseek-raw-low/index.html",
+    "inline_scripts_valid": true,
+    "errors": []
+  },
+  {
+    "file": "results/deepseek-loop-1/index.html",
+    "inline_scripts_valid": true,
+    "errors": []
+  },
+  {
+    "file": "results/deepseek-raw-none/index.html",
+    "inline_scripts_valid": true,
+    "errors": []
+  }
+]

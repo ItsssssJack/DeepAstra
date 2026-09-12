@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AuthKit — The world's best login box, powered by WorkOS + Radix</title>
+<meta name="description" content="AuthKit is the world's best login box, powered by WorkOS + Radix.">
+<style>
+/* ===== Tokens ===== */
+:root{
+  --midnight-canvas:#05060f;
+  --steel-plate:#2f343e;
+  --fog-veil:#9da7ba;
+  --moon-mist:#c7d3ea;
+  --frost-glow:#d1e4fa;
+  --ice-highlight:#d8ecf8;
+  --ice-low:#98c0ef;
+  --pure-white:#ffffff;
+  --void-violet:#663af3;
+  --blueprint-blue:#b6d9fc;
+  --ember-glow:#e46d4c;
+  --signal-blue:#027dea;
+  --deep-teal:#269684;
+  --gridline-blue:#3f4959;
+  --glass-edge:rgba(186,215,247,0.12);
+  --luminous-fill:rgba(199,211,234,0.12);
+
+  --font-sans:'Inter','Untitled Sans',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-display:'Space Grotesk','aeonikPro',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-mono:'JetBrains Mono','dotDigital',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+
+  --section-gap:120px;
+  --card-padding:24px;
+  --page-max:1200px;
+
+  --radius-sm:2px; --radius-md:6px; --radius-lg:10px; --radius-2xl:16px;
+  --radius-3xl:24px; --radius-3xl-2:28px; --radius-full:999px;
+
+  --shadow-card:rgba(216,236,248,0.2) 0 1px 1px 0 inset, rgba(168,216,245,0.06) 0 24px 48px 0 inset, rgba(0,0,0,0.3) 0 16px 32px 0;
+  --shadow-plate:rgba(216,236,248,0.2) 0 1px 1px 0 inset, rgba(168,216,245,0.06) 0 24px 48px 0 inset, rgba(199,211,234,0.08) 0 0 0 1px inset;
+  --hairline:rgba(186,215,247,0.12) 0 0 0 1px inset;
+  --hairline-soft:rgba(186,214,247,0.06) 0 0 0 1px inset;
+
+  --text-1:#d8ecf8; --text-2:#d1e4fa; --text-3:#c7d3ea; --text-4:#9da7ba;
+
+  /* morphable demo-card variables */
+  --demo-accent:var(--void-violet);
+  --demo-accent-text:#ffffff;
+  --demo-radius:16px;
+  --demo-field-radius:6px;
+  --demo-btn-radius:6px;
+  --demo-surface:rgba(5,6,15,0.97);
+  --demo-field:rgba(199,211,234,0.06);
+}
+
+/* Light theme is a demo-surface theme only: the marketing site stays dark-first. */
+html[data-theme="light"] .demo-scope,
+html[data-theme="light"] .auth-card.is-live{
+  --demo-surface:rgba(246,249,255,0.97);
+  --demo-field:rgba(23,32,54,0.06);
+  --demo-text:#111726;
+  --demo-text-muted:#5a6479;
+  --demo-hairline:rgba(23,32,54,0.14);
+  --demo-shadow:rgba(255,255,255,0.9) 0 1px 1px inset, rgba(20,30,60,0.10) 0 20px 40px, rgba(20,30,60,0.08) 0 0 0 1px inset;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--midnight-canvas);
+  color:var(--text-3);
+  font-family:var(--font-sans);
+  font-size:16px;
+  line-height:1.5;
+  letter-spacing:-0.01em;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+h1,h2,h3,h4,p{margin:0}
+:focus-visible{outline:2px solid var(--ice-low);outline-offset:2px;border-radius:4px}
+
+.skip{position:absolute;left:-9999px;top:0;z-index:99;background:#0b1020;color:var(--frost-glow);padding:10px 16px;border-radius:0 0 8px 0}
+.skip:focus{left:0}
+
+/* ===== Ambience ===== */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg-grid{
+  position:absolute;inset:-10% -10% 0;
+  background-image:
+    linear-gradient(to right, rgba(186,215,247,0.065) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(186,215,247,0.065) 1px, transparent 1px);
+  background-size:80px 80px;
+  background-position:center top;
+  -webkit-mask-image:radial-gradient(120% 78% at 50% 26%, #000 0%, rgba(0,0,0,0.55) 46%, transparent 78%);
+  mask-image:radial-gradient(120% 78% at 50% 26%, #000 0%, rgba(0,0,0,0.55) 46%, transparent 78%);
+}
+.bg-glow{
+  position:absolute;left:50%;top:-460px;width:1400px;height:1100px;transform:translateX(-50%);
+  background:conic-gradient(from 180deg at 50% 50%,
+    rgba(124,145,182,0) 0deg, rgba(124,145,182,0.16) 88deg,
+    rgba(168,190,230,0.42) 180deg, rgba(124,145,182,0.16) 272deg, rgba(124,145,182,0) 360deg);
+  filter:blur(90px);opacity:0.6;
+}
+.bg-beam{
+  position:absolute;left:50%;top:-120px;width:620px;height:620px;transform:translateX(-50%);
+  background:radial-gradient(50% 50% at 50% 40%, rgba(184,205,240,0.30) 0%, rgba(140,168,215,0.13) 42%, rgba(5,6,15,0) 72%);
+  filter:blur(8px);
+}
+.bg-vignette{
+  position:absolute;inset:0;
+  background:radial-gradient(120% 70% at 50% 8%, rgba(5,6,15,0) 30%, rgba(5,6,15,0.55) 68%, rgba(4,5,12,0.92) 100%);
+}
+
+/* ===== Shell ===== */
+.shell{position:relative;z-index:1}
+.wrap{width:100%;max-width:var(--page-max);margin:0 auto;padding:0 24px}
+
+/* ===== Header ===== */
+.site-header{display:flex;align-items:center;justify-content:space-between;padding:22px 0 18px;gap:16px}
+.brand{font-size:16px;font-weight:500;color:var(--frost-glow);letter-spacing:-0.01em}
+.header-right{display:flex;align-items:center;gap:8px}
+.icon-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  height:32px;padding:0 10px;border-radius:var(--radius-full);
+  box-shadow:var(--hairline);
+  color:var(--frost-glow);background:transparent;
+  transition:background-color .18s ease, box-shadow .18s ease;
+}
+.icon-btn:hover{background:rgba(186,214,247,0.08);box-shadow:rgba(186,215,247,0.24) 0 0 0 1px inset}
+.btn-pill{
+  display:inline-flex;align-items:center;justify-content:center;
+  height:32px;padding:0 14px;border-radius:var(--radius-full);
+  font-size:14px;font-weight:500;color:var(--pure-white);
+  background:rgba(186,214,247,0.06);
+  box-shadow:var(--hairline);
+  transition:background-color .18s ease, box-shadow .18s ease;
+}
+.btn-pill:hover{background:rgba(186,214,247,0.12)}
+.header-symbol{position:absolute;left:50%;transform:translateX(-50%)}
+.mark-center{opacity:0.92}
+
+/* ===== Hero ===== */
+.hero{position:relative;padding-top:26px;text-align:center}
+.eyebrow{
+  display:flex;align-items:center;justify-content:center;gap:20px;
+  font-family:var(--font-mono);font-size:15px;line-height:1.2;letter-spacing:0.10em;
+  text-transform:uppercase;color:var(--text-3);font-variant-numeric:tabular-nums;
+}
+.eyebrow::before,.eyebrow::after{
+  content:"";height:1px;width:min(190px,22vw);
+  background:linear-gradient(to right, rgba(186,215,247,0), rgba(186,215,247,0.42), rgba(186,215,247,0));
+}
+.wordmark{
+  margin:34px 0 0;
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:clamp(64px,13.2vw,158px);
+  line-height:1.02;
+  letter-spacing:-0.028em;
+  background:linear-gradient(180deg,#e2f2ff 0%, #d8ecf8 18%, #b9d4f4 58%, #98c0ef 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 0 90px rgba(152,192,239,0.22);
+}
+.wordmark-wrap{position:relative;display:inline-block}
+.wordmark-wrap::before{
+  content:"";position:absolute;left:50%;top:52%;width:190%;height:190%;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(50% 50% at 50% 50%, rgba(150,180,225,0.20) 0%, rgba(150,180,225,0.06) 45%, rgba(5,6,15,0) 72%);
+  z-index:-1;pointer-events:none;
+}
+.hero-sub{
+  margin:16px auto 0;max-width:520px;
+  font-size:18px;line-height:1.55;color:var(--text-3);
+  text-wrap:balance;
+}
+.hero-sub strong{font-weight:500;color:var(--text-2)}
+
+/* ===== Hero card cluster ===== */
+.cluster{
+  position:relative;margin-top:34px;height:500px;
+  display:flex;align-items:flex-start;justify-content:center;
+}
+.auth-card{
+  border-radius:var(--radius-2xl);
+  background:var(--demo-surface);
+  box-shadow:var(--shadow-card);
+  color:var(--demo-text,var(--frost-glow));
+  text-align:left;
+}
+.auth-card.side{
+  position:absolute;top:20px;width:472px;height:416px;padding:26px 28px;
+  overflow:hidden;
+}
+.auth-card.left{left:12px}
+.auth-card.right{right:12px}
+.auth-card.back{opacity:0.86;filter:saturate(0.95)}
+.auth-card.main{
+  position:relative;z-index:3;width:404px;padding:24px 32px 28px;
+  background:rgba(9,12,24,0.94);
+  -webkit-backdrop-filter:blur(18px) saturate(120%);
+  backdrop-filter:blur(18px) saturate(120%);
+  border-radius:var(--demo-radius);
+}
+.auth-card .corner{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(199,211,234,0.5)}
+.corner.tl{top:11px;left:11px}.corner.tr{top:11px;right:11px}
+.corner.bl{bottom:11px;left:11px}.corner.br{bottom:11px;right:11px}
+
+.card-icon{display:flex;justify-content:center;margin:2px 0 14px;color:rgba(199,211,234,0.55)}
+.card-title{
+  text-align:center;font-size:20px;font-weight:500;line-height:1.2;
+  color:var(--demo-text,#e2edff);letter-spacing:-0.01em;
+}
+.card-title.small{font-size:19px}
+.card-sub{text-align:center;font-size:14px;color:var(--demo-text-muted,#9da7ba);margin-top:6px}
+
+.field{margin-top:18px}
+.field label{display:block;font-size:14px;font-weight:500;color:var(--demo-text-2,#d1e4fa);margin-bottom:8px}
+.input{
+  width:100%;height:40px;padding:0 12px;
+  border:none;border-radius:var(--demo-field-radius);
+  background:var(--demo-field);
+  box-shadow:var(--demo-hairline,var(--hairline));
+  color:var(--demo-text,var(--pure-white));
+  font-size:14px;
+  transition:box-shadow .16s ease, background-color .16s ease;
+}
+.input::placeholder{color:var(--demo-text-muted,#c7d3ea);opacity:0.6}
+.input:hover{box-shadow:rgba(186,215,247,0.18) 0 0 0 1px inset}
+.input:focus{outline:none;box-shadow:rgba(186,215,247,0.3) 0 0 0 1px inset, rgba(152,192,239,0.16) 0 0 14px}
+.input[aria-invalid="true"]{box-shadow:rgba(228,109,76,0.55) 0 0 0 1px inset}
+
+.btn-demo{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;height:40px;margin-top:14px;padding:0 16px;
+  border-radius:var(--demo-btn-radius);
+  background:rgba(199,211,234,0.06);
+  box-shadow:var(--demo-hairline,var(--hairline));
+  color:var(--demo-text,#ffffff);font-size:14px;font-weight:500;
+  transition:background-color .16s ease, box-shadow .16s ease, transform .16s ease;
+}
+.btn-demo:hover{background:rgba(199,211,234,0.12)}
+.btn-demo:active{transform:translateY(1px)}
+.btn-demo.primary{
+  background:var(--demo-accent);color:var(--demo-accent-text);
+  box-shadow:rgba(255,255,255,0.14) 0 1px 1px 0 inset, rgba(0,0,0,0.25) 0 6px 18px;
+}
+.btn-demo.primary:hover{filter:brightness(1.08)}
+.btn-demo.is-busy{opacity:0.75;pointer-events:none}
+
+.or{display:flex;align-items:center;gap:12px;margin:16px 0 4px;color:var(--demo-text-muted,#9da7ba);font-size:12px;letter-spacing:0.08em}
+.or::before,.or::after{content:"";flex:1;height:1px;background:linear-gradient(to right, rgba(186,215,247,0), rgba(186,215,247,0.18), rgba(186,215,247,0))}
+.switch-line{margin-top:16px;text-align:center;font-size:14px;color:var(--demo-text-muted,#c7d3ea)}
+.switch-line button{color:var(--demo-text,#ffffff);font-weight:600;text-decoration:none;border-bottom:1px solid transparent}
+.switch-line button:hover{border-bottom-color:currentColor}
+
+.form-error{margin-top:10px;font-size:13px;color:#f0a58e;min-height:0}
+.form-error:empty{display:none}
+.success{
+  display:flex;align-items:center;gap:10px;margin-top:14px;padding:12px 14px;
+  border-radius:var(--demo-field-radius);
+  background:rgba(38,150,132,0.14);
+  box-shadow:rgba(38,150,132,0.4) 0 0 0 1px inset;
+  color:#bfe9df;font-size:14px;
+}
+.success svg{flex:none}
+.side-stack{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+.code-boxes{display:flex;gap:12px}
+.code-box{
+  width:56px;height:64px;border-radius:6px;
+  background:rgba(199,211,234,0.10);
+  box-shadow:var(--hairline);
+}
+.side-muted{font-size:14px;color:#9da7ba}
+
+/* ===== Section scaffolding ===== */
+section{position:relative}
+.section{padding-top:var(--section-gap)}
+.section-head{text-align:center;margin-bottom:56px}
+.display{
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(30px,3.4vw,44px);line-height:1.16;letter-spacing:-0.02em;
+  background:linear-gradient(180deg,#e2f0fd 0%, #d8ecf8 30%, #a9c9f0 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+  text-wrap:balance;
+}
+.display.mono-sub{margin-bottom:18px}
+.section-head .eyebrow{margin-bottom:22px}
+.lede{margin:18px auto 0;max-width:560px;font-size:16px;line-height:1.55;color:var(--text-4);text-wrap:balance}
+
+/* ===== Feature row ===== */
+.features{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;list-style:none;margin:0;padding:0}
+.feature{
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+  padding:26px 10px 22px;border-radius:var(--radius-2xl);
+  background:rgba(186,214,247,0.03);
+  box-shadow:var(--hairline-soft);
+  transition:background-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.feature:hover{background:rgba(186,214,247,0.06);box-shadow:var(--hairline);transform:translateY(-2px)}
+.tile{
+  width:60px;height:60px;border-radius:9999px;
+  display:grid;place-items:center;
+  background:rgba(186,214,247,0.06);
+  box-shadow:rgba(186,215,247,0.12) 0 0 0 1px inset, rgba(186,215,247,0.10) 0 0 22px inset;
+  color:var(--text-2);
+}
+.feature-name{font-size:14px;font-weight:500;color:var(--text-2);text-align:center}
+
+/* ===== Theme toggle strip ===== */
+.theme-strip{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.theme-strip p{font-size:16px;color:var(--text-4);max-width:520px}
+.seg{
+  display:inline-flex;align-items:center;gap:2px;height:32px;padding:3px;
+  border-radius:var(--radius-full);background:rgba(186,214,247,0.05);box-shadow:var(--hairline);
+}
+.seg button{
+  display:inline-flex;align-items:center;gap:8px;height:26px;padding:0 14px;
+  border-radius:var(--radius-full);font-size:13px;font-weight:500;color:var(--text-4);
+  transition:background-color .18s ease, color .18s ease;
+}
+.seg button[aria-pressed="true"]{background:rgba(199,211,234,0.16);color:var(--pure-white)}
+.seg button:hover{color:var(--text-2)}
+
+/* ===== Extensible section ===== */
+.two-col{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:64px;align-items:center}
+.two-col .eyebrow{justify-content:flex-start}
+.two-col .eyebrow::after{display:none}
+.two-col .eyebrow::before{width:44px;background:linear-gradient(to right, rgba(186,215,247,0.42), rgba(186,215,247,0))}
+.body-copy{margin-top:20px;font-size:16px;line-height:1.62;color:var(--text-3)}
+.body-copy + .body-copy{margin-top:14px}
+.check-list{list-style:none;margin:24px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.check-list li{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--text-3)}
+.check-list svg{flex:none;margin-top:3px;color:var(--blueprint-blue)}
+
+.dash{
+  border-radius:var(--radius-2xl);background:rgba(8,10,22,0.78);
+  box-shadow:var(--shadow-plate);overflow:hidden;
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+}
+.dash-top{display:flex;align-items:center;gap:8px;padding:14px 16px;box-shadow:rgba(186,214,247,0.06) 0 -1px 0 0 inset}
+.dash-dot{width:9px;height:9px;border-radius:50%;background:rgba(199,211,234,0.18)}
+.dash-url{
+  flex:1;height:26px;border-radius:var(--radius-full);background:rgba(199,211,234,0.05);
+  box-shadow:var(--hairline-soft);display:flex;align-items:center;padding:0 12px;
+  font-family:var(--font-mono);font-size:11px;color:rgba(199,211,234,0.5);letter-spacing:0.02em;
+}
+.dash-body{display:grid;grid-template-columns:150px minmax(0,1fr);min-height:332px}
+.dash-nav{padding:16px 12px;display:flex;flex-direction:column;gap:6px;box-shadow:rgba(186,214,247,0.06) -1px 0 0 0 inset}
+.dash-nav span{
+  display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:8px;
+  font-size:13px;color:var(--text-4);
+}
+.dash-nav span.on{background:rgba(186,214,247,0.07);color:var(--text-2);box-shadow:var(--hairline-soft)}
+.dash-main{padding:18px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.kpi{padding:14px;border-radius:12px;background:rgba(186,214,247,0.03);box-shadow:var(--hairline-soft)}
+.kpi b{display:block;font-family:var(--font-display);font-size:24px;font-weight:500;color:var(--text-1);line-height:1.15}
+.kpi small{display:block;margin-top:6px;font-size:12px;color:var(--text-4);letter-spacing:0.02em}
+.spark{
+  margin-top:14px;padding:14px 14px 8px;border-radius:12px;
+  background:rgba(186,214,247,0.03);box-shadow:var(--hairline-soft);
+}
+.spark-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.spark-head small{font-size:12px;color:var(--text-4);letter-spacing:0.02em}
+.pill-tag{
+  font-size:11px;font-weight:500;color:var(--text-2);padding:3px 8px;border-radius:var(--radius-md);
+  background:rgba(199,211,234,0.12);
+  box-shadow:rgba(199,211,234,0.10) 0 0 0 1px inset, rgba(186,214,247,0.10) 0 0 10px inset;
+}
+.bars{margin-top:14px;display:flex;flex-direction:column;gap:10px}
+.bar-row{display:grid;grid-template-columns:104px minmax(0,1fr);align-items:center;gap:12px;font-size:12px;color:var(--text-4)}
+.bar-track{height:6px;border-radius:999px;background:rgba(199,211,234,0.08);overflow:hidden}
+.bar-fill{height:100%;border-radius:999px;background:linear-gradient(to right, rgba(152,192,239,0.75), rgba(216,236,248,0.9))}
+
+/* ===== Shine bright / customization ===== */
+.custom{
+  border-radius:var(--radius-2xl);padding:28px;
+  background:rgba(9,11,24,0.7);box-shadow:var(--shadow-plate);
+  display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:40px;align-items:start;
+}
+.controls{display:flex;flex-direction:column;gap:22px}
+.control-group>span{display:block;font-size:12px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-4);margin-bottom:10px}
+.swatches{display:flex;gap:8px;flex-wrap:wrap}
+.swatch{
+  width:28px;height:28px;border-radius:6px;box-shadow:rgba(255,255,255,0.14) 0 0 0 1px inset;
+  transition:transform .16s ease, box-shadow .16s ease;
+}
+.swatch:hover{transform:translateY(-1px)}
+.swatch[aria-pressed="true"]{box-shadow:rgba(255,255,255,0.75) 0 0 0 2px inset, rgba(216,236,248,0.35) 0 0 14px}
+.radius-row{display:flex;gap:8px}
+.radius-row button{
+  flex:1;height:36px;border-radius:var(--radius-md);font-size:13px;color:var(--text-3);
+  background:rgba(199,211,234,0.05);box-shadow:var(--hairline);
+  transition:background-color .16s ease,color .16s ease;
+}
+.radius-row button[aria-pressed="true"]{background:rgba(199,211,234,0.16);color:var(--pure-white)}
+.theme-row{display:flex;gap:8px}
+.theme-row button{
+  flex:1;height:36px;border-radius:var(--radius-md);font-size:13px;color:var(--text-3);
+  background:rgba(199,211,234,0.05);box-shadow:var(--hairline);
+}
+.theme-row button[aria-pressed="true"]{background:rgba(199,211,234,0.16);color:var(--pure-white)}
+
+.demo-stage{
+  border-radius:var(--radius-2xl);padding:32px;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(150,180,225,0.14) 0%, rgba(5,6,15,0) 62%),
+    rgba(4,5,13,0.55);
+  box-shadow:var(--hairline-soft);
+  display:flex;justify-content:center;
+}
+.demo-scope{width:100%;max-width:404px}
+.live-note{margin-top:16px;text-align:center;font-size:12px;color:var(--text-4);letter-spacing:0.02em}
+
+/* ===== Closer ===== */
+.closer{padding-top:var(--section-gap);text-align:center}
+.closer .display{font-size:clamp(28px,3vw,40px)}
+.closer-actions{display:flex;gap:12px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+.btn-lg{height:40px;padding:0 20px;font-size:15px}
+.foot{
+  margin-top:var(--section-gap);padding:28px 0 40px;border-top:1px solid rgba(186,215,247,0.08);
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  font-size:13px;color:var(--text-4);
+}
+.foot-links{display:flex;gap:20px;flex-wrap:wrap}
+.foot a:hover,.foot button:hover{color:var(--text-2)}
+
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ===== Responsive ===== */
+@media (max-width:1100px){
+  .features{grid-template-columns:repeat(3,1fr)}
+  .two-col{grid-template-columns:1fr;gap:40px}
+  .custom{grid-template-columns:1fr;gap:28px}
+  .auth-card.side{width:min(40vw,420px)}
+}
+@media (max-width:900px){
+  .cluster{height:auto;display:block;padding-top:26px}
+  .auth-card.side{display:none}
+  .auth-card.main{width:100%;max-width:420px;margin:0 auto}
+}
+@media (max-width:640px){
+  :root{--section-gap:76px;--page-max:100%}
+  .wrap{padding:0 18px}
+  .site-header{padding:16px 0 14px}
+  .header-symbol{display:none}
+  .hero{padding-top:18px}
+  .wordmark{font-size:clamp(48px,17vw,84px);margin-top:24px}
+  .hero-sub{font-size:16px}
+  .cluster{margin-top:26px}
+  .auth-card.main{padding:22px 20px 24px}
+  .features{grid-template-columns:repeat(2,1fr);gap:12px}
+  .feature{padding:20px 8px 18px}
+  .dash-body{grid-template-columns:1fr}
+  .dash-nav{flex-direction:row;overflow-x:auto;box-shadow:rgba(186,214,247,0.06) 0 -1px 0 0 inset}
+  .dash-nav span{white-space:nowrap}
+  .kpis{grid-template-columns:1fr 1fr}
+  .custom{padding:20px}
+  .demo-stage{padding:20px}
+  .foot{flex-direction:column;align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:0.001ms !important;animation-iteration-count:1 !important;transition-duration:0.001ms !important;scroll-behavior:auto !important}
+  .feature:hover{transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="bg" aria-hidden="true">
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+  <div class="bg-beam"></div>
+  <div class="bg-vignette"></div>
+</div>
+
+<div class="shell">
+  <!-- ===== Header ===== -->
+  <header class="site-header wrap">
+    <a class="brand" href="#main">WorkOS</a>
+    <span class="header-symbol" aria-hidden="true">
+      <svg class="mark-center" width="34" height="34" viewBox="0 0 34 34" fill="none" role="img" aria-label="WorkOS symbol">
+        <path d="M17 1.6 30.4 9.3v15.4L17 32.4 3.6 24.7V9.3L17 1.6Z" stroke="#c7d3ea" stroke-width="1.6" stroke-opacity="0.85"/>
+        <path d="M17 8.4c1.1 2.5 2.6 4.1 5.1 5.2v6.8c-2.5 1.1-4 2.7-5.1 5.2-1.1-2.5-2.6-4.1-5.1-5.2v-6.8c2.5-1.1 4-2.7 5.1-5.2Z" fill="#c7d3ea" fill-opacity="0.72"/>
+      </svg>
+    </span>
+    <div class="header-right">
+      <a class="icon-btn" href="https://github.com/workos" aria-label="AuthKit on GitHub" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="#d1e4fa" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-2.92-.88-2.92-2.65 0-.9.32-1.63.84-2.21-.08-.2-.37-1.02.08-2.12 0 0 .7-.22 2.3.86a7.9 7.9 0 0 1 2.1-.29c.71 0 1.42.1 2.1.29 1.6-1.08 2.3-.86 2.3-.86.45 1.1.16 1.92.08 2.12.52.58.84 1.31.84 2.21 0 1.78-1.15 2.45-2.93 2.65.3.26.56.76.56 1.54 0 1.11-.01 2-.01 2.27 0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
+        </svg>
+      </a>
+      <a class="btn-pill" href="#get-started">Get started</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===== Hero ===== -->
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <p class="eyebrow">Introducing</p>
+      <h1 class="wordmark-wrap"><span class="wordmark" id="hero-title">AuthKit</span></h1>
+      <p class="hero-sub">The world's best login box,<br>powered by <strong>WorkOS + Radix</strong>.</p>
+
+      <div class="cluster" aria-label="AuthKit login card previews">
+        <!-- Left card: sign up -->
+        <div class="auth-card side left back" aria-hidden="true">
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          <h3 class="card-title" style="margin-top:26px">Welcome to SuperApp</h3>
+          <p class="card-sub">Log in to your account</p>
+          <div class="field">
+            <label>Email</label>
+            <input class="input" type="email" placeholder="Your email address" tabindex="-1">
+          </div>
+          <button class="btn-demo" type="button" tabindex="-1">Continue</button>
+          <div class="switch-line">Don't have an account? <button type="button" tabindex="-1">Sign up</button></div>
+          <span class="corner bl"></span>
+        </div>
+
+        <!-- Right card: magic auth -->
+        <div class="auth-card side right back" aria-hidden="true">
+          <span class="corner tr"></span><span class="corner br"></span>
+          <h3 class="card-title" style="margin-top:56px">Clamer</h3>
+          <p class="card-sub" style="text-align:left;margin-left:0;max-width:230px">We sent a one-time passcode from your authenticator app.</p>
+          <div class="side-stack">
+            <div class="code-boxes">
+              <div class="code-box"></div><div class="code-box"></div><div class="code-box"></div><div class="code-box"></div>
+            </div>
+            <button class="btn-demo" type="button" tabindex="-1">Continue</button>
+            <p class="side-muted">Don't have an account? <span style="color:#e2edff;font-weight:600">Sign in</span></p>
+          </div>
+          <span class="corner bl"></span>
+        </div>
+
+        <!-- Center live card -->
+        <div class="auth-card main" id="hero-card">
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          <div class="card-icon" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+              <circle cx="15" cy="15" r="12.4" stroke="currentColor" stroke-width="1.1" stroke-dasharray="3.2 3.2"/>
+              <circle cx="15" cy="15" r="8.2" stroke="currentColor" stroke-width="1.1" stroke-opacity="0.7"/>
+              <ellipse cx="15" cy="15" rx="4.4" ry="8.2" stroke="currentColor" stroke-width="1.1" stroke-opacity="0.55"/>
+            </svg>
+          </div>
+          <h2 class="card-title" id="hero-card-title">Sign in to SuperApp</h2>
+
+          <form id="hero-form" novalidate>
+            <div class="field">
+              <label for="hero-email">Email</label>
+              <input class="input" id="hero-email" name="email" type="email" placeholder="Your email address" autocomplete="email" aria-describedby="hero-error">
+            </div>
+            <p class="form-error" id="hero-error" role="status" aria-live="polite"></p>
+            <button class="btn-demo primary" type="submit" id="hero-submit">Continue</button>
+
+            <p class="or">OR</p>
+            <button class="btn-demo" type="button" data-provider="Google">
+              <svg width="16" height="16" viewBox="0 0 18 18" aria-hidden="true">
+                <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62Z"/>
+                <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.33A9 9 0 0 0 9 18Z"/>
+                <path fill="#FBBC05" d="M3.97 10.72a5.4 5.4 0 0 1 0-3.44V4.95H.96a9 9 0 0 0 0 8.1l3.01-2.33Z"/>
+                <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.59C13.46.89 11.43 0 9 0A9 9 0 0 0 .96 4.95l3.01 2.33C4.68 5.16 6.66 3.58 9 3.58Z"/>
+              </svg>
+              Continue with Google
+            </button>
+            <button class="btn-demo" type="button" data-provider="Microsoft">
+              <svg width="15" height="15" viewBox="0 0 15 15" aria-hidden="true">
+                <rect x="0" y="0" width="7" height="7" fill="#F25022"/><rect x="8" y="0" width="7" height="7" fill="#7FBA00"/>
+                <rect x="0" y="8" width="7" height="7" fill="#00A4EF"/><rect x="8" y="8" width="7" height="7" fill="#FFB900"/>
+              </svg>
+              Continue with Microsoft
+            </button>
+            <p class="switch-line">Don't have an account? <button type="button" id="hero-switch">Sign up</button></p>
+            <div id="hero-success" hidden></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Theme + features ===== -->
+    <section class="section wrap" id="features" aria-labelledby="features-title">
+      <div class="theme-strip">
+        <div class="seg" role="group" aria-label="Theme preview">
+          <button type="button" data-theme-set="dark" aria-pressed="true">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 10.4A5.9 5.9 0 0 1 5.6 2.5a6 6 0 1 0 7.9 7.9Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+            Dark
+          </button>
+          <button type="button" data-theme-set="light" aria-pressed="false">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="3.2" stroke="currentColor" stroke-width="1.3"/><path d="M8 .8v1.9M8 13.3v1.9M15.2 8h-1.9M2.7 8H.8M13.1 2.9l-1.3 1.3M4.2 11.8l-1.3 1.3M13.1 13.1l-1.3-1.3M4.2 4.2 2.9 2.9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            Light
+          </button>
+        </div>
+        <h2 class="display mono-sub" id="features-title">Light and dark modes supported</h2>
+        <p>One login box, themed for both worlds. These toggles drive the live demo card further down the page.</p>
+      </div>
+
+      <ul class="features" style="margin-top:56px">
+        <li class="feature">
+          <span class="tile" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="10" cy="11" r="4.2"/><path d="M13.4 13.8 21 21.4M18 18.6l-1.6 1.6M20.2 20.8l-1.4 1.4"/>
+            </svg>
+          </span>
+          <span class="feature-name">Single Sign-On</span>
+        </li>
+        <li class="feature">
+          <span class="tile" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="11" width="16" height="10" rx="2.4"/><path d="M8.6 11V8.4a4.4 4.4 0 0 1 8.8 0V11"/><circle cx="13" cy="16" r="1.3"/>
+            </svg>
+          </span>
+          <span class="feature-name">Password</span>
+        </li>
+        <li class="feature">
+          <span class="tile" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="7" y="2.6" width="12" height="20.8" rx="2.6"/><path d="M13 18.6h.01"/>
+            </svg>
+          </span>
+          <span class="feature-name">MFA</span>
+        </li>
+        <li class="feature">
+          <span class="tile" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9.6" cy="8.6" r="3.4"/><path d="M3.6 21.4a6.2 6.2 0 0 1 12 0"/><path d="M17.4 8.2h5M17.4 12h5M17.4 15.8h3.4"/>
+            </svg>
+          </span>
+          <span class="feature-name">Social Login</span>
+        </li>
+        <li class="feature">
+          <span class="tile" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 2.8 21.4 6v7.1c0 5-3.5 8.4-8.4 10.1-4.9-1.7-8.4-5.1-8.4-10.1V6L13 2.8Z"/><path d="M9.6 12.8l2.6 2.6 4.4-4.6"/>
+            </svg>
+          </span>
+          <span class="feature-name">RBAC</span>
+        </li>
+        <li class="feature">
+          <span class="tile" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 3.2l2.1 5.1 5.1 2.1-5.1 2.1-2.1 5.1-2.1-5.1L5.8 10.4l5.1-2.1L13 3.2Z"/><path d="M19.6 17.4l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8.8-1.9Z"/>
+            </svg>
+          </span>
+          <span class="feature-name">Magic Auth</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== Extensible by design ===== -->
+    <section class="section wrap" id="extensible" aria-labelledby="extensible-title">
+      <div class="two-col">
+        <div>
+          <p class="eyebrow">Extensible by design</p>
+          <h2 class="display" id="extensible-title">Your users. Your data.<br>Maximum flexibility.</h2>
+          <p class="body-copy">AuthKit is a complete authentication surface you can bend to your product, brand and data model. Every screen, every field, every flow is yours to own.</p>
+          <ul class="check-list">
+            <li>
+              <svg width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="7.4" stroke="currentColor" stroke-width="1.2"/><path d="M5.3 8.7l2.2 2.2 4.2-4.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Hosted, headless or fully custom UI
+            </li>
+            <li>
+              <svg width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="7.4" stroke="currentColor" stroke-width="1.2"/><path d="M5.3 8.7l2.2 2.2 4.2-4.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Roles, permissions and organisations out of the box
+            </li>
+            <li>
+              <svg width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="7.4" stroke="currentColor" stroke-width="1.2"/><path d="M5.3 8.7l2.2 2.2 4.2-4.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Your database, your schema, zero lock-in
+            </li>
+          </ul>
+        </div>
+
+        <div class="dash" role="img" aria-label="AuthKit dashboard illustration showing sign-in metrics across providers">
+          <div class="dash-top">
+            <span class="dash-dot"></span><span class="dash-dot"></span><span class="dash-dot"></span>
+            <span class="dash-url">dashboard.workos.com/authkit</span>
+          </div>
+          <div class="dash-body">
+            <nav class="dash-nav" aria-hidden="true">
+              <span class="on"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1" y="1" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.1"/><rect x="7" y="1" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.1"/><rect x="1" y="7" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.1"/><rect x="7" y="7" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.1"/></svg>Overview</span>
+              <span><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="4" r="2.4" stroke="currentColor" stroke-width="1.1"/><path d="M1.6 11a4.4 4.4 0 0 1 8.8 0" stroke="currentColor" stroke-width="1.1"/></svg>Users</span>
+              <span><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1.4" y="2" width="9.2" height="7.6" rx="1.6" stroke="currentColor" stroke-width="1.1"/><path d="M1.4 4.6h9.2" stroke="currentColor" stroke-width="1.1"/></svg>Sessions</span>
+              <span><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.6" stroke="currentColor" stroke-width="1.1"/><path d="M6 3.4V6l1.8 1.2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>Events</span>
+            </nav>
+            <div class="dash-main">
+              <div class="kpis">
+                <div class="kpi"><b>24.8k</b><small>Sign-ins / 30d</small></div>
+                <div class="kpi"><b>99.98%</b><small>Success rate</small></div>
+                <div class="kpi"><b>412ms</b><small>p95 latency</small></div>
+              </div>
+              <div class="spark">
+                <div class="spark-head">
+                  <small>Authentication volume</small>
+                  <span class="pill-tag">Last 30 days</span>
+                </div>
+                <svg viewBox="0 0 520 108" width="100%" height="108" preserveAspectRatio="none" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="sparkfill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#a8c8ee" stop-opacity="0.32"/>
+                      <stop offset="100%" stop-color="#a8c8ee" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M0 82 40 74 80 78 120 60 160 66 200 48 240 54 280 34 320 40 360 26 400 30 440 18 480 22 520 10 520 108 0 108Z" fill="url(#sparkfill)"/>
+                  <path d="M0 82 40 74 80 78 120 60 160 66 200 48 240 54 280 34 320 40 360 26 400 30 440 18 480 22 520 10" fill="none" stroke="#c7dcf5" stroke-width="1.6" stroke-opacity="0.85" stroke-linejoin="round"/>
+                  <circle cx="520" cy="10" r="3.2" fill="#e2f0fd"/>
+                </svg>
+                <div class="bars">
+                  <div class="bar-row"><span>Google</span><span class="bar-track"><span class="bar-fill" style="width:74%"></span></span></div>
+                  <div class="bar-row"><span>Microsoft</span><span class="bar-track"><span class="bar-fill" style="width:58%"></span></span></div>
+                  <div class="bar-row"><span>Email &amp; Password</span><span class="bar-track"><span class="bar-fill" style="width:41%"></span></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Shine bright ===== -->
+    <section class="section wrap" id="customize" aria-labelledby="customize-title">
+      <div class="section-head">
+        <p class="eyebrow">Shine bright</p>
+        <h2 class="display" id="customize-title">Your brand. Your style.</h2>
+        <p class="lede">Colour, radius and theme are yours. Change them here and watch the login card repaint in real time.</p>
+      </div>
+
+      <div class="custom">
+        <div class="controls">
+          <div class="control-group">
+            <span id="lbl-colour">Colour</span>
+            <div class="swatches" role="group" aria-labelledby="lbl-colour">
+              <button class="swatch" type="button" data-accent="#663af3" data-accent-text="#ffffff" style="background:#663af3" aria-pressed="true" aria-label="Violet accent"></button>
+              <button class="swatch" type="button" data-accent="#027dea" data-accent-text="#ffffff" style="background:#027dea" aria-pressed="false" aria-label="Blue accent"></button>
+              <button class="swatch" type="button" data-accent="#269684" data-accent-text="#ffffff" style="background:#269684" aria-pressed="false" aria-label="Teal accent"></button>
+              <button class="swatch" type="button" data-accent="#e46d4c" data-accent-text="#ffffff" style="background:#e46d4c" aria-pressed="false" aria-label="Orange accent"></button>
+              <button class="swatch" type="button" data-accent="#d8ecf8" data-accent-text="#0b1020" style="background:#d8ecf8" aria-pressed="false" aria-label="Ice accent"></button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <span id="lbl-radius">Radius</span>
+            <div class="radius-row" role="group" aria-labelledby="lbl-radius">
+              <button type="button" data-radius="2" aria-pressed="false">Sharp</button>
+              <button type="button" data-radius="6" aria-pressed="false">Soft</button>
+              <button type="button" data-radius="16" aria-pressed="true">Round</button>
+              <button type="button" data-radius="999" aria-pressed="false">Pill</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <span id="lbl-theme">Theme</span>
+            <div class="theme-row" role="group" aria-labelledby="lbl-theme">
+              <button type="button" data-theme-set="dark" aria-pressed="true">Dark</button>
+              <button type="button" data-theme-set="light" aria-pressed="false">Light</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-stage">
+          <div class="demo-scope">
+            <div class="auth-card main" id="demo-card" style="width:100%">
+              <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+              <div class="card-icon" aria-hidden="true">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+                  <circle cx="15" cy="15" r="12.4" stroke="currentColor" stroke-width="1.1" stroke-dasharray="3.2 3.2"/>
+                  <circle cx="15" cy="15" r="8.2" stroke="currentColor" stroke-width="1.1" stroke-opacity="0.7"/>
+                  <ellipse cx="15" cy="15" rx="4.4" ry="8.2" stroke="currentColor" stroke-width="1.1" stroke-opacity="0.55"/>
+                </svg>
+              </div>
+              <h3 class="card-title">Sign in to SuperApp</h3>
+              <form id="demo-form" novalidate>
+                <div class="field">
+                  <label for="demo-email">Email</label>
+                  <input class="input" id="demo-email" name="email" type="email" placeholder="Your email address" aria-describedby="demo-error">
+                </div>
+                <p class="form-error" id="demo-error" role="status" aria-live="polite"></p>
+                <button class="btn-demo primary" type="submit">Continue</button>
+                <p class="or">OR</p>
+                <button class="btn-demo" type="button" data-provider="Google">
+                  <svg width="16" height="16" viewBox="0 0 18 18" aria-hidden="true">
+                    <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62Z"/>
+                    <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.33A9 9 0 0 0 9 18Z"/>
+                    <path fill="#FBBC05" d="M3.97 10.72a5.4 5.4 0 0 1 0-3.44V4.95H.96a9 9 0 0 0 0 8.1l3.01-2.33Z"/>
+                    <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.59C13.46.89 11.43 0 9 0A9 9 0 0 0 .96 4.95l3.01 2.33C4.68 5.16 6.66 3.58 9 3.58Z"/>
+                  </svg>
+                  Continue with Google
+                </button>
+                <div id="demo-success" hidden></div>
+              </form>
+            </div>
+            <p class="live-note">Local demo only. Nothing is sent or stored.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Closer ===== -->
+    <section class="closer wrap" id="get-started" aria-labelledby="closer-title">
+      <p class="eyebrow">Get started</p>
+      <h2 class="display" id="closer-title">Ship the login box<br>you wish you had.</h2>
+      <div class="closer-actions">
+        <a class="btn-pill btn-lg" href="#hero-card">Start building</a>
+        <a class="btn-pill btn-lg" href="https://github.com/workos" rel="noopener">View on GitHub</a>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <footer class="foot">
+        <span>AuthKit — local visual reproduction. Not affiliated with WorkOS.</span>
+        <nav class="foot-links" aria-label="Footer">
+          <a href="#features">Features</a>
+          <a href="#extensible">Extensible by design</a>
+          <a href="#customize">Customization</a>
+          <a href="#main">Back to top</a>
+        </nav>
+      </footer>
+    </div>
+  </main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var root = document.documentElement;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var EMAIL = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
+
+  function setPressed(nodes, match) {
+    nodes.forEach(function (n) { n.setAttribute('aria-pressed', match(n) ? 'true' : 'false'); });
+  }
+  function announce(el, text) { if (el) { el.textContent = text; } }
+
+  /* ---------- Local form handling: validate, never transmit ---------- */
+  function wireForm(form, opts) {
+    if (!form) return;
+    var input = form.querySelector('input[type="email"]');
+    var error = form.querySelector('.form-error');
+    var success = form.querySelector('[id$="-success"]') || form.parentNode.querySelector('[id$="-success"]');
+    var submit = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var value = (input.value || '').trim();
+      if (success) { success.hidden = true; success.innerHTML = ''; }
+
+      if (!value) {
+        input.setAttribute('aria-invalid', 'true');
+        announce(error, 'Enter an email address to continue.');
+        input.focus();
+        return;
+      }
+      if (!EMAIL.test(value)) {
+        input.setAttribute('aria-invalid', 'true');
+        announce(error, 'That does not look like a valid email address.');
+        input.focus();
+        return;
+      }
+
+      input.removeAttribute('aria-invalid');
+      announce(error, '');
+      if (submit) { submit.classList.add('is-busy'); submit.disabled = true; }
+
+      window.setTimeout(function () {
+        if (submit) { submit.classList.remove('is-busy'); submit.disabled = false; }
+        if (success) {
+          success.hidden = false;
+          success.innerHTML =
+            '<div class="success">' +
+              '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">' +
+                '<circle cx="8" cy="8" r="7" stroke="#8fdcc9" stroke-width="1.2"/>' +
+                '<path d="M4.9 8.3l2.1 2.1 4.1-4.5" stroke="#8fdcc9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+              '</svg>' +
+              '<span>Magic link sent to <strong>' + escapeHtml(value) + '</strong>. Local demo only.</span>' +
+            '</div>';
+        }
+        input.value = '';
+        announce(error, '');
+      }, reduce ? 60 : 620);
+    });
+
+    input.addEventListener('input', function () {
+      if (input.getAttribute('aria-invalid') === 'true' && EMAIL.test(input.value.trim())) {
+        input.removeAttribute('aria-invalid');
+        announce(error, '');
+      }
+    });
+
+    form.querySelectorAll('[data-provider]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var name = btn.getAttribute('data-provider');
+        if (success) {
+          success.hidden = false;
+          success.innerHTML = '<div class="success">' +
+            '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="#8fdcc9" stroke-width="1.2"/><path d="M4.9 8.3l2.1 2.1 4.1-4.5" stroke="#8fdcc9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+            '<span>' + escapeHtml(name) + ' flow ready. Local demo only.</span></div>';
+        }
+        announce(error, '');
+      });
+    });
+
+    var switcher = form.querySelector('#hero-switch');
+    if (switcher && opts && opts.title) {
+      switcher.addEventListener('click', function () {
+        var t = opts.title();
+        t.textContent = t.textContent.indexOf('Sign in') === 0 ? 'Create your SuperApp account' : 'Sign in to SuperApp';
+        switcher.textContent = switcher.textContent.trim() === 'Sign up' ? 'Sign in' : 'Sign up';
+        if (success) { success.hidden = true; success.innerHTML = ''; }
+      });
+    }
+  }
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  wireForm(document.getElementById('hero-form'), {
+    title: function () { return document.getElementById('hero-card-title'); }
+  });
+  wireForm(document.getElementById('demo-form'), null);
+
+  /* ---------- Theme preview ---------- */
+  var themeButtons = Array.prototype.slice.call(document.querySelectorAll('[data-theme-set]'));
+  themeButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var theme = btn.getAttribute('data-theme-set');
+      root.setAttribute('data-theme', theme);
+      setPressed(themeButtons, function (n) { return n.getAttribute('data-theme-set') === theme; });
+    });
+  });
+
+  /* ---------- Customization: accent, radius, demo theme ---------- */
+  var scope = document.getElementById('customize');
+  var swatches = Array.prototype.slice.call(document.querySelectorAll('.swatch'));
+  var radiusButtons = Array.prototype.slice.call(document.querySelectorAll('[data-radius]'));
+
+  swatches.forEach(function (sw) {
+    sw.addEventListener('click', function () {
+      var accent = sw.getAttribute('data-accent');
+      var text = sw.getAttribute('data-accent-text') || '#ffffff';
+      scope.style.setProperty('--demo-accent', accent);
+      scope.style.setProperty('--demo-accent-text', text);
+      setPressed(swatches, function (n) { return n === sw; });
+    });
+  });
+
+  radiusButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var r = btn.getAttribute('data-radius');
+      var card = r === '999' ? '28px' : r + 'px';
+      var field = r === '999' ? '999px' : (Math.min(parseInt(r, 10), 14) || 6) + 'px';
+      var button = r === '999' ? '999px' : (Math.min(parseInt(r, 10), 14) || 6) + 'px';
+      scope.style.setProperty('--demo-radius', card);
+      scope.style.setProperty('--demo-field-radius', field);
+      scope.style.setProperty('--demo-btn-radius', button);
+      setPressed(radiusButtons, function (n) { return n === btn; });
+    });
+  });
+
+  /* ---------- Anchor navigation with reduced-motion awareness ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href');
+      if (!id || id === '#') return;
+      var target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      if (!target.hasAttribute('tabindex')) { target.setAttribute('tabindex', '-1'); }
+      target.focus({ preventScroll: true });
+      if (history.replaceState) { history.replaceState(null, '', id); }
+    });
+  });
+})();
+</script>
+</body>
+</html>

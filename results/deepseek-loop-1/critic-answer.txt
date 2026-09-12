@@ -1,0 +1,27 @@
+Comparing the two 1600×1000 renders, the composition is broadly right but the hero is systematically lower, larger and looser than the reference. Ordered by visual impact:
+
+**1. Center auth card is far too tall — its content runs ~65px too low.**
+Reference: card top edge y≈523, "Sign in to SuperApp" y≈618, "Continue" 725–760, "Continue with Google" 793–830, "Don't have an account? Sign up" y≈908. Current: card top y≈545, title y≈606, Continue 777–819, Google 870–912, footer y≈976. Shrink controls to reference scale: inputs 40→34px, all buttons 42→36px, `.acard-body` margin-top 24→16px, `.acard-or` margin 18→12px, gap between provider buttons 10→8px.
+
+**2. Center card top padding is too small / fan too low.**
+Reference has ~58px between the card's top hairline (523) and the logo mark (581); current has 28px (545→573). Set `.acard` padding-top ≈56px and reduce `.fan` margin-top 52→34px so the card top lands at y≈523.
+
+**3. Wordmark is undersized and sits too low.**
+Reference "AuthKit" spans x 565→1035 (470px), top y≈265, baseline y≈370. Current spans 582→1018 (436px), top 270, baseline 385. Raise `clamp()` max from 144px → ~154px and cut `.wordmark` margin-top 26→18px.
+
+**4. Subtitle color and size are off.**
+Current line 1 is #8f9baf (grey) at the 24px clamp cap, at y≈444/476. Reference is a light cool blue ≈#b9c8e0 at ~21px, at y≈415/445 with line 2 near #d5e1f4. Change the clamp cap to 21px, set line 1 to `#b9c8e0`, and reduce `.subtitle` margin-top 30→22px.
+
+**5. Side cards are 15px inset and 24px too low.**
+Reference outer edges x≈435 / x≈1165, tops y≈555. Current: 450 / 1148, tops 579. Increase the fan offset from ±169px to ±185px (the `scale(.94)` is eating the width) and set `.acard--left/right` top 34→32px.
+
+**6. Hero blueprint frame and node dots are missing.**
+Reference shows a rectangular gridline frame around the wordmark (verticals at x≈545/1055, horizontals at y≈247/472) with small bright ~3px dots at those four intersections. Current grid is uniform 80px lines with no brighter nodes. Add a hero-scoped frame layer plus 4 dots at rgba(210,228,252,.55).
+
+**7. Top spotlight is a flat line instead of a cone.**
+Current `.bg-glow` renders a uniform-width bright vertical streak from y≈0–200. Reference is a soft cone opening downward from ~y≈60 (≈30px wide at the eyebrow, ≈130px at the wordmark) with a wide ambient bloom behind the letters. Replace the beam with a downward-widening conic/radial mask and reduce its peak alpha.
+
+**8. Header sits 22px too high and the "Get started" pill is oversized/bright.**
+Reference nav text centre y≈55 (current y≈33); reference pill ≈96×30 with a near-invisible frost fill, current ≈105×34 with a noticeably brighter gradient. Increase `.site-header` padding-top 16→38px, drop pill padding to 7px 14px and lower the gradient alphas from .14/.05 to .10/.04.
+
+Also worth a pass: the in-card "Continue" gradient (`.20→.09`) and the OR rules read brighter than the reference's ~`.12→.06` — tone them down so the only bright element in the hero remains the wordmark.

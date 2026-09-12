@@ -1,0 +1,48 @@
+{
+  "controls": [
+    "Violet accent",
+    "Blue accent",
+    "Teal accent",
+    "Orange accent",
+    "Ice accent"
+  ],
+  "forms": [
+    {
+      "buttons": [
+        "Continue",
+        "Continue with Google",
+        "Continue with Microsoft",
+        "Sign up"
+      ],
+      "i": 0,
+      "inputs": [
+        "email"
+      ]
+    },
+    {
+      "buttons": [
+        "Continue",
+        "Continue with Google"
+      ],
+      "i": 1,
+      "inputs": [
+        "email"
+      ]
+    }
+  ],
+  "headings": [
+    "AuthKit",
+    "Welcome to SuperApp",
+    "Clamer",
+    "Sign in to SuperApp",
+    "Light and dark modes supported",
+    "Your users. Your data.Maximum flexibility.",
+    "Your brand. Your style.",
+    "Sign in to SuperApp",
+    "Ship the login boxyou wish you had."
+  ],
+  "height": 1000,
+  "ranges": [],
+  "scrollWidth": 1600,
+  "width": 1600
+}

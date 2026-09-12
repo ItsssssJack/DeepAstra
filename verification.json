@@ -1,0 +1,49 @@
+{
+  "date": "2026-09-12",
+  "room": {
+    "desktop": {
+      "width": 1600,
+      "height": 1200,
+      "scrollWidth": 1600
+    },
+    "mobile": {
+      "height": 844,
+      "scrollWidth": 390,
+      "width": 390
+    },
+    "checked_controls": [
+      "experiment selector",
+      "blind reveal",
+      "reference overlay",
+      "mobile screenshot",
+      "mobile live iframe",
+      "failed-run state",
+      "cost calculator"
+    ],
+    "console_errors": []
+  },
+  "workflow_tests": {
+    "passed": 6,
+    "model_calls": "mocked",
+    "timeout_test": "real harmless launcher and child; child ignores SIGTERM"
+  },
+  "optional_playwright_adapter": "syntax and dependency resolution checked; not executed",
+  "result_files": {
+    "results/astra-codex-high/index.html": "f84f232136f74b157dc5b2edce5e1ff50f54b2cf6e193731c71b8bc1a53da260",
+    "results/astra-critic-1/index.html": "b6f376b3e6c955e132d481fd9e289a3b1273e85df63c90040ebe12c5bc9c3187",
+    "results/astra-critic-2/index.html": "291a22f6b0dbde109ba210ce920d8eb7c48f4b2d868b18b3e4d9f9bc831ac177",
+    "results/astra-raw-high-64k/index.html": "f39abc1fd50c916055abdfba774914f6285803711e9b08af0e62f7009416cc57",
+    "results/deepastra-final/index.html": "6006c2779915b6f03db8119a1c6d920db090101c50e6ba1c04c55efd7b00fb95",
+    "results/deepastra-loop-1/index.html": "048720282a94e56cd4d797b04785979bcf61b6bc82eae5fbcd4573c6eeea1b4b",
+    "results/deepastra-loop-2/index.html": "70c73668d8bc333a679cbba50bcd8bcccca6dcb30e3d5f5eac12e2a8956eca5d",
+    "results/deepastra-mobile-ds/index.html": "da956d151fa44cc26ace6eedb0f91b718dcdd7dc51d55f9e0212c06655ea891b",
+    "results/deepastra-plan-64k/index.html": "dccb8a16d3b01998ba8b8f6f6f661c99dc0fd933ee3f220d757d8770e27bcf80",
+    "results/deepseek-loop-1/index.html": "4ed70fba6253e08325d49107b5a02843055e9b6ce528be400ff63bcff29cebc7",
+    "results/deepseek-loop-2/index.html": "1a85a605f043909e290c888b91c330261bfec92f0056bb0c4fb8da7cf5c21946",
+    "results/deepseek-native-high/index.html": "723b88b10f0de5486b6babd1d8756d91f2ebd3ad77d24f02f14fe0c04fceaabd",
+    "results/deepseek-raw-high-64k/index.html": "c7b186d44d55fc5af24b46d29bc393c4ced57fa80ab1fb8b784a825b1e7dd975",
+    "results/deepseek-raw-low/index.html": "48bcc6db99fec199223568bd0a249ea7b48c9978169d7d6a49d9871f98ff8761",
+    "results/deepseek-raw-max-64k/index.html": "4636e91cab6582a147819f9b6e0725d4c713b13f749c23d44a7abd90f9a821c6",
+    "results/deepseek-raw-none/index.html": "d0b610e1b5a70296f74ab499c6972c9b8a1438db3d9d403fcd08745dbcbe1302"
+  }
+}

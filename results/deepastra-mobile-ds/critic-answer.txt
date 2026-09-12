@@ -1,0 +1,19 @@
+# Visual critique — AuthKit hero (1600×1000, plus 390×844 mobile)
+
+**1. Mobile horizontal overflow (scrollWidth 610 vs 390).** `.auth-card.side` is absolutely positioned at `left:-232px` / `right:-232px` with a 270px width, so the right card's far edge lands at x≈622 on a 390px viewport. Body `overflow-x:hidden` isn't clipping document scrollWidth. Fix: add `html{overflow-x:clip}` and, inside `@media (max-width:760px)`, `.cards-stage{overflow:hidden}`. Target scrollWidth = 390 with side cards peeking ~30px.
+
+**2. Wordmark oversized.** At 1600px `.wordmark` resolves to 182px (11.4vw) → glyph span 552px (x 523–1075), cap height ≈126px (y 272–398). Reference: span ≈467px (x 568–1035), cap height ≈110px (y 265–375), i.e. ~157px. Set `font-size:clamp(104px, 9.8vw, 162px)` — 390px mobile stays at the current 104px, so mobile is untouched.
+
+**3. Hero rhythm then breaks.** Shrinking the wordmark moves the subtitle baseline from y≈470 up to ≈447 (reference 448 — correct), but `.cards-stage` would then start at y≈505 vs the reference card top of 525. Raise `.cards-stage{margin-top:50px}` → `70px`.
+
+**4. Centre card content sits ~11px low.** Reference "Sign in to SuperApp" is at y≈618 from a card top of 525 (93px inset); current is 632 from 528 (104px). Reduce `.auth-card.center` top padding 42px → 32px.
+
+**5. Side cards render as black plates.** `background-color:rgba(9,13,24,.9)` + `filter:brightness(.92)` pushes "Welcome to SuperApp"/"Log in to your account" to ~#5a6478 — effectively invisible. Reference side cards are legible frosted glass (title ≈#eef4fd, sub ≈#9aa6bb, body ≈rgb(18,24,42), lighter top gradient stop ≈rgba(52,70,104,.5)). Drop the brightness filter and raise the base to `rgba(17,23,40,.92)`.
+
+**6. Missing vertical light column.** Reference shows a narrow bright cone from under the header (y≈60) descending through the wordmark to the cards, ~260px wide at its base. Current `.hero-haze` (1010×720 at `top:86px`, blur 70px, opacity .5) reads as a wide diffuse blob that leaves the area above the eyebrow dark. Narrow it to ~420px, raise it to `top:40px`, and add a second brighter core layer.
+
+**7. Card surfaces and controls dimmer than reference.** Centre card body reads ≈rgb(12,15,26) vs reference ≈rgb(18,22,38); inputs and the Continue button sit at `.06`/.075 fill and read flush with the card. Raise the card's top gradient stop to rgba(52,70,110,.62), input fill to `rgba(199,211,234,.09)`, Continue fill to `.10`.
+
+**8. Background grid too fine and over-masked.** `background-size:96px` with a radial mask centred at y=400 makes cells invisible behind the header (y<200) and below the card fan. Reference shows ≈200px cells with crosshair intersections visible across the whole hero. Set `background-size:200px 200px` and widen the mask ellipse/falloff.
+
+Items 1–3 are the highest impact; 5 materially changes how the hero reads against the reference.

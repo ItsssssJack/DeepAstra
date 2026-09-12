@@ -1,0 +1,8 @@
+{
+  "feedback": [
+    "Demo sign-in complete. Nothing was sent or saved.",
+    "A local playground. Use dummy details — nothing is sent or saved."
+  ],
+  "formText": "\n              \n                Email\n                \n              \n              \n              Continue\n            ",
+  "url": "http://127.0.0.1:8765/results/astra-raw-high-64k/index.html"
+}

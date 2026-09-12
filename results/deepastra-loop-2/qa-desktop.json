@@ -1,0 +1,26 @@
+{
+  "forms": [
+    {
+      "buttons": [
+        "Continue"
+      ],
+      "i": 0,
+      "inputs": [
+        "email"
+      ]
+    },
+    {
+      "buttons": [
+        "Continue"
+      ],
+      "i": 1,
+      "inputs": [
+        "email",
+        "password"
+      ]
+    }
+  ],
+  "height": 1000,
+  "scrollWidth": 1600,
+  "width": 1600
+}

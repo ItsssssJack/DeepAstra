@@ -1,0 +1,10 @@
+{
+  "run": "astra-codex-high",
+  "model": "openai/gpt-6-astra",
+  "effort": "high",
+  "harness": "Codex CLI 0.154.0, Responses API, file + shell tools",
+  "exit_code": 0,
+  "seconds": 165.247,
+  "completed": "2026-09-12T13:28:30.046680+00:00",
+  "has_html": true
+}
