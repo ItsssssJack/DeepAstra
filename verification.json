@@ -45,5 +45,12 @@
     "results/deepseek-raw-low/index.html": "48bcc6db99fec199223568bd0a249ea7b48c9978169d7d6a49d9871f98ff8761",
     "results/deepseek-raw-max-64k/index.html": "4636e91cab6582a147819f9b6e0725d4c713b13f749c23d44a7abd90f9a821c6",
     "results/deepseek-raw-none/index.html": "d0b610e1b5a70296f74ab499c6972c9b8a1438db3d9d403fcd08745dbcbe1302"
+  },
+  "same_tab_link_fix": {
+    "verified": "2026-09-12",
+    "before": "Open full site used target=_blank and kept the test room visible while creating another tab",
+    "after": "Link navigates the current tab; browser Back returns to test room",
+    "observed_destination": "http://127.0.0.1:8765/results/deepseek-raw-max-64k/index.html",
+    "observed_heading": "AuthKit"
   }
 }
