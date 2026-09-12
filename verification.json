@@ -52,5 +52,16 @@
     "after": "Link navigates the current tab; browser Back returns to test room",
     "observed_destination": "http://127.0.0.1:8765/results/deepseek-raw-max-64k/index.html",
     "observed_heading": "AuthKit"
+  },
+  "experiment_card_navigation_fix": {
+    "verified": "2026-09-12",
+    "clickable_completed_cards": 16,
+    "unavailable_cards": 1,
+    "same_tab_navigation": true,
+    "clicked_card": "DeepSeek self-review / round 1",
+    "observed_destination": "http://127.0.0.1:8765/results/deepseek-loop-1/index.html",
+    "observed_heading": "AuthKit",
+    "back_returns_to_test_room": true,
+    "generated_websites_unchanged": true
   }
 }

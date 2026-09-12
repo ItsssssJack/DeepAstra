@@ -12,7 +12,7 @@ From this directory, run:
 python3 -m http.server 8765 --bind 127.0.0.1
 ```
 
-Open [the test room](http://127.0.0.1:8765/). All model-generated pages are standalone HTML. Nothing in the demo performs real authentication. Use dummy data only.
+Open [the test room](http://127.0.0.1:8765/). Click any completed experiment card to open its full website in the same tab. Use browser Back to return, or the Compare menu for side-by-side review. All model-generated pages are standalone HTML. Nothing in the demo performs real authentication. Use dummy data only.
 
 The original reference image and research figures are included for this private review. They remain the work of their respective owners. AuthKit and WorkOS branding is retained to make visual comparison meaningful. This is an unofficial reproduction, with no affiliation or real account connection.
 
