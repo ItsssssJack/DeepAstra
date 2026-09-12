@@ -1,24 +1,53 @@
 {
-  "checked_at": "2026-09-12T19:12:00Z",
-  "browser": "Codex in-app browser, CUA",
-  "viewport": [
-    884,
-    649
+  "revision": "12",
+  "reference": "September 10 Astra Websites presentation",
+  "checked_in_browser": true,
+  "desktop_viewports_observed": [
+    [
+      1280,
+      720
+    ],
+    [
+      884,
+      649
+    ]
   ],
-  "sections": 13,
-  "all_sections_exactly_viewport_height": true,
+  "final_884px_all_13_scenes_fit": true,
   "horizontal_overflow": false,
-  "major_components_clipped": false,
   "broken_images": [],
-  "both_videos_loaded_without_errors": true,
-  "benchmark_switch": "passed",
-  "peak_pricing": "$1.20 output displayed correctly",
-  "prompt_dialog_open_close": "passed",
-  "copy_prompt": "Copied confirmation observed",
-  "cost_bar_heights_pixels": [
-    43,
-    84,
-    369
+  "beam": {
+    "renderer": "webgl",
+    "mode_choices_checked": [
+      "DeepSeek",
+      "DeepAstra",
+      "Astra"
+    ],
+    "loop_seconds": 24,
+    "closed_cycle": "Cosine time mapping gives the same start/end shader state.",
+    "fallback": "Static CSS beam"
+  },
+  "benchmarks": {
+    "carousel_scenes_checked": 8,
+    "deepseek_always_blue": true,
+    "other_models_grey": true,
+    "blue_gradient_animation": "deepseek-slosh",
+    "motion_pause_verified": true,
+    "negative_value_retained": -5
+  },
+  "links": {
+    "report_preview_opened": "studies/business/deepseek/",
+    "hybrid_flow_and_command_checked": true
+  },
+  "field_report": {
+    "three_tabs_verified": true,
+    "only_selected_panel_visible": true,
+    "original_model_reports_unchanged": true
+  },
+  "syntax_checks": [
+    "presentation/app.js",
+    "presentation/fusion-beam.js",
+    "studies/business/report.js"
   ],
-  "limitation": "This is desktop presentation QA. Mobile not a priority in this run. Slider endpoints not browser-tested."
+  "glass_loop": "loop-validation.json",
+  "mobile_priority": "Deferred per user request"
 }

@@ -1,0 +1,10 @@
+{
+  "source_frames": 193,
+  "output_frames": 482,
+  "fps": "30/1",
+  "duration": "16.066667",
+  "method": "Eased forward-and-return. Matching source frame at both ends.",
+  "first_last_mean_pixel_difference_0_to_255": 0.07703125,
+  "first_last_rmse_0_to_255": 0.3789529312118777,
+  "audio": false
+}
