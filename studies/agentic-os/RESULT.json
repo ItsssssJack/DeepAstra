@@ -1,0 +1,41 @@
+{
+  "title": "Agentic OS dashboard adaptation",
+  "state": "completed",
+  "preview_url": "http://127.0.0.1:8082/dashboard",
+  "model": "deepseek-flash",
+  "reasoning": "High",
+  "harness": "Native Codex CLI",
+  "condition": "Astra scoped the job and reviewed screenshots; DeepSeek authored all UI edits",
+  "branch": "deepastra/dashboard-business-high",
+  "source_preserved": true,
+  "build": "Passed direct vite build, exit0",
+  "desktop_functional_qa": "Passed: all4tabs, Arrow/Home/End keys, URL reload,7day range,Subscriptions/Tokens,AIspend expansion andclose,Dreamcarousel,Businessunchanged",
+  "visual_assessment": "Business pill navigation, typography, charcoal/lilac theme transferred successfully; existing multicolor KPI illustrations retained. This is an adaptation, not pixel-matched recreation.",
+  "review_cycles": 1,
+  "implementation_seconds": 327.097,
+  "review_implementation_seconds": 110.661,
+  "total_deepseek_seconds": 437.758,
+  "usage": {
+    "input_tokens": 11701810,
+    "cached_input_tokens": 11481344,
+    "output_tokens": 46845,
+    "reasoning_output_tokens": 28348
+  },
+  "cost_usd": null,
+  "cost_note": "CLI token counters only; no isolated provider dollar receipt. Astra supervision usage is not metered here, so no total hybrid saving is established.",
+  "known_gaps": [
+    "Existing currency SSR hydration warning and duplicate-model React key warnings reproduced in unchanged source as well.",
+    "Existing TypeScript errors outside modified files prevent claiming a clean repository-wide typecheck.",
+    "Desktop1280x720checked; mobile not checked at user request.",
+    "No merge or deployment; branch is a local review candidate."
+  ],
+  "checks_file": "evidence/qa.json",
+  "changed_files": [
+    "src/routes/dashboard.tsx",
+    "src/routes/dashboard.css"
+  ],
+  "completed_at": "2026-09-12T19:08:00Z",
+  "commit": "df3cf5b9aa882408341f198f263196937242cd68",
+  "calculated_deepseek_cost_usd": 0.095620932,
+  "calculated_cost_basis": "Codex turn.completed usage: cached input is a subset of total input; reasoning output is a subset of output. Off-peak rates $0.15/M uncached input, $0.003/M cached input, $0.60/M output. Calculated estimate, not a provider receipt. Excludes Astra supervision and any unobserved or billed failed requests. No comparison ratio."
+}

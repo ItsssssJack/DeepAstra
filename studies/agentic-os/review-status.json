@@ -1,0 +1,252 @@
+{
+  "run_id": "20260912T190254Z-d9f0bc3f",
+  "model": "deepseek-flash",
+  "provider": "deepseek",
+  "reasoning_effort_requested": "high",
+  "harness": "Codex CLI",
+  "wire_api": "responses",
+  "apps_and_plugins_enabled": false,
+  "skills_catalog_token_budget": 1000,
+  "codex_version": "codex-cli 0.154.0",
+  "started_at": "2026-09-12T19:02:54.991767+00:00",
+  "state": "completed",
+  "timeout_seconds": 180,
+  "accounting": "Codex usage events; no per-call dollar receipt exposed by CLI",
+  "exit_code": 0,
+  "seconds": 110.661,
+  "usage": {
+    "input_tokens": 926092,
+    "cached_input_tokens": 898176,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 12887,
+    "reasoning_output_tokens": 8846
+  },
+  "tool_events": [
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 1,
+      "status": "failed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 1,
+      "status": "failed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 1,
+      "status": "failed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 1,
+      "status": "failed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 1,
+      "status": "failed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 1,
+      "status": "failed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 1,
+      "status": "failed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 1,
+      "status": "failed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 1,
+      "status": "failed"
+    },
+    {
+      "type": "file_change",
+      "exit_code": null,
+      "status": "completed"
+    },
+    {
+      "type": "file_change",
+      "exit_code": null,
+      "status": "completed"
+    },
+    {
+      "type": "file_change",
+      "exit_code": null,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "file_change",
+      "exit_code": null,
+      "status": "completed"
+    },
+    {
+      "type": "file_change",
+      "exit_code": null,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 1,
+      "status": "failed"
+    },
+    {
+      "type": "file_change",
+      "exit_code": null,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    },
+    {
+      "type": "command_execution",
+      "exit_code": 0,
+      "status": "completed"
+    }
+  ],
+  "tool_event_count": 41,
+  "provider_error_seen": false,
+  "cost_usd": null,
+  "cost_note": "Unavailable: no isolated per-run provider dollar receipt captured. Do not interpret as zero.",
+  "estimated_cost_usd": 0.01461413,
+  "estimated_cost_range_usd": [
+    0.01461413,
+    0.02922826
+  ],
+  "cost_estimate_basis": {
+    "source": "https://api-docs.deepseek.com/quick_start/pricing/",
+    "rates_verified": "2026-09-12",
+    "usage_source": "Codex turn.completed",
+    "pricing_window": "off-peak",
+    "offpeak_per_million_usd": {
+      "uncached_input": 0.15,
+      "cached_input": 0.003,
+      "output_including_reasoning": 0.6
+    },
+    "note": "Token-based estimate, not an API dollar receipt; excludes unreported failed-call billing and supervising Astra."
+  }
+}
