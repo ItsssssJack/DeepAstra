@@ -265,7 +265,7 @@ function start() {
     // Returns to the exact same state with zero velocity at the loop boundary.
     const clock = 4 + 3.4 * (1 - Math.cos(phase));
     gl.uniform1f(uniforms.iTime,clock);gl.uniform1f(uniforms.uFlowTime,clock);gl.uniform1f(uniforms.uFogTime,clock*.65);
-    const mode = document.querySelector('#mix').value;
+    const mode = '0';
     const color = mode === '2' ? [.78,.87,1] : mode === '0' ? [.32,.48,1] : [.50,.63,1];
     gl.uniform3f(uniforms.uColor,...color);
     gl.drawArrays(gl.TRIANGLES,0,3);
@@ -283,8 +283,7 @@ function start() {
     frame=requestAnimationFrame(tick);
   };
   previous=performance.now();frame=requestAnimationFrame(tick);
-  document.querySelector('#mix').addEventListener('input',render);
-  document.querySelectorAll('[data-mix]').forEach(b=>b.addEventListener('click',render));
+
 }
 new IntersectionObserver(es=>{inView=es[0].isIntersecting;},{threshold:0}).observe(cover);
 canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();cancelAnimationFrame(frame);cover.classList.remove('beam-ready');canvas.dataset.renderer='fallback';});

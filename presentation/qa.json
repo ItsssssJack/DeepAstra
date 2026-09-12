@@ -1,35 +1,71 @@
 {
-  "revision": "14",
-  "reference": "September 10 Astra Websites presentation",
+  "revision": "15",
+  "reference": "User-supplied free-claude-code.html and original presentation skill",
   "checked_in_browser": true,
   "desktop_viewports_observed": [
     [
-      884,
-      650
+      1280,
+      720
     ]
   ],
-  "all_12_scenes_fit": true,
+  "all_10_scenes_fit": true,
   "horizontal_overflow": false,
   "broken_images": [],
-  "beam": {
-    "renderer": "webgl",
-    "approved_opening_preserved": true,
-    "loop_seconds": 24,
-    "closed_cycle": "Cosine time mapping gives the same start/end shader state.",
-    "fallback": "Static CSS beam"
+  "section_order": [
+    "deepastra",
+    "repo",
+    "why-now",
+    "benchmarks",
+    "use-cases",
+    "design",
+    "business",
+    "agentic-os",
+    "cost",
+    "pricing"
+  ],
+  "removed": [
+    "the-tests",
+    "open-model"
+  ],
+  "navigation": {
+    "next_section_verified": true,
+    "section_dots_update": true,
+    "update_tabs_keyboard_verified": true,
+    "only_one_update_panel_visible": true,
+    "prompt_drawer_open_close_verified": true
+  },
+  "release_comparison": {
+    "source": "release-benchmarks.json",
+    "metrics": [
+      "AutomationBench",
+      "DeepSWE v1.1",
+      "Terminal-Bench 2.1"
+    ],
+    "all_six_version_states_verified": true,
+    "coding_replay_observed": [
+      54.4,
+      74.2
+    ],
+    "competitor_scores_fixed_during_replay": true,
+    "publisher_and_max_reasoning_label_visible": true,
+    "models": [
+      "Opus 5.0",
+      "GPT-5.6 Sol",
+      "K3",
+      "GLM-5.3",
+      "DeepSeek Flash"
+    ]
   },
   "benchmarks": {
-    "carousel_scenes_checked": 8,
     "fixed_order": [
       "Astra",
       "Sol",
       "Grok",
       "DeepSeek"
     ],
-    "deepseek_always_blue": true,
-    "other_models_grey": true,
-    "logos_below_variable_height_bars": true,
-    "negative_value_retained": -5
+    "values_unchanged": true,
+    "negative_value_retained": -5,
+    "negative_chart_model_labels_fit": true
   },
   "pricing": {
     "graph_modes": [
@@ -37,53 +73,46 @@
       "Output",
       "Input + output"
     ],
-    "periods": [
-      "Off-peak",
-      "Peak"
-    ],
     "all_six_combinations_verified": true,
     "fixed_order": [
       "Astra",
       "Sol",
       "DeepSeek"
-    ],
-    "rates_distinguished_from_task_savings": true
-  },
-  "glass_loop": {
-    "file": "assets/deepastra-smooth-v3.mp4",
-    "duration_seconds": 24,
-    "fps": 60,
-    "native_loop": true,
-    "browser_boundary_observed": [
-      23.096478,
-      2.099582
-    ],
-    "paused_after_boundary": false,
-    "media_error": null,
-    "motion_pause_and_resume_verified": true,
-    "frame_analysis": "loop-validation.json",
-    "browser_dropped_frames": "Not available from this browser API"
-  },
-  "infographics": {
-    "generated_variants": 9,
-    "selected_images": 3,
-    "visually_inspected": true,
-    "selection_metadata": "infographics.json"
-  },
-  "links": {
-    "deepseek_example_opened_in_browser": true,
-    "http_200": [
-      "studies/design-examples/deepseek/",
-      "http://127.0.0.1:4173/",
-      "http://127.0.0.1:8082/dashboard",
-      "studies/business/",
-      "studies/agentic-os/"
     ]
   },
+  "motion": {
+    "hero_renderer": "webgl",
+    "glass_duration_seconds": 24,
+    "glass_native_loop": true,
+    "glass_media_error": null,
+    "motion_pause_resume_verified": true,
+    "connector_motion": "Travelling pulse between sections; paused offscreen",
+    "browser_frame_drop_count": "Unavailable from browser API"
+  },
+  "infographics": {
+    "generated_variants": 6,
+    "selected_images": 4,
+    "source_reference_used": true,
+    "all_images_visually_inspected": true,
+    "refinements": [
+      "Use DeepSeek logo in Codex diagram",
+      "Keep business comparison outputs independent"
+    ]
+  },
+  "http_200": [
+    "presentation/",
+    "studies/business/",
+    "studies/agentic-os/",
+    "studies/design-examples/deepseek/"
+  ],
   "syntax_checks": [
     "presentation/app.js",
     "presentation/fusion-beam.js"
   ],
-  "slopmonster": "slopmonster.json",
+  "slopmonster": {
+    "html_score": "5/5",
+    "rival_family": "DeepSeek",
+    "rival_copy_score": "5/5"
+  },
   "mobile_priority": "Deferred per user request"
 }

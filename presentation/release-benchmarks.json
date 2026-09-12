@@ -1,0 +1,46 @@
+{
+  "source": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash#evaluation-results",
+  "checked": "2026-09-13",
+  "publisher": "DeepSeek",
+  "reasoning": "Maximum (100)",
+  "models": [
+    "Opus 5.0",
+    "GPT-5.6 Sol",
+    "K3",
+    "GLM-5.3",
+    "DeepSeek Flash"
+  ],
+  "automation": {
+    "benchmark": "AutomationBench",
+    "values": [
+      50.3,
+      45.8,
+      46.7,
+      48.8,
+      54.8
+    ],
+    "previous_deepseek": 37.7
+  },
+  "coding": {
+    "benchmark": "DeepSWE v1.1",
+    "values": [
+      74.0,
+      73.0,
+      67.5,
+      66.9,
+      74.2
+    ],
+    "previous_deepseek": 54.4
+  },
+  "terminal": {
+    "benchmark": "Terminal-Bench 2.1",
+    "values": [
+      89.1,
+      88.8,
+      88.3,
+      88.2,
+      90.6
+    ],
+    "previous_deepseek": 82.7
+  }
+}

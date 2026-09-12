@@ -1,25 +1,25 @@
 {
+  "revision": 15,
   "provider": "Higgsfield",
   "model": "nano_banana_pro",
   "resolution": "2k",
   "aspect_ratio": "16:9",
+  "style_reference": "Aged machine-diagram parchment embedded in user-supplied free-claude-code.html",
+  "original_style_block": "Claude Design presentation gen.py",
+  "generations": 6,
   "selected": {
-    "design": {
-      "folder": "Section 1 - Design",
-      "variant": 2
-    },
-    "business": {
-      "folder": "Section 2 - Business",
-      "variant": 3
-    },
-    "agentic-os": {
-      "folder": "Section 3 - Agentic OS",
-      "variant": 2
-    }
+    "repo": "repo-refined",
+    "design": "design",
+    "business": "business-refined",
+    "os": "os"
   },
-  "reference_logos": "Retained OpenAI knot and DeepSeek whale, supplied as image references.",
-  "all_variants_directory": "/Users/jackroberts/Desktop/Infographics - DeepAstra",
-  "visual_qa": "Selected images inspected for accurate labels, diagram structure, and logos. Business variant 1 rejected because it duplicated a report.",
-  "variants_generated": 9,
-  "generation_complete": true
+  "web_files": [
+    "assets/infographics/repo-v15.jpg",
+    "assets/infographics/design-v15.jpg",
+    "assets/infographics/business-v15.jpg",
+    "assets/infographics/os-v15.jpg"
+  ],
+  "delivery": "JPEG, 1800px wide, quality 85",
+  "all_images_visually_inspected": true,
+  "other_variants_retained": true
 }
