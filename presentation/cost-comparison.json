@@ -1,0 +1,38 @@
+{
+  "checked": "2026-09-13",
+  "index": "Artificial Analysis Intelligence Index v4.3",
+  "effort": "max",
+  "budget_usd": 10,
+  "models": [
+    {
+      "name": "Astra 6 \u00b7 max",
+      "cost_per_task_usd": 3.26,
+      "output_tokens": 27000
+    },
+    {
+      "name": "Sol 5.6 \u00b7 max",
+      "cost_per_task_usd": 1.99,
+      "output_tokens": 29000
+    },
+    {
+      "name": "DeepSeek V4.1 \u00b7 max",
+      "cost_per_task_usd": 0.27,
+      "output_tokens": 89000
+    }
+  ],
+  "deepseek_off_peak_multiplier": 0.5,
+  "off_peak_status": "Estimate: identical token usage repriced at half the published peak tariff. Not a separate run.",
+  "quality_note": "Per attempted benchmark task, not per successful equal-quality job. Astra supervision and tool fees are not included in the model-to-model ratio.",
+  "sources": {
+    "astra": "https://developers.openai.com/api/docs/models/gpt-6-astra",
+    "deepseek": "https://api-docs.deepseek.com/quick_start/pricing/",
+    "astra_tasks": "https://artificialanalysis.ai/models/comparisons/deepseek-v4-1-flash-vs-gpt-6-astra",
+    "sol_tasks": "https://artificialanalysis.ai/models/comparisons/deepseek-v4-1-flash-vs-gpt-5-6-sol",
+    "weights": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+    "hardware": "https://recipes.vllm.ai/deepseek-ai/DeepSeek-V4.1-Flash",
+    "consumer_run": "https://github.com/JigSawPT/deepseek-v41-flash-on-5090",
+    "consumer_price": "https://www.avadirect.com/Workstation-PC-INTEL-Core-Ultra-9-NVIDIA-GeForce-RTX-5090-128GB-DDR5/Configure/19097303",
+    "server_price": "https://configurator.exxactcorp.com/configure/TS4-115801521",
+    "mac_run": "https://huggingface.co/inferencerlabs/DeepSeek-V4.1-MLX-Q4i"
+  }
+}

@@ -271,12 +271,31 @@ void main(){
 const canvas = document.querySelector('#fusion-beam');
 const cover = canvas.closest('section');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+const lightfallFilm = cover.querySelector('[data-lightfall-film]');
+let filmReady = false, filmInView = true;
+function syncLightfall(){
+  if(!lightfallFilm)return;
+  const play=selected===0&&filmInView&&!document.hidden&&!reduced.matches&&!document.body.classList.contains('motion-paused');
+  lightfallFilm.autoplay=play;
+  if(play)lightfallFilm.play().catch(()=>{});else lightfallFilm.pause();
+}
+if(lightfallFilm){
+  lightfallFilm.muted=true;
+  if(lightfallFilm.readyState>=2){filmReady=true;cover.classList.add('lightfall-film-ready')}
+  lightfallFilm.addEventListener('play',()=>{if(selected!==0||!filmInView||document.hidden||reduced.matches)lightfallFilm.pause()});
+  lightfallFilm.addEventListener('loadeddata',()=>{filmReady=true;cover.classList.add('lightfall-film-ready');syncLightfall()});
+  lightfallFilm.addEventListener('error',()=>{filmReady=false;cover.classList.remove('lightfall-film-ready')});
+  lightfallFilm.addEventListener('timeupdate',()=>{lightfallFilm.dataset.playbackSeconds=lightfallFilm.currentTime.toFixed(2)});
+  document.addEventListener('visibilitychange',syncLightfall);
+  reduced.addEventListener('change',syncLightfall);
+}
+
 const variants=['lightfall','river','tidal'];
 let selected=variants.indexOf(new URLSearchParams(location.search).get('beam'));
 if(selected<0)selected=0;
 let variantValue=selected,pointerX=.5,pointerY=.4,pointerActive=0,targetX=.5,targetY=.4,targetActive=0;
 const buttons=[...document.querySelectorAll('[data-light]')];
-function setVariant(index,save=false){selected=index;canvas.dataset.variant=variants[index];buttons.forEach((b,i)=>b.setAttribute('aria-pressed',i===index));if(save){const url=new URL(location.href);url.searchParams.set('beam',variants[index]);history.replaceState(null,'',url)}}
+function setVariant(index,save=false){selected=index;canvas.dataset.variant=variants[index];cover.dataset.lightVariant=variants[index];syncLightfall();buttons.forEach((b,i)=>b.setAttribute('aria-pressed',i===index));if(save){const url=new URL(location.href);url.searchParams.set('beam',variants[index]);history.replaceState(null,'',url)}}
 buttons.forEach((button,i)=>button.addEventListener('click',()=>setVariant(i,true)));
 setVariant(selected);
 cover.addEventListener('pointermove',e=>{const rect=canvas.getBoundingClientRect();targetX=Math.max(0,Math.min(1,(e.clientX-rect.left)/rect.width));targetY=Math.max(0,Math.min(1,1-(e.clientY-rect.top)/rect.height));targetActive=1;});
@@ -306,6 +325,14 @@ function start() {
   gl.uniform4f(uniforms.iMouse,0,0,0,0);
   const render = () => {
     const phase = (elapsed % 24000) / 24000 * Math.PI * 2;
+    // Readable playback state for checking that the visible loop keeps advancing.
+    const second = String(Math.floor(elapsed / 1000));
+    if(canvas.dataset.elapsedSeconds!==second){
+      canvas.dataset.elapsedSeconds=second;
+      canvas.dataset.loopCount=String(Math.floor(elapsed/24000));
+    }
+    // The approved film carries Lightfall. River and Tidal retain their shader.
+    if(selected===0&&filmReady&&variantValue<.01)return;
     gl.uniform1f(uniforms.uCycle,phase);gl.uniform1f(uniforms.uVariant,variantValue);
     gl.uniform4f(uniforms.iMouse,pointerX*canvas.width,pointerY*canvas.height,pointerActive,0);
     // Returns to the exact same state with zero velocity at the loop boundary.
@@ -328,6 +355,9 @@ function start() {
       const ease=1-Math.exp(-dt/150);
       pointerX+=(targetX-pointerX)*ease;pointerY+=(targetY-pointerY)*ease;pointerActive+=(targetActive-pointerActive)*ease;variantValue+=(selected-variantValue)*ease;
       if(!reduced.matches&&!document.body.classList.contains('motion-paused'))elapsed+=dt;
+      cover.style.setProperty('--light-x',(pointerX*100).toFixed(2)+'%');
+      cover.style.setProperty('--light-y',((1-pointerY)*100).toFixed(2)+'%');
+      cover.style.setProperty('--light-active',pointerActive.toFixed(3));
       render();canvas.dataset.pointerActive=pointerActive.toFixed(2);
     }
     frame=requestAnimationFrame(tick);
@@ -335,7 +365,7 @@ function start() {
   previous=performance.now();frame=requestAnimationFrame(tick);
 
 }
-new IntersectionObserver(es=>{inView=es[0].isIntersecting;},{threshold:0}).observe(cover);
+new IntersectionObserver(es=>{inView=es[0].isIntersecting;filmInView=inView;syncLightfall();},{threshold:0}).observe(cover);
 canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();cancelAnimationFrame(frame);cover.classList.remove('beam-ready');canvas.dataset.renderer='fallback';});
 canvas.addEventListener('webglcontextrestored',()=>{try{start()}catch{cover.classList.remove('beam-ready')}});
 try {start();} catch (error) {console.warn('Beam fallback:',error.message);canvas.dataset.renderer='fallback';}

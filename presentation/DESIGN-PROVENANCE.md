@@ -27,3 +27,13 @@ The release charts now explain each benchmark in a sentence and show genuine mod
 The cache illustration was replaced by a peak/off-peak graph showing the actual $1.20 and $0.60 output-token tariffs. The $10 graphic now explicitly counts benchmark attempts and shows cost per attempt. Artificial Analysis’s method was checked on 13 September: the weighted per-task cost includes input, caching, reasoning and answer-token usage. This is not a count of successful projects or a measured total hybrid-workflow saving. The white chart border was removed.
 
 A separate DeepAstra brand image was generated with Higgsfield GPT Image 2 using the exact OpenAI and DeepSeek logo references. Its completed generation was recovered through the provider job history after the waiting connection dropped; no duplicate job was submitted. The selected image is `assets/deepastra-brand-v16.jpg`, linked beside the GitHub repository.
+
+## Revision 21
+
+Lightfall now uses the original Huly beam video retained in the supplied Design Website Studio project. The source MP4 is unchanged: 3840×2876, four seconds, 30 fps. Its beam is centred at 55.3% of source width; the background container spans the full viewport and a lower fade hides the source platform edge. A separate soft pointer glow preserves hover illumination. River and Tidal retain their shaders. The media is a retained reference asset, not newly generated artwork; reuse does not change ownership or licensing.
+
+Benchmark carousels now update persistent bar nodes. Their blue glass video stays mounted and keeps playing through changes of metric, deliverable and axis scale. Offscreen and reduced-motion handling are retained.
+
+Jack explicitly made this completed presentation the default base for future HTML presentations on 13 September. The presentation-tiles skill now contains the complete runnable source, media, typography, diagrams, chart and price controls, navigation, prompts, a copy helper and adaptation instructions. Historical model facts remain example data to refresh for each new deck.
+
+Revision 22 softens the lower fade and adds a restrained blue atmosphere beneath the masked video, keeping the bottom legible without exposing the original frame edge. The width and crop are verified at recording size, with the light aligned behind the logo.

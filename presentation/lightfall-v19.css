@@ -1,0 +1,16 @@
+/* The retained Huly film supplies the actual falling light and flowing spill. */
+.focus-cover{--light-x:50%;--light-y:50%;--light-active:0}
+.focus-cover .huly-lightfall{position:absolute;inset:0;width:100%;max-width:none;z-index:-2;overflow:hidden;pointer-events:none;opacity:0;transition:opacity .65s ease;background:radial-gradient(ellipse at 50% 65%,#07152a 0%,#070810 67%);mask-image:linear-gradient(#000b,#000 30%,#000 55%,#000b 63%,transparent 72%)}
+.huly-lightfall video{position:absolute;top:0;left:50%;width:192.267svh;min-width:100%;height:auto;max-width:none;aspect-ratio:3840/2876;transform:translateX(-55.3%);object-fit:contain;mix-blend-mode:screen;filter:hue-rotate(-12deg) saturate(1.1) brightness(.94)}
+.focus-cover[data-light-variant=lightfall] .huly-lightfall{opacity:1}
+.focus-cover[data-light-variant=lightfall].lightfall-film-ready #fusion-beam{opacity:0}
+.focus-cover[data-light-variant=lightfall].lightfall-film-ready .beam-fallback{display:none}
+.focus-cover .lightfall-pointer{position:absolute;inset:0;width:100%;max-width:none;z-index:-1;pointer-events:none;opacity:0;background:radial-gradient(ellipse 170px 220px at var(--light-x) var(--light-y),#a8dcff55 0%,#428bff26 27%,transparent 76%);mix-blend-mode:screen;transition:opacity .45s ease}
+.focus-cover[data-light-variant=lightfall] .lightfall-pointer{opacity:var(--light-active)}
+.focus-cover[data-light-variant=lightfall] .cinema-hero-copy{text-shadow:0 3px 30px #050811,0 0 65px #050811}
+@media(prefers-reduced-motion:reduce){.huly-lightfall,.lightfall-pointer{transition:none}.lightfall-pointer{display:none}}
+
+/* A continuous blue atmosphere carries the beam into the lower third. */
+.focus-cover .lightfall-atmosphere{position:absolute;inset:0;width:100%;max-width:none;z-index:-2;pointer-events:none;opacity:0;background:radial-gradient(ellipse 68% 29% at 50% 75%,#1b4f8b60 0%,#10294f45 45%,transparent 78%),radial-gradient(ellipse 22% 32% at 50% 62%,#3167b841 0%,transparent 75%),linear-gradient(180deg,transparent 48%,#091528aa 80%,#070810 100%);transition:opacity .6s ease}
+.focus-cover[data-light-variant=lightfall] .lightfall-atmosphere{opacity:1}
+@media(prefers-reduced-motion:reduce){.focus-cover .lightfall-atmosphere{transition:none}}
