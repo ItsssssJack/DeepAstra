@@ -25,7 +25,9 @@ Give Astra this instruction to start:
 
 [Interactive presentation](presentation/index.html) · [Business comparison](studies/business/index.html) · [Launcher](launch.py)
 
-The two new business reports each passed all 17 independently calculated numeric checks. Their full-run cost ratio is unavailable. This repository remains a private review package; it contains historical experiments and is not yet an audience-ready public release.
+DeepSeek also publishes its own [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness). DeepAstra uses the Codex CLI for its handoff workflow.
+
+The two new business reports each passed all 17 independently calculated numeric checks. Their full-run cost ratio is unavailable. This repository contains the reusable launcher and historical experiments. Start with LAUNCHER.md to use the current handoff.
 
 ---
 
@@ -35,7 +37,7 @@ Astra plans. DeepSeek builds. Screenshots decide what happens next.
 
 This repo contains a metered AuthKit reproduction experiment and a reusable visual review loop. Open the local test room to compare full websites, screenshots, model settings and workflow costs. The research brief separates published token prices from the cost of producing a finished result.
 
-**Latest review:** Jack's overall favourite is Astra direct high 64K; his favourite DeepSeek is raw max 64K. He found interaction failures in several other versions. [USER-REVIEW.md](USER-REVIEW.md) records his feedback, explains the shared starting builds and proposes the next comparison. The existing hybrid loops have not demonstrated his preferred quality at lower cost.
+**Latest review:** Jack's overall favourite is Astra direct high 64K; his favourite DeepSeek is raw max 64K. He found interaction failures in several other versions. The existing hybrid loops have not demonstrated his preferred quality at lower cost.
 
 ## Open the recorded experiment
 
@@ -47,7 +49,7 @@ python3 -m http.server 8765 --bind 127.0.0.1
 
 Open [the test room](http://127.0.0.1:8765/). Click any completed experiment card to open its full website in the same tab. Use browser Back to return, or the Compare menu for side-by-side review. All model-generated pages are standalone HTML. Nothing in the demo performs real authentication. Use dummy data only.
 
-The original reference image and research figures are included for this private review. They remain the work of their respective owners. AuthKit and WorkOS branding is retained to make visual comparison meaningful. This is an unofficial reproduction, with no affiliation or real account connection.
+The original reference image and research figures are included as comparative experiment evidence. They remain the work of their respective owners. AuthKit and WorkOS branding is retained to make visual comparison meaningful. This is an unofficial reproduction, with no affiliation or real account connection.
 
 ## Optional visual-review experiment runner
 
