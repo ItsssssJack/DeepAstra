@@ -5,7 +5,7 @@
   "reasoning": "Maximum (100)",
   "models": [
     "Opus 5.0",
-    "GPT-5.6 Sol",
+    "Sol 5.6",
     "K3",
     "GLM-5.3",
     "DeepSeek Flash"
@@ -19,7 +19,10 @@
       48.8,
       54.8
     ],
-    "previous_deepseek": 37.7
+    "previous_deepseek": 37.7,
+    "description": "How well an agent completes multi-step automation tasks.",
+    "focus_min": 20,
+    "focus_max": 65
   },
   "coding": {
     "benchmark": "DeepSWE v1.1",
@@ -30,7 +33,10 @@
       66.9,
       74.2
     ],
-    "previous_deepseek": 54.4
+    "previous_deepseek": 54.4,
+    "description": "How well it solves software engineering tasks in a codebase.",
+    "focus_min": 40,
+    "focus_max": 85
   },
   "terminal": {
     "benchmark": "Terminal-Bench 2.1",
@@ -41,6 +47,9 @@
       88.2,
       90.6
     ],
-    "previous_deepseek": 82.7
+    "previous_deepseek": 82.7,
+    "description": "How well it completes tasks using a terminal and its tools.",
+    "focus_min": 75,
+    "focus_max": 100
   }
 }

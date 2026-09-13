@@ -1,118 +1,46 @@
 {
-  "revision": "15",
-  "reference": "User-supplied free-claude-code.html and original presentation skill",
-  "checked_in_browser": true,
-  "desktop_viewports_observed": [
-    [
-      1280,
-      720
-    ]
-  ],
-  "all_10_scenes_fit": true,
+  "revision": 16,
+  "date": "2026-09-13",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "sections": 11,
+  "viewport_overflow": false,
   "horizontal_overflow": false,
-  "broken_images": [],
-  "section_order": [
-    "deepastra",
-    "repo",
-    "why-now",
-    "benchmarks",
-    "use-cases",
-    "design",
-    "business",
-    "agentic-os",
-    "cost",
-    "pricing"
-  ],
-  "removed": [
-    "the-tests",
-    "open-model"
-  ],
-  "navigation": {
-    "next_section_verified": true,
-    "section_dots_update": true,
-    "update_tabs_keyboard_verified": true,
-    "only_one_update_panel_visible": true,
-    "prompt_drawer_open_close_verified": true
-  },
-  "release_comparison": {
-    "source": "release-benchmarks.json",
-    "metrics": [
-      "AutomationBench",
-      "DeepSWE v1.1",
-      "Terminal-Bench 2.1"
+  "images_loaded": true,
+  "changes": {
+    "hero_treatments": [
+      "Lightfall",
+      "River",
+      "Tidal"
     ],
-    "all_six_version_states_verified": true,
-    "coding_replay_observed": [
-      54.4,
-      74.2
-    ],
-    "competitor_scores_fixed_during_replay": true,
-    "publisher_and_max_reasoning_label_visible": true,
-    "models": [
-      "Opus 5.0",
-      "GPT-5.6 Sol",
-      "K3",
-      "GLM-5.3",
-      "DeepSeek Flash"
-    ]
+    "pointer_illumination": "Verified pointer activation and localized brightening in browser",
+    "loop": "Original closed 24-second beam clock plus periodic 24-second river harmonics; existing 24-second film retained",
+    "release_benchmarks": "Three explanations, brand marks above scores, V4/V4.1 replay, focus/full scale",
+    "wider_benchmarks": "Four positive-use cases with labelled zoomed axes and full-scale switch",
+    "limitations": "Four separate comparisons after pricing, negative reliability value verified",
+    "cost": "Units explicitly benchmark attempts; token and reasoning use included; success not implied",
+    "image": "Higgsfield GPT Image 2 brand artwork inspected and linked from repository section"
   },
-  "benchmarks": {
-    "fixed_order": [
-      "Astra",
-      "Sol",
-      "Grok",
-      "DeepSeek"
-    ],
-    "values_unchanged": true,
-    "negative_value_retained": -5,
-    "negative_chart_model_labels_fit": true
-  },
-  "pricing": {
-    "graph_modes": [
-      "Input",
-      "Output",
-      "Input + output"
-    ],
-    "all_six_combinations_verified": true,
-    "fixed_order": [
-      "Astra",
-      "Sol",
-      "DeepSeek"
-    ]
-  },
-  "motion": {
-    "hero_renderer": "webgl",
-    "glass_duration_seconds": 24,
-    "glass_native_loop": true,
-    "glass_media_error": null,
-    "motion_pause_resume_verified": true,
-    "connector_motion": "Travelling pulse between sections; paused offscreen",
-    "browser_frame_drop_count": "Unavailable from browser API"
-  },
-  "infographics": {
-    "generated_variants": 6,
-    "selected_images": 4,
-    "source_reference_used": true,
-    "all_images_visually_inspected": true,
-    "refinements": [
-      "Use DeepSeek logo in Codex diagram",
-      "Keep business comparison outputs independent"
-    ]
-  },
-  "http_200": [
-    "presentation/",
-    "studies/business/",
-    "studies/agentic-os/",
-    "studies/design-examples/deepseek/"
+  "checks": [
+    "Node syntax checks passed",
+    "Git diff whitespace check passed",
+    "11 sections fit the desktop viewport",
+    "All local image assets loaded",
+    "Fixed Astra 6 / Sol 5.6 / Grok / DeepSeek identities",
+    "Zoom 60\u2013100 and full 0\u2013100 preserve values",
+    "Official release scores retained exactly",
+    "V4/V4.1 terminal and coding score states checked with browser controls",
+    "AutomationBench previous release score verified",
+    "Hidden release-chart film pauses under other tabs",
+    "All 4 limitation values and negative bar placement checked",
+    "Next-section button disables on final limitation section",
+    "Hero Lightfall/River/Tidal controls and URL selection checked",
+    "SlopMonster final copy 5/5; separate DeepSeek-family review returned unchanged copy, 5/5"
   ],
-  "syntax_checks": [
-    "presentation/app.js",
-    "presentation/fusion-beam.js"
-  ],
-  "slopmonster": {
-    "html_score": "5/5",
-    "rival_family": "DeepSeek",
-    "rival_copy_score": "5/5"
-  },
-  "mobile_priority": "Deferred per user request"
+  "limits": [
+    "Desktop QA only, per request",
+    "Costs are benchmark averages, not equal-quality hybrid workflow savings"
+  ]
 }

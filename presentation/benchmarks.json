@@ -12,7 +12,10 @@
     "suffix": "%",
     "source": "https://www.vals.ai/benchmarks/vibe-code",
     "note": "Vals Vibe Code Bench v1.1. OpenHands. DeepSeek/Grok high; Astra/Sol max. Functionality, not visual taste.",
-    "benchmark": "Vals Vibe Code Bench v1.1"
+    "benchmark": "Vals Vibe Code Bench v1.1",
+    "description": "Build an app that passes functional tests.",
+    "focus_min": 60,
+    "focus_max": 100
   },
   {
     "title": "Business workflows",
@@ -27,7 +30,10 @@
     "suffix": "%",
     "source": "https://artificialanalysis.ai/evaluations/automationbench-aa",
     "note": "AutomationBench-AA. Tasks with guardrail violations score zero. This is not the full-task pass rate. Small gaps are not decisive.",
-    "benchmark": "AutomationBench-AA"
+    "benchmark": "AutomationBench-AA",
+    "description": "Complete business tasks across connected software.",
+    "focus_min": 40,
+    "focus_max": 80
   },
   {
     "title": "Long documents",
@@ -41,8 +47,11 @@
     "max": 100,
     "suffix": "%",
     "source": "https://artificialanalysis.ai/evaluations/artificial-analysis-long-context-reasoning",
-    "note": "AA-LCR v1.1 covers 10K–100K tokens. This does not prove perfect recall across 1M tokens.",
-    "benchmark": "AA-LCR v1.1"
+    "note": "AA-LCR v1.1 covers 10K\u2013100K tokens. This does not prove perfect recall across 1M tokens.",
+    "benchmark": "AA-LCR v1.1",
+    "description": "Connect information across a long document pack.",
+    "focus_min": 60,
+    "focus_max": 100
   },
   {
     "title": "Office deliverables",
@@ -57,7 +66,10 @@
     "suffix": "",
     "source": "https://artificialanalysis.ai/evaluations/gdpval-aa",
     "note": "GDPval-AA v2. Blind pairwise comparisons. Elo is a rating, not a percentage of intelligence.",
-    "benchmark": "GDPval-AA v2"
+    "benchmark": "GDPval-AA v2",
+    "description": "Produce useful documents, spreadsheets and presentations.",
+    "focus_min": 1400,
+    "focus_max": 1800
   },
   {
     "title": "Difficult coding",
@@ -72,7 +84,10 @@
     "suffix": "%",
     "source": "https://artificialanalysis.ai/models/comparisons/deepseek-v4-1-flash-vs-gpt-6-astra-xhigh",
     "note": "Terminal-Bench v4.0. Astra has a substantial lead in this comparison.",
-    "benchmark": "Terminal-Bench v4.0"
+    "benchmark": "Terminal-Bench v4.0",
+    "description": "Solve demanding coding tasks with terminal tools.",
+    "focus_min": 0,
+    "focus_max": 100
   },
   {
     "title": "Complex PDFs",
@@ -87,7 +102,10 @@
     "suffix": "%",
     "source": "https://artificialanalysis.ai/evaluations/gdp-pdf",
     "note": "GDP.pdf. A stricter task than summarising a PDF. A text-only document test is a separate condition.",
-    "benchmark": "GDP.pdf"
+    "benchmark": "GDP.pdf",
+    "description": "Read complex professional PDFs and meet every criterion.",
+    "focus_min": 0,
+    "focus_max": 100
   },
   {
     "title": "Expert questions",
@@ -101,8 +119,11 @@
     "max": 100,
     "suffix": "%",
     "source": "https://artificialanalysis.ai/models/comparisons/deepseek-v4-1-flash-vs-gpt-6-astra-xhigh",
-    "note": "Humanity’s Last Exam. The stronger reasoning models retain an advantage here.",
-    "benchmark": "Humanity’s Last Exam"
+    "note": "Humanity\u2019s Last Exam. The stronger reasoning models retain an advantage here.",
+    "benchmark": "Humanity\u2019s Last Exam",
+    "description": "Answer difficult questions across specialist subjects.",
+    "focus_min": 0,
+    "focus_max": 100
   },
   {
     "title": "Factual reliability",
@@ -117,7 +138,10 @@
     "min": -100,
     "suffix": "",
     "source": "https://artificialanalysis.ai/evaluations/omniscience",
-    "note": "AA-Omniscience ranges from −100 to +100. This score is not an everyday hallucination percentage.",
-    "benchmark": "AA-Omniscience"
+    "note": "AA-Omniscience ranges from \u2212100 to +100. This score is not an everyday hallucination percentage.",
+    "benchmark": "AA-Omniscience",
+    "description": "Know the answer, or recognise when you do not.",
+    "focus_min": -100,
+    "focus_max": 100
   }
 ]

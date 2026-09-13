@@ -36,6 +36,8 @@ uniform float uFalloffStart;
 uniform float uFogFallSpeed;
 uniform vec3 uColor;
 uniform float uFade;
+uniform float uVariant;
+uniform float uCycle;
 
 // Core beam/flare shaping and dynamics
 #define PI 3.14159265359
@@ -225,6 +227,38 @@ void mainImage(out vec4 fc,in vec2 frag){
     float eM=mix(xF,1.0,hi);
     col*=eM; alpha*=eM;
     col*=uFade; alpha*=uFade;
+    // Continuous ribbons use only integer phase harmonics: identical position AND
+    // velocity at each 24-second wrap. Pointer light reveals the existing texture.
+    vec2 q=frag/iResolution.xy;
+    vec2 mouse=iMouse.xy/iResolution.xy;
+    float aspect=iResolution.x/iResolution.y;
+    float hover=exp(-dot((q-mouse)*vec2(aspect,1.0),(q-mouse)*vec2(aspect,1.0))*18.0)*iMouse.z;
+    vec3 river=vec3(0.0);
+    float variant=smoothstep(0.1,0.9,uVariant);
+    float tidal=smoothstep(1.1,1.9,uVariant);
+    for(int lane=0;lane<24;lane++){
+      float f=float(lane)/23.0;
+      float x=q.x;
+      float turn=uCycle+f*1.4;
+      float y=.285+.046*sin(x*6.3+turn)+.022*sin(x*13.0-uCycle*2.0+f*1.8);
+      y+=(f-.5)*(.068+.052*sin(x*4.8+uCycle));
+      float fan=.255+.072*sin(x*5.2-uCycle+f*.7)+.034*cos(x*9.0+uCycle*2.0+f);
+      fan+=(f-.5)*(.095+.105*sin(x*5.0-uCycle));
+      y=mix(y,fan,tidal);
+      float dist=abs(q.y-y);
+      float bright=.35+.65*pow(.5+.5*sin(x*17.0-uCycle*3.0+f*8.0),3.0);
+      float thin=exp(-dist*dist/0.0000007);
+      float glow=exp(-dist*dist/0.00007)*.08;
+      vec3 tint=mix(vec3(.025,.12,.48),vec3(.32,.7,1.0),pow(f,2.0));
+      river+=(thin*.21+glow)*tint*bright;
+    }
+    float edge=smoothstep(0.0,.12,q.x)*(1.0-smoothstep(.9,1.0,q.x));
+    river*=edge*(1.0+hover*2.8);
+    col*=mix(1.12,.36,variant);
+    col+=river*variant*2.7;
+    col*=1.0+hover*1.9;
+    col+=vec3(.025,.07,.16)*hover*(.12+min(tone,1.0)*.6);
+    col=vec3(1.0)-exp(-max(col,vec3(0.0))*1.25);
     fc=vec4(col,alpha);
 }
 
@@ -237,6 +271,16 @@ void main(){
 const canvas = document.querySelector('#fusion-beam');
 const cover = canvas.closest('section');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+const variants=['lightfall','river','tidal'];
+let selected=variants.indexOf(new URLSearchParams(location.search).get('beam'));
+if(selected<0)selected=0;
+let variantValue=selected,pointerX=.5,pointerY=.4,pointerActive=0,targetX=.5,targetY=.4,targetActive=0;
+const buttons=[...document.querySelectorAll('[data-light]')];
+function setVariant(index,save=false){selected=index;canvas.dataset.variant=variants[index];buttons.forEach((b,i)=>b.setAttribute('aria-pressed',i===index));if(save){const url=new URL(location.href);url.searchParams.set('beam',variants[index]);history.replaceState(null,'',url)}}
+buttons.forEach((button,i)=>button.addEventListener('click',()=>setVariant(i,true)));
+setVariant(selected);
+cover.addEventListener('pointermove',e=>{const rect=canvas.getBoundingClientRect();targetX=Math.max(0,Math.min(1,(e.clientX-rect.left)/rect.width));targetY=Math.max(0,Math.min(1,1-(e.clientY-rect.top)/rect.height));targetActive=1;});
+cover.addEventListener('pointerleave',()=>{targetActive=0});
 let gl, frame, program, inView = true, elapsed = 0, previous = 0;
 function start() {
   gl = canvas.getContext('webgl', {alpha: false, antialias: false, depth: false, powerPreference: 'low-power'});
@@ -257,16 +301,17 @@ function start() {
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,0,3,-1,0,-1,3,0]), gl.STATIC_DRAW);
   const attr = gl.getAttribLocation(program,'position');gl.enableVertexAttribArray(attr);gl.vertexAttribPointer(attr,3,gl.FLOAT,false,0,0);
   const uniforms = Object.fromEntries([...FRAG.matchAll(/uniform\s+\w+\s+(\w+);/g)].map(m => [m[1], gl.getUniformLocation(program,m[1])]));
-  const settings = {uWispDensity:1.0,uTiltScale:0,uBeamXFrac:0,uBeamYFrac:-.25,uFlowSpeed:.3,uVLenFactor:2,uHLenFactor:1.15,uFogIntensity:.40,uFogScale:.24,uWSpeed:8,uWIntensity:2.7,uFlowStrength:.2,uDecay:1.1,uFalloffStart:1.22,uFogFallSpeed:.5,uFade:1};
+  const settings = {uWispDensity:1.3,uTiltScale:.06,uBeamXFrac:0,uBeamYFrac:-.25,uFlowSpeed:.3,uVLenFactor:2,uHLenFactor:1.15,uFogIntensity:.46,uFogScale:.24,uWSpeed:8,uWIntensity:2.9,uFlowStrength:.24,uDecay:1.1,uFalloffStart:1.22,uFogFallSpeed:.5,uFade:1};
   for (const [k,v] of Object.entries(settings)) gl.uniform1f(uniforms[k],v);
   gl.uniform4f(uniforms.iMouse,0,0,0,0);
   const render = () => {
     const phase = (elapsed % 24000) / 24000 * Math.PI * 2;
+    gl.uniform1f(uniforms.uCycle,phase);gl.uniform1f(uniforms.uVariant,variantValue);
+    gl.uniform4f(uniforms.iMouse,pointerX*canvas.width,pointerY*canvas.height,pointerActive,0);
     // Returns to the exact same state with zero velocity at the loop boundary.
     const clock = 4 + 3.4 * (1 - Math.cos(phase));
     gl.uniform1f(uniforms.iTime,clock);gl.uniform1f(uniforms.uFlowTime,clock);gl.uniform1f(uniforms.uFogTime,clock*.65);
-    const mode = '0';
-    const color = mode === '2' ? [.78,.87,1] : mode === '0' ? [.32,.48,1] : [.50,.63,1];
+    const color = [.25,.46,1];
     gl.uniform3f(uniforms.uColor,...color);
     gl.drawArrays(gl.TRIANGLES,0,3);
   };
@@ -279,7 +324,12 @@ function start() {
   cover.classList.add('beam-ready');canvas.dataset.renderer='webgl';
   const tick = now => {
     const dt=Math.min(now-previous,50);previous=now;
-    if (inView && !document.hidden && !reduced.matches && !document.body.classList.contains('motion-paused')) {elapsed+=dt;render();}
+    if (inView && !document.hidden) {
+      const ease=1-Math.exp(-dt/150);
+      pointerX+=(targetX-pointerX)*ease;pointerY+=(targetY-pointerY)*ease;pointerActive+=(targetActive-pointerActive)*ease;variantValue+=(selected-variantValue)*ease;
+      if(!reduced.matches&&!document.body.classList.contains('motion-paused'))elapsed+=dt;
+      render();canvas.dataset.pointerActive=pointerActive.toFixed(2);
+    }
     frame=requestAnimationFrame(tick);
   };
   previous=performance.now();frame=requestAnimationFrame(tick);

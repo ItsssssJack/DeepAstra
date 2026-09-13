@@ -15,3 +15,15 @@ All six API price graph states remain functional. Input, output and an explicit 
 SlopMonster’s final HTML check passed at 5/5. DeepSeek provided the separate-family copy review, and the returned copy also passed at 5/5 after review commentary was separated from the copy. Benchmark values and original experiment outputs were not rewritten. Desktop viewport and interaction checks are recorded in `qa.json`.
 
 The previously requested reusable presentation treatment was updated in the presentation-tiles skill to point to the supplied reference and its retained parchment images. It is an optional reference pattern for future decks.
+
+## Revision 16
+
+The approved ten-section deck now has eleven sections. The first four independent benchmarks remain near the top. Difficult coding, complex PDFs, expert questions and factual reliability form the final limitations carousel after API pricing. The parchment illustrations and the three use-case sections are preserved.
+
+Lightfall, River and Tidal are selectable opening treatments. The first retains the approved LaserFlow beam; the other two layer curved light filaments over it. Pointer input creates a smoothed local light response. River motion uses integer phase harmonics of a 24-second period, so both position and velocity match at the wrap. The pause button was removed at Jack’s request. Offscreen, hidden-document and reduced-motion behavior remains.
+
+The release charts now explain each benchmark in a sentence and show genuine model logos above the scores. Both comparison sections use explicit focus ranges with a full-scale switch. Positive-use benchmarks and limitations retain Astra 6, Sol 5.6, Grok and DeepSeek in fixed positions. Astra and Sol use the same official OpenAI mark, distinguished by their full version labels and circular versus square treatments. DeepSeek’s blue glass film is also used in its benchmark bars. Scores were not changed.
+
+The cache illustration was replaced by a peak/off-peak graph showing the actual $1.20 and $0.60 output-token tariffs. The $10 graphic now explicitly counts benchmark attempts and shows cost per attempt. Artificial Analysis’s method was checked on 13 September: the weighted per-task cost includes input, caching, reasoning and answer-token usage. This is not a count of successful projects or a measured total hybrid-workflow saving. The white chart border was removed.
+
+A separate DeepAstra brand image was generated with Higgsfield GPT Image 2 using the exact OpenAI and DeepSeek logo references. Its completed generation was recovered through the provider job history after the waiting connection dropped; no duplicate job was submitted. The selected image is `assets/deepastra-brand-v16.jpg`, linked beside the GitHub repository.

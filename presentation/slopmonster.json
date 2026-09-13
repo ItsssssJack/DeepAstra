@@ -1,13 +1,8 @@
 {
-  "revision": 15,
-  "initial_score": "4/5",
-  "final_html_score": "5/5",
-  "rival_family": "DeepSeek",
-  "rival_model": "deepseek-flash",
-  "rival_review_completed": true,
-  "rival_copy_score": "5/5",
-  "evidenced_numbers_allowed": true,
-  "visual_labels_reviewed": true,
-  "copy_changes": "Shortened methodology clauses and removed semicolon-heavy copy. Benchmark values preserved.",
-  "rival_review_notes_excluded_from_copy_lint": true
+  "revision": 16,
+  "score": 5,
+  "rival": "DeepSeek Flash, thinking disabled",
+  "rival_copy_score": 5,
+  "copy_changes": "No rewrites requested by rival; score units and benchmark definitions reviewed",
+  "review_commentary_excluded_from_lint": true
 }
