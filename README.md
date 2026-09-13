@@ -1,6 +1,14 @@
 # DeepAstra: DeepSeek inside Codex
 
-Start with the [verified launcher guide](LAUNCHER.md). The launcher runs DeepSeek V4.1 Flash at High effort through the real Codex CLI, without changing your global configuration. Astra can delegate a bounded task and review its output.
+**GPT Astra + DeepSeek = DeepAstra.**
+
+[![How DeepAstra works: Astra plans and reviews, while DeepSeek works inside Codex with access to files, the terminal and configured tools.](presentation/assets/infographics/repo-v15.jpg)](presentation/assets/infographics/repo-v15.jpg)
+
+**Astra gives the direction. DeepSeek does the work.** Astra defines a task and what a good result looks like. DeepSeek executes it inside the Codex harness, using files, terminal commands and configured tools. Astra then checks the result and decides what needs another pass.
+
+Codex runs on your computer; the DeepSeek model runs through its API. You can launch DeepSeek directly or have Astra delegate a task to it.
+
+Start with the [verified launcher guide](LAUNCHER.md). The launcher requests High effort for DeepSeek V4.1 Flash through the real Codex CLI, without changing your global configuration.
 
 [Interactive presentation](presentation/index.html) · [Business comparison](studies/business/index.html) · [Launcher](launch.py)
 
@@ -8,7 +16,7 @@ The two new business reports each passed all 17 independently calculated numeric
 
 ---
 
-# DeepAstra
+## The recorded experiment
 
 Astra plans. DeepSeek builds. Screenshots decide what happens next.
 
