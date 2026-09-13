@@ -6,6 +6,36 @@ DeepAstra launches the real Codex CLI with DeepSeek V4.1 Flash through the direc
 
 Requires Python 3.10+ and Codex CLI. The verified local version is `codex-cli 0.154.0`. No global Codex configuration is changed.
 
+## Choose your API account
+
+You only need one of these providers. API usage is billed by the provider you choose, separately from your Astra or ChatGPT access. DeepAstra uses the Codex CLI harness; it does not require installing DeepSeek's separate Harness app.
+
+### DeepSeek directly
+
+Create an account at the [DeepSeek API platform](https://platform.deepseek.com/), add API credit and create an API key. Store it privately as `DEEPSEEK_API_KEY` in the environment used to launch DeepAstra. This is the default provider.
+
+With that environment variable available, check the setup and start an interactive session:
+
+```bash
+python3 launch.py doctor
+python3 launch.py run --cwd /path/to/project
+```
+
+### OpenRouter instead
+
+Create or sign in to your [OpenRouter account](https://openrouter.ai/), add API credit and create a key under [API keys](https://openrouter.ai/settings/keys). Store it privately as `OPENROUTER_API_KEY`. You do not need a separate DeepSeek account for this route.
+
+With that environment variable available, select OpenRouter explicitly:
+
+```bash
+python3 launch.py doctor --provider openrouter
+python3 launch.py run --provider openrouter --cwd /path/to/project
+```
+
+Use the same `--provider openrouter` option when Astra delegates a task with `launch.py exec`. The launcher selects the DeepSeek model for either provider. Your key stays in your local environment or a private key file; it does not belong in the task brief or this repository.
+
+## Launch and delegate
+
 Keep your API key in your existing secret manager as `DEEPSEEK_API_KEY`, or pass the path to a private key file stored outside your project. Never commit the key.
 
 ```bash

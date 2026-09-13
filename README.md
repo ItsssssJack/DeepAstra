@@ -10,6 +10,8 @@ The repository supplies both the handoff instructions and the working launcher. 
 
 **The harness runs on your computer. The DeepSeek model runs through its API.** Your main Astra conversation keeps its own model. You can also run the launcher yourself.
 
+**Choose one API account:** create a [DeepSeek account](https://platform.deepseek.com/) for the default direct connection, or use an [OpenRouter account and API key](https://openrouter.ai/settings/keys). Add API credit with your chosen provider and supply its key to the launcher. You do not need both accounts. The [account setup guide](LAUNCHER.md#choose-your-api-account) explains both routes.
+
 Start with the [verified launcher guide](LAUNCHER.md). The launcher requests High effort for DeepSeek V4.1 Flash through the real Codex CLI, without changing your global configuration.
 
 Give Astra this instruction to start:
