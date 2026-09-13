@@ -1,5 +1,7 @@
 # DeepSeek inside Codex
 
+DeepAstra gives Astra a guide and a Python launcher for delegating work from the terminal. Astra writes the brief, invokes `launch.py`, and reviews the output. Each delegated run starts a separate Codex CLI process powered by DeepSeek. The launcher does not choose tasks or perform Astra's review automatically.
+
 DeepAstra launches the real Codex CLI with DeepSeek V4.1 Flash through the direct DeepSeek Responses API. It requests **High** reasoning. File editing, shell commands and local image inspection come from Codex. This does not switch the model of an existing Astra chat or give DeepSeek a ChatGPT subscription.
 
 Requires Python 3.10+ and Codex CLI. The verified local version is `codex-cli 0.154.0`. No global Codex configuration is changed.

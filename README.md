@@ -1,14 +1,27 @@
-# DeepAstra: DeepSeek inside Codex
+# DeepAstra: let Astra delegate to DeepSeek
 
-**GPT Astra + DeepSeek = DeepAstra.**
+**A launcher and instructions for running DeepSeek through the Codex CLI.**
 
-[![How DeepAstra works: Astra plans and reviews, while DeepSeek works inside Codex with access to files, the terminal and configured tools.](presentation/assets/infographics/repo-v15.jpg)](presentation/assets/infographics/repo-v15.jpg)
+[![Astra writes a task brief. DeepAstra launches a separate Codex CLI session powered by the DeepSeek API. DeepSeek produces files and reports, then Astra reviews the output.](docs/assets/deepastra-handoff.png)](docs/assets/deepastra-handoff.png)
 
-**Astra gives the direction. DeepSeek does the work.** Astra defines a task and what a good result looks like. DeepSeek executes it inside the Codex harness, using files, terminal commands and configured tools. Astra then checks the result and decides what needs another pass.
+Use Astra in Codex as your main assistant. It writes a task brief and runs `launch.py` in the terminal. The launcher opens a **separate Codex CLI session powered by DeepSeek**, which can edit files, run commands and use configured tools. Astra then inspects the deliverables and decides what to do next.
 
-Codex runs on your computer; the DeepSeek model runs through its API. You can launch DeepSeek directly or have Astra delegate a task to it.
+The repository supplies both the handoff instructions and the working launcher. The launcher starts DeepSeek; Astra chooses the task and performs the review. This requires an assistant with terminal access, such as Astra in Codex.
+
+**The harness runs on your computer. The DeepSeek model runs through its API.** Your main Astra conversation keeps its own model. You can also run the launcher yourself.
 
 Start with the [verified launcher guide](LAUNCHER.md). The launcher requests High effort for DeepSeek V4.1 Flash through the real Codex CLI, without changing your global configuration.
+
+Give Astra this instruction to start:
+
+> Read LAUNCHER.md in this repository. Write a bounded task brief for the work I want to delegate, then use launch.py exec to run it with DeepSeek in the assigned project directory. Review the resulting files and run the relevant checks. Tell me what DeepSeek completed and what still needs attention.
+
+<details>
+<summary>The illustrated workflow</summary>
+
+[![Astra plans and reviews while DeepSeek works inside Codex, connected to files, terminal and configured tools.](presentation/assets/infographics/repo-v15.jpg)](presentation/assets/infographics/repo-v15.jpg)
+
+</details>
 
 [Interactive presentation](presentation/index.html) · [Business comparison](studies/business/index.html) · [Launcher](launch.py)
 
@@ -36,7 +49,9 @@ Open [the test room](http://127.0.0.1:8765/). Click any completed experiment car
 
 The original reference image and research figures are included for this private review. They remain the work of their respective owners. AuthKit and WorkOS branding is retained to make visual comparison meaningful. This is an unofficial reproduction, with no affiliation or real account connection.
 
-## Run a new DeepAstra loop in Codex
+## Optional visual-review experiment runner
+
+The primary handoff uses `launch.py`, described above. `workflow.py` is a separate experimental runner for repeated visual reviews and metered API calls.
 
 Export `OPENROUTER_API_KEY` in your shell. Keep the key out of files committed to Git. Put the task, design spec and screenshot into `reference/TASK.md`, `reference/DESIGN.md` and `reference/authkit-reference.jpg`. Use a new workflow name for every attempt.
 
